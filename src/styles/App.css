@@ -1,0 +1,115 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: url(../images/background.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+@media (min-width: 760px) and (max-width: 1024px) {
+  html {
+    background: url(../images/background_tablet.jpg) no-repeat center center fixed;
+    background-size: cover;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 759px) {
+  html {
+    background: url(../images/background_small.jpg) no-repeat center center fixed;
+    background-size: cover;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    background: url(../images/background_mobile.jpg) no-repeat center center fixed;
+    background-size: cover;
+  }
+}
+
+@media (min-width: 570px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 569px) {
+  html {
+    font-size: calc(12px + 4 * ((100vw - 320px) / 250));
+  }
+}
+
+table {
+  border-collapse: collapse;
+}
+
+@font-face {
+  font-family: IcoMoon;
+  src: url(../fonts/icomoon.eot);
+  src: url(../fonts/icomoon.woff) format("woff");
+  src: url(../fonts/icomoon.ttf) format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url(../fonts/Lato-Regular.ttf) format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Brush;
+  src: url(../fonts/brush.ttf) format("truetype");
+  font-display: swap;
+}
+
+.IcoMoon {
+  font-family: IcoMoon;
+}
+
+.icon-Cross:before {
+  content: "\e904";
+  margin: 0.5rem;
+  font-family: IcoMoon;
+  cursor: pointer;
+  color: #FF0801;
+}
+
+tbody {
+  color: #495F75;
+  background-color: #C2F1DB;
+}
+
+.icon-Sort:before {
+  content: "\e903";
+  margin: 0.5rem;
+  font-family: IcoMoon;
+  cursor: normal;
+  color: #FBEA58;
+}
+
+.landing_message {
+  font-family: brush;
+  font-size: 120px;
+  background: -webkit-linear-gradient(red, #154CAF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 320px) and (max-width: 1441px) {
+  .landing_message {
+    font-size: calc(50px + 85 * ((100vw - 320px) / 1120));
+  }
+}
+/*# sourceMappingURL=App.css.map */
