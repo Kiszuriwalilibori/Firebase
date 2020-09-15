@@ -16,7 +16,7 @@ const MyAlert = withStyles({
   },
 })(Alert);
 
-export const _MessageBox = (props) => {
+export const UnconnectedMessageBox = (props) => {
   const { open, close, message } = props;
 
   return (
@@ -37,6 +37,6 @@ const mapStateToProps = (state) => ({
   message: state.message,
 });
 
-const MessageBox = connect(mapStateToProps, mapDispatchToProps)(_MessageBox);
+const MessageBox = connect(mapStateToProps, mapDispatchToProps)(UnconnectedMessageBox);
 
 export default MessageBox;

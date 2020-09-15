@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { headings } from "../../js/FIXTURES/fixtures";
 import { sort } from "../../js/ACTIONS/actions";
-import { header_ } from "../../styles/style";
+import { Header } from "../../styles/style";
 
-function _PersonsTableSortArea(props) {
+function UnconnectedPersonsTableSortArea(props) {
   if (props) {
     const {
       columnSortBy,
@@ -33,16 +33,16 @@ function _PersonsTableSortArea(props) {
       }
     };
     return (
-      <header_.wrapper onClick={handleSort}>
+      <Header.wrapper onClick={handleSort}>
         <tr>
           {headings.map((item, index) => (
-            <header_.section key={item}>
+            <Header.section key={item}>
               {" "}
               {isCurrentColumnSorted(index) ? item + arrow : item}{" "}
-            </header_.section>
+            </Header.section>
           ))}
         </tr>
-      </header_.wrapper>
+      </Header.wrapper>
     );
   }
 }
@@ -60,7 +60,7 @@ const mapDispatchToProps = (dispatch) => ({
 const PersonsTableSortArea = connect(
   mapStateToProps,
   mapDispatchToProps
-)(_PersonsTableSortArea);
+)(UnconnectedPersonsTableSortArea);
 
 export default PersonsTableSortArea;
 

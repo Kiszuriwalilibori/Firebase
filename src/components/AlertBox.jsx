@@ -22,7 +22,7 @@ const NewAlert = withStyles({
   },
 })(Alert);
 
-const _MyAlert = (props) => {
+const UnconnectedMyAlert = (props) => {
   const { visible, message, hideWarning } = props;
 
   return visible ? (
@@ -45,6 +45,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const AlertBox = connect(mapStateToProps, mapDispatchToProps)(_MyAlert);
+const AlertBox = connect(mapStateToProps, mapDispatchToProps)(UnconnectedMyAlert);
 
 export default AlertBox;

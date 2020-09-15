@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { useCallback } from "react";
 import { auth, provider } from "../js/FUNCTIONS/firebase";
-import { logo_ } from "../styles/style";
+import { Logo } from "../styles/style";
 import { login, logout, showError } from "../js/ACTIONS/actions";
 import * as ROUTES from "../js/ROUTES/routes";
 
@@ -49,7 +49,7 @@ const LinkButton = withStyles({
   },
 })(Button);
 
-const _LoginSection = (props) => {
+const UnconnectedLoginSection = (props) => {
   const { user, login, logout, showError, history } = props;
 
   const requestLogin = useCallback(() => {
@@ -78,14 +78,14 @@ const _LoginSection = (props) => {
 
   const usr = user ? true : false;
   return (
-    <logo_.wrapper>
+    <Logo.wrapper>
       <LinkButton size="large" disabled={!usr} onClick={requestLogout}>
         Wyloguj się
       </LinkButton>
       <LinkButton size="large" disabled={usr} onClick={requestLogin}>
         Zaloguj się kontem Google
       </LinkButton>
-    </logo_.wrapper>
+    </Logo.wrapper>
   );
 };
 
@@ -98,6 +98,6 @@ const mapDispatchToProps = (dispatch) => ({
   showError: (code) => dispatch(showError(code)),
 });
 const LoginSection = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(_LoginSection)
+  connect(mapStateToProps, mapDispatchToProps)(UnconnectedLoginSection)
 );
 export default LoginSection;

@@ -2,7 +2,7 @@ import * as React from "react";
 import { withRouter } from "react-router";
 import { CustomContainer } from "./CustomContainer";
 
-const _Login = () => (
+const UnconnectedLogin = () => (
   <CustomContainer>
     <div>
       <span className="notfound__item">
@@ -16,6 +16,6 @@ const _Login = () => (
   </CustomContainer>
 );
 
-const Login = withRouter(_Login);
+const Login = withRouter(UnconnectedLogin);
 
 export default Login;

@@ -34,7 +34,7 @@ const NewAlert = withStyles({
   },
 })(Alert);
 
-const _Error = (props) => {
+const UnconnectedError = (props) => {
   const { message } = props;
 
   return (
@@ -52,6 +52,6 @@ const _Error = (props) => {
 const mapStateToProps = (state) => ({
   message: state.errorMessage,
 });
-const Error = withRouter(connect(mapStateToProps, null)(_Error));
+const Error = withRouter(connect(mapStateToProps, null)(UnconnectedError));
 
 export default Error;

@@ -9,20 +9,20 @@ import {
   toggleSubmit,
 } from "../../js/ACTIONS/actions";
 import * as ROUTES from "../../js/ROUTES/routes";
-import { input_ } from "../../styles/style";
+import { Input } from "../../styles/style";
 import { itemsRef } from "../../js/FUNCTIONS/firebase";
 import submitFigure from "../../js/THUNKS/submitFigure";
 import AddPersonButton from "./AddPersonButton";
 
-function _AddPersonForm(props) {
+function UnconnectedAddPersonForm(props) {
   const input = useRef(null);
   const { user, history, submitFigure, showWarning, toggleSubmit } = props;
   let [inputName, setInputName] = useState("");
   let [inputEmail, setInputEmail] = useState("");
   const ResetText = () => (
-    <input_.dangerMessage>
+    <Input.dangerMessage>
       <u> Reset Fields</u>
-    </input_.dangerMessage>
+    </Input.dangerMessage>
   );
 
   const redirect = React.useMemo(
@@ -67,9 +67,9 @@ function _AddPersonForm(props) {
 
   useEffect(() => input.current.focus(), [input]);
   return (
-    <input_.outerWrapper onSubmit={submit}>
-      <input_.innerWrapper>
-        <input_.input
+    <Input.outerWrapper onSubmit={submit}>
+      <Input.innerWrapper>
+        <Input.input
           required
           minLength="2"
           maxLength="20"
@@ -80,9 +80,9 @@ function _AddPersonForm(props) {
           value={inputName}
           onChange={(e) => setInputName((inputName = e.target.value))}
         />
-      </input_.innerWrapper>
-      <input_.inputWrapper>
-        <input_.input
+      </Input.innerWrapper>
+      <Input.inputWrapper>
+        <Input.input
           required
           minLength="2"
           pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
@@ -91,17 +91,17 @@ function _AddPersonForm(props) {
           value={inputEmail}
           onChange={(e) => setInputEmail((inputEmail = e.target.value))}
         />
-      </input_.inputWrapper>
-      {/* <input_.btn type="submit" id="SubmitButton" disabled={false}>
+      </Input.inputWrapper>
+      {/* <Input.btn type="submit" id="SubmitButton" disabled={false}>
         <span>Submit</span>
-      </input_.btn> */}
+      </Input.btn> */}
       <AddPersonButton />
       {!isResetFieldsHidden() && (
-        <input_.resetWrapper onClick={handleResetFields}>
+        <Input.resetWrapper onClick={handleResetFields}>
           <ResetText />
-        </input_.resetWrapper>
+        </Input.resetWrapper>
       )}
-    </input_.outerWrapper>
+    </Input.outerWrapper>
   );
 }
 
@@ -128,7 +128,7 @@ const mapStateToProps = (state) => ({
 });
 
 const AddPersonForm = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(_AddPersonForm)
+  connect(mapStateToProps, mapDispatchToProps)(UnconnectedAddPersonForm)
 );
 
 export default AddPersonForm;

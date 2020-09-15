@@ -1,7 +1,7 @@
 {
   "name": "firebase",
   "version": "0.2.0",
-  "homepage": "http://Kiszuriwalilibori.github.io/Firebase",
+  "homepage": "http://Kiszuriwalilibori.github.io/firebase",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.13",

@@ -1,12 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { input_ } from "../../styles/style";
-function _AddPersonButton(props) {
+import { Input } from "../../styles/style";
+function UnconnectedAddPersonButton(props) {
   const { disabled } = props;
   return (
-    <input_.btn type="submit" id="SubmitButton" disabled={disabled}>
+    <Input.btn type="submit" id="SubmitButton" disabled={disabled}>
       <span>Submit</span>
-    </input_.btn>
+    </Input.btn>
   );
 }
 
@@ -14,6 +14,6 @@ const mapStateToProps = (state) => ({
   disabled: state.submitDisabled,
 });
 
-const AddPersonButton = connect(mapStateToProps, null)(_AddPersonButton);
+const AddPersonButton = connect(mapStateToProps, null)(UnconnectedAddPersonButton);
 
 export default AddPersonButton;

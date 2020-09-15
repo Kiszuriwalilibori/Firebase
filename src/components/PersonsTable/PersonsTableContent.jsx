@@ -4,10 +4,10 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { showError } from "../../js/ACTIONS/actions";
-import { rows_ } from "../../styles/style";
+import { Rows } from "../../styles/style";
 import * as ROUTES from "../../js/ROUTES/routes";
 
-const _PersonsTableContent = (props) => {
+const UnconnectedPersonsTableContent = (props) => {
   const { items, user, showError } = props;
   const history = useHistory();
   if (!items || items.length == 0) {
@@ -36,25 +36,25 @@ const _PersonsTableContent = (props) => {
     <tbody>
       {items.map((row, index) => (
         <tr key={index}>
-          <rows_.middleAligned key={index}>
-            <rows_.circle>{index + 1}</rows_.circle>
-          </rows_.middleAligned>
-          <rows_.middleAligned key={index + row[1]}>
+          <Rows.middleAligned key={index}>
+            <Rows.circle>{index + 1}</Rows.circle>
+          </Rows.middleAligned>
+          <Rows.middleAligned key={index + row[1]}>
             {row[1]}
-          </rows_.middleAligned>
-          <rows_.middleAligned key={index + row[2]}>
-            <rows_.emailCell>
+          </Rows.middleAligned>
+          <Rows.middleAligned key={index + row[2]}>
+            <Rows.emailCell>
               <span>{row[2]}</span>
               {user && user.displayName === row[3] && (
-                <rows_.button
+                <Rows.button
                   onClick={removeItem}
                   data-item_firebase_ref={row[0]}
                 >
-                  <rows_.iconTimes />
-                </rows_.button>
+                  <Rows.iconTimes />
+                </Rows.button>
               )}{" "}
-            </rows_.emailCell>
-          </rows_.middleAligned>
+            </Rows.emailCell>
+          </Rows.middleAligned>
         </tr>
       ))}
     </tbody>
@@ -73,7 +73,7 @@ const mapDispatchToProps = (dispatch) => ({
 const PersonsTableContent = connect(
   mapStateToProps,
   mapDispatchToProps
-)(_PersonsTableContent);
+)(UnconnectedPersonsTableContent);
 
 export default PersonsTableContent;
 

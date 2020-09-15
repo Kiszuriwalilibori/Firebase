@@ -21,7 +21,7 @@ const ColorCircularProgress = withStyles({
   },
 })(CircularProgress);
 
-const _Loader = (props) => {
+const UnconnectedLoader = (props) => {
   const { visible } = props;
 
   return visible ? (
@@ -34,5 +34,5 @@ const _Loader = (props) => {
 const mapStateToProps = (state) => ({
   visible: state.spinnerVisible,
 });
-const Loader = withRouter(connect(mapStateToProps, null)(_Loader));
+const Loader = withRouter(connect(mapStateToProps, null)(UnconnectedLoader));
 export default Loader;

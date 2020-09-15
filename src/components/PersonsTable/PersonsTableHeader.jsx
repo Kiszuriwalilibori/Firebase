@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import AddPersonForm from "./AddPersonForm";
 import { showAddUserForm } from "../../js/ACTIONS/actions";
-import { overhead_ } from "../../styles/style";
+import { Overhead } from "../../styles/style";
 
-const _PersonsTableHeader = (props) => {
+const UnconnectedPersonsTableHeader = (props) => {
   const {
     isHiddenAddUserButton,
     isHiddenAddedUserMsg,
@@ -17,41 +17,41 @@ const _PersonsTableHeader = (props) => {
 
   const AddUserButton = () =>
     isNotLimitReached ? (
-      <overhead_.btn
+      <Overhead.btn
         id="AddUserButton"
         type="button"
         onClick={isNotLimitReached ? onAddUser : function () {}}
       >
-        <overhead_.iconCross />
-        <overhead_.btnText>Add User</overhead_.btnText>
-      </overhead_.btn>
+        <Overhead.iconCross />
+        <Overhead.btnText>Add User</Overhead.btnText>
+      </Overhead.btn>
     ) : (
-      <overhead_.btn_disabled>
-        <overhead_.iconCross />
-        <overhead_.btnText>Add User</overhead_.btnText>
-      </overhead_.btn_disabled>
+      <Overhead.btn_disabled>
+        <Overhead.iconCross />
+        <Overhead.btnText>Add User</Overhead.btnText>
+      </Overhead.btn_disabled>
     );
 
   return (
-    <overhead_.wrapper>
+    <Overhead.wrapper>
       {!isHiddenAddUserButton && <AddUserButton />}
 
       {!isHiddenAddedUserMsg && (
-        <overhead_.successMessage>
-          <overhead_.iconCheck />
+        <Overhead.successMessage>
+          <Overhead.iconCheck />
           <span> You have succesfully added an user </span>
-        </overhead_.successMessage>
+        </Overhead.successMessage>
       )}
 
       {!isHiddenInputForm && <AddPersonForm />}
 
       {!isNotLimitReached && (
-        <overhead_.dangerMessage>
-          <overhead_.iconLimit />
+        <Overhead.dangerMessage>
+          <Overhead.iconLimit />
           <span> You have reached the limit</span>
-        </overhead_.dangerMessage>
+        </Overhead.dangerMessage>
       )}
-    </overhead_.wrapper>
+    </Overhead.wrapper>
   );
 };
 
@@ -69,7 +69,7 @@ const mapDispatchToProps = (dispatch) => ({
 const PersonsTableHeader = connect(
   mapStateToProps,
   mapDispatchToProps
-)(_PersonsTableHeader);
+)(UnconnectedPersonsTableHeader);
 
 PersonsTableHeader.propTypes = {
   isHiddenAddUserButton: PropTypes.bool,

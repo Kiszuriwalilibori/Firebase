@@ -4,22 +4,19 @@ import { login, hideError } from "../js/ACTIONS/actions";
 import { Fade } from "@material-ui/core";
 import PersonsTableHeader from "./PersonsTable/PersonsTableHeader";
 import { load } from "../js/THUNKS/loadData";
-import { app_ } from "../styles/style";
+import { Application } from "../styles/style";
 import EmptyLoader from "./EmptyLoader";
 import * as ROUTES from "../js/ROUTES/routes";
+
 const AlertBox = lazy(() => import("./AlertBox"));
 const Loader = lazy(() => import("./Loader"));
-const PersonsTableContent = lazy(() =>
-  import("./PersonsTable/PersonsTableContent")
-);
+const PersonsTableContent = lazy(() => import("./PersonsTable/PersonsTableContent"));
 const LoginSection = lazy(() => import("./LoginSection"));
-const PersonsTableSortArea = lazy(() =>
-  import("./PersonsTable/PersonsTableSortArea")
-);
+const PersonsTableSortArea = lazy(() => import("./PersonsTable/PersonsTableSortArea"));
 const UserInfoCard = lazy(() => import("./UserInfoCard"));
 const MessageBox = lazy(() => import("./MessageBox"));
 
-function _App(props) {
+function PrepareApp(props) {
   const { isLoading, user, load, history } = { ...props };
 
   const redirect = React.useMemo(
@@ -47,18 +44,18 @@ function _App(props) {
         <AlertBox />
         <UserInfoCard user={user} />
         <Loader visible={isLoading} />
-        <app_.App>
+        <Application.App>
           <LoginSection />
           <Fade in={true} timeout={2000}>
-            <app_.tableWrapper>
+            <Application.tableWrapper>
               <PersonsTableHeader />
-              <app_.table>
+              <Application.table>
                 <PersonsTableSortArea />
                 <PersonsTableContent />
-              </app_.table>
-            </app_.tableWrapper>
+              </Application.table>
+            </Application.tableWrapper>
           </Fade>
-        </app_.App>
+        </Application.App>
         <MessageBox />
       </Suspense>
     </React.Fragment>
@@ -79,6 +76,6 @@ function mapDispatchToProps(dispatch) {
     load: (x) => dispatch(load(x)),
   };
 }
-const App = connect(mapStateToProps, mapDispatchToProps)(_App);
+const App = connect(mapStateToProps, mapDispatchToProps)(PrepareApp);
 
 export default App;

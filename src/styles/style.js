@@ -45,7 +45,7 @@ cursor: default;
 `;
 
 
-export const app_ = {
+export const Application = {
   App: styled.div`
   overflow-y: auto;
   display: flex;
@@ -84,7 +84,7 @@ box-shadow: inset 0 1px 1px rgba(200,200,200,0.11);
 @media(min-width: 569px){ overflow-y: visible;}`,
 };
 
-export const logo_ = {
+export const Logo = {
   wrapper: styled.header`
 display: flex;
 width: 100%;
@@ -113,7 +113,7 @@ padding: 4vh 0;
 };
 
 
-export const overhead_ = {
+export const Overhead = {
 
   wrapper: styled.div`
   display: flex;
@@ -140,7 +140,7 @@ export const overhead_ = {
   iconLimit: () => <span className="IcoMoon">&#xe901;</span>,
 };
 
-export const input_ = {
+export const Input = {
   dangerMessage: styled.span`letter-spacing: 0.08rem; font-weight:700; cursor: pointer;color:${circleBackground}`,
   input: styled.input`border:0;cursor:pointer; overflow: visible; font-size: 16px; padding: 0.3rem;background-color:${colorMint}; color:${colorSailorBlue}`,
   resetWrapper: styled.div`display:inline`,
@@ -157,7 +157,7 @@ export const input_ = {
   btn,
 };
 
-export const header_ = {
+export const Header = {
   wrapper: styled.thead`background-color:${colorSailorBlue}; color:${colorMint}`,
   sectionStyle: styled.th`
 cursor: pointer;
@@ -168,10 +168,10 @@ text-align: left;
 vertical-align:top;
 border-top: 1px solid;
 `,
-  section: (props) => <header_.sectionStyle className="icon-Sort">{props.children}</header_.sectionStyle>,
+  section: (props) => <Header.sectionStyle className="icon-Sort">{props.children}</Header.sectionStyle>,
 };
 
-export const rows_ = {
+export const Rows = {
   emailCell: styled.div`display:flex; justify-content: space-between; align-items:center`,
   middleAligned: styled.td`vertical-align: middle; padding:0.75rem; border-top: 1px solid`,
   middleAlignedTop: styled.td`vertical-align: top; padding:0.75rem; border-top: 1px solid`,
