@@ -1,0 +1,2 @@
+(this.webpackJsonpfirebase=this.webpackJsonpfirebase||[]).push([[13],{144:function(e,n,a){"use strict";a.r(n);var t=a(0),i=a(4),s=a(45),l=Object(i.g)((function(){return t.createElement(s.a,null,t.createElement("div",null,t.createElement("span",{className:"notfound__item"},"Nie znaleziono ksi\u0105\u017cek spe\u0142niaj\u0105cych zadane kryteria"),t.createElement("br",null),t.createElement("span",{className:"notfound__item"},"Kliknij gdziekolwiek, aby powr\xf3ci\u0107 do wyszukiwania")))}));n.default=l}}]);
+//# sourceMappingURL=13.b50ec0d4.chunk.js.map
