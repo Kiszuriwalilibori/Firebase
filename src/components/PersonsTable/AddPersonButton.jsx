@@ -1,19 +1,25 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { Input } from "../../styles/style";
-function UnconnectedAddPersonButton(props) {
-  const { disabled } = props;
+
+let AddPersonButton = props => {
+  const { isDisabled } = props;
   return (
-    <Input.btn type="submit" id="SubmitButton" disabled={disabled}>
+    <Input.btn type="submit" id="SubmitButton" disabled={isDisabled}>
       <span>Submit</span>
     </Input.btn>
   );
-}
+};
 
-const mapStateToProps = (state) => ({
-  disabled: state.submitDisabled,
+const mapStateToProps = state => ({
+  isDisabled: state.submitDisabled,
 });
 
-const AddPersonButton = connect(mapStateToProps, null)(UnconnectedAddPersonButton);
+AddPersonButton = connect(mapStateToProps, null)(AddPersonButton);
 
 export default AddPersonButton;
+
+AddPersonButton.propTypes = {
+  isDisabled: PropTypes.bool,
+};

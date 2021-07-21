@@ -112,4 +112,11 @@ tbody {
     font-size: calc(50px + 85 * ((100vw - 320px) / 1120));
   }
 }
+
+.AddPersonForm__error-message {
+  color: red;
+  background-color: white;
+  border-radius: 2px;
+  padding: 0.5rem;
+}
 /*# sourceMappingURL=App.css.map */

@@ -31,12 +31,12 @@ function PrepareApp(props) {
         history.push(ROUTES.HOME);
       },
     }),
-    []
+    [history]
   );
 
   useEffect(() => {
     load(redirect);
-  }, []);
+  }, [load, redirect]);
 
   return (
     <React.Fragment>

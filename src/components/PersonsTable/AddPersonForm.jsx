@@ -1,30 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import {
-  showError,
-  hideAddedUserMessage,
-  showWarning,
-  toggleSubmit,
-} from "../../js/ACTIONS/actions";
+import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from "../../js/ACTIONS/actions";
 import * as ROUTES from "../../js/ROUTES/routes";
+import { useFormik} from "formik";
 import { Input } from "../../styles/style";
 import { itemsRef } from "../../js/FUNCTIONS/firebase";
 import submitFigure from "../../js/THUNKS/submitFigure";
 import AddPersonButton from "./AddPersonButton";
+import * as Yup from "yup";
 
-function UnconnectedAddPersonForm(props) {
+let AddPersonForm = props => {
   const input = useRef(null);
   const { user, history, submitFigure, showWarning, toggleSubmit } = props;
-  let [inputName, setInputName] = useState("");
-  let [inputEmail, setInputEmail] = useState("");
-  const ResetText = () => (
-    <Input.dangerMessage>
-      <u> Reset Fields</u>
-    </Input.dangerMessage>
-  );
-
+  
   const redirect = React.useMemo(
     () => ({
       error: () => {
@@ -40,76 +30,66 @@ function UnconnectedAddPersonForm(props) {
     [history]
   );
 
-  const handleResetFields = () => {
-    setInputName((inputName = ""));
-    setInputEmail((inputEmail = ""));
-  };
-  const isResetFieldsHidden = () => !!(inputName === "" && inputEmail === "");
-  const submit = (e) => {
-    e.preventDefault();
-    if (user) {
-      toggleSubmit();
-      itemsRef
-        .orderByChild("email")
-        .equalTo(inputEmail)
-        .once("value", (snapshot) => {
-          const isNotDuplicate = !snapshot.exists();
-          submitFigure(isNotDuplicate, redirect, {
-            name: inputName,
-            email: inputEmail,
-            user: user.displayName || user.email,
-          });
-        });
-    } else {
-      showWarning("Tylko zalogowani uzytkownicy mogą dodawać postacie");
-    }
-  };
-
+  const isResetFieldsHidden = () => !!(values.inputName === "" && values.inputEmail === "");
   useEffect(() => input.current.focus(), [input]);
+
+  const { values, handleSubmit, getFieldProps, handleReset, submitCount, errors } = useFormik({
+    initialValues: {
+      personEmail: "",
+      personName: "",
+    },
+    validationSchema: Yup.object().shape({
+      personEmail: Yup.string().email("Invalid email address").required("Required"),
+      personName: Yup.string().min(4, "Must be more than 3 characters").required("Required").matches("[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+","Invalid characters"),
+    }),
+    onSubmit() {
+      if (user) {
+        toggleSubmit();
+        itemsRef
+          .orderByChild("email")
+          .equalTo(values.personEmail)
+          .once("value", snapshot => {
+            const isNotDuplicate = !snapshot.exists();
+            submitFigure(isNotDuplicate, redirect, {
+              name: values.personName,
+              email: values.personEmail,
+              user: user.displayName || user.email,
+            });
+          });
+      } else {
+        showWarning("Tylko zalogowani uzytkownicy mogą dodawać postacie");
+      }
+    },
+  });
+
   return (
-    <Input.outerWrapper onSubmit={submit}>
+    <Input.outerWrapper onSubmit={handleSubmit}>
       <Input.innerWrapper>
-        <Input.input
-          required
-          minLength="2"
-          maxLength="20"
-          pattern="[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+"
-          placeholder="Name..."
-          type="text"
-          ref={input}
-          value={inputName}
-          onChange={(e) => setInputName((inputName = e.target.value))}
-        />
+        <Input.input required minLength="2" maxLength="20" pattern="[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+" placeholder="Name..." type="text" ref={input} {...getFieldProps("personName")} />
       </Input.innerWrapper>
       <Input.inputWrapper>
-        <Input.input
-          required
-          minLength="2"
-          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-          placeholder="Email..."
-          type="text"
-          value={inputEmail}
-          onChange={(e) => setInputEmail((inputEmail = e.target.value))}
-        />
+        <Input.input minLength="2" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="Email..." type="text" {...getFieldProps("personEmail")} />
       </Input.inputWrapper>
-      {/* <Input.btn type="submit" id="SubmitButton" disabled={false}>
-        <span>Submit</span>
-      </Input.btn> */}
+
       <AddPersonButton />
       {!isResetFieldsHidden() && (
-        <Input.resetWrapper onClick={handleResetFields}>
-          <ResetText />
+        <Input.resetWrapper onClick={handleReset}>
+          <Input.dangerMessage>
+            <u> Reset Fields</u>
+          </Input.dangerMessage>
         </Input.resetWrapper>
       )}
+     {submitCount > 0 && errors && <span className ='AddPersonForm__error-message'>{JSON.stringify(errors, null, 2).substring(1,JSON.stringify(errors, null, 2).length-1)}</span>}
+   
     </Input.outerWrapper>
   );
-}
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  showWarning: (data) => {
+const mapDispatchToProps = dispatch => ({
+  showWarning: data => {
     dispatch(showWarning(data));
   },
-  showError: (data) => {
+  showError: data => {
     dispatch(showError(data));
   },
   hideAddedUserMessage: () => {
@@ -123,16 +103,20 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.user,
 });
 
-const AddPersonForm = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(UnconnectedAddPersonForm)
-);
+AddPersonForm = withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPersonForm));
 
 export default AddPersonForm;
 
 AddPersonForm.propTypes = {
   onSubmit: PropTypes.func,
+  submitFigure:PropTypes.func,
+  showWarning:PropTypes.func,
+  toggleSubmit:PropTypes.func,
+  user:PropTypes.object,
+  history:PropTypes.object,
+  hideAddedUserMessage:PropTypes.func,
 };

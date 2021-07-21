@@ -30,8 +30,9 @@ color:#C2F1DB;
 background-color:transparent;
 cursor: pointer;
 transition: color .3s ease-in-out,background-color .3s ease-in-out,border-color .3s ease-in-out,box-shadow .3s ease-in-out;
-&:hover{
+&:hover, &:focus{
   color: #495F75;
+  outline:none;
   background-color: #C2F1DB;
   border-color: transparent;
 }
@@ -189,10 +190,7 @@ export const Rows = {
   background-color:${circleBackground};
   @media(max-width:569px){ width: calc( 20px + 10 * ((100vw - 320px) / 249)); height:calc( 20px + 10 * ((100vw - 320px) / 249)); }
   `,
-  // button: styled.button.attrs((props) => ({ type: 'button' }))`background: transparent; border:none;`,
-  button: styled.button.attrs((props) => ({ type: 'button', 'aria-label':'delete' }))`background: transparent; border:none;`,
-  
-  iconTimes: () => <span className="icon-Cross" />,
+  button: styled.button.attrs((props) => ({ type: 'button', 'aria-label':'delete' }))`background: transparent; border-radius:50%; border:none;`,
 };
 
 

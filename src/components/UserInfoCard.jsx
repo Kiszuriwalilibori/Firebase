@@ -5,6 +5,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+//import { Autocomplete } from "@material-ui/lab";
 const useStyles = makeStyles({
   root: {
     maxWidth: 300,
@@ -18,6 +19,8 @@ const useStyles = makeStyles({
   },
   media: {
     height: 60,
+    width: 60,
+    margin: '0 auto',
     backgroundSize: "contain",
     color: "white",
   },
@@ -32,7 +35,9 @@ export default function UserInfoCard(props) {
         <CardMedia
           className={classes.media}
           image={user.photoURL}
-          title={"user photo"}
+          title="user photo"
+          component="img"
+          
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">

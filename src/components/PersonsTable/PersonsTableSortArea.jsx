@@ -5,22 +5,14 @@ import { headings } from "../../js/FIXTURES/fixtures";
 import { sort } from "../../js/ACTIONS/actions";
 import { Header } from "../../styles/style";
 
-function UnconnectedPersonsTableSortArea(props) {
+let PersonsTableSortArea = props => {
   if (props) {
-    const {
-      columnSortBy,
-      nonSortableColumns,
-      isSortDescending,
-      onSort,
-    } = props;
-
-    const isCurrentColumnSorted = (x) => columnSortBy === x;
+    const { columnSortBy, nonSortableColumns, isSortDescending, onSort } = props;
+    const isCurrentColumnSorted = x => columnSortBy === x;
     const arrow = isSortDescending ? "\u2191" : "\u2193";
-    const handleSort = (e) => {
+    const handleSort = e => {
       const targetColumn = e.target.cellIndex;
-      const columnNotExcludedFromSorting =
-        nonSortableColumns === undefined ||
-        !nonSortableColumns.has(targetColumn);
+      const columnNotExcludedFromSorting = nonSortableColumns === undefined || !nonSortableColumns.has(targetColumn);
 
       if (columnNotExcludedFromSorting) {
         const isDescending = columnSortBy === targetColumn && !isSortDescending;
@@ -36,35 +28,29 @@ function UnconnectedPersonsTableSortArea(props) {
       <Header.wrapper onClick={handleSort}>
         <tr>
           {headings.map((item, index) => (
-            <Header.section key={item}>
-              {" "}
-              {isCurrentColumnSorted(index) ? item + arrow : item}{" "}
-            </Header.section>
+            <Header.section key={item}> {isCurrentColumnSorted(index) ? item + arrow : item} </Header.section>
           ))}
         </tr>
       </Header.wrapper>
     );
   }
-}
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   columnSortBy: state.columnSortBy,
   isSortDescending: state.isSortDescending,
   nonSortableColumns: state.nonSortableColumns,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onSort: (data) => dispatch(sort(data)),
+const mapDispatchToProps = dispatch => ({
+  onSort: data => dispatch(sort(data)),
 });
-
-const PersonsTableSortArea = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UnconnectedPersonsTableSortArea);
+PersonsTableSortArea = connect(mapStateToProps, mapDispatchToProps)(PersonsTableSortArea);
 
 export default PersonsTableSortArea;
 
 PersonsTableSortArea.propTypes = {
   columnSortBy: PropTypes.number,
   isSortDescending: PropTypes.oneOf([true, false, null]),
+  onSort: PropTypes.func,
 };

@@ -1,4 +1,3 @@
-// icomoon na styled
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -6,7 +5,7 @@ import AddPersonForm from "./AddPersonForm";
 import { showAddUserForm } from "../../js/ACTIONS/actions";
 import { Overhead } from "../../styles/style";
 
-const UnconnectedPersonsTableHeader = (props) => {
+let PersonsTableHeader = (props) => {
   const {
     isHiddenAddUserButton,
     isHiddenAddedUserMsg,
@@ -66,16 +65,18 @@ const mapDispatchToProps = (dispatch) => ({
   onAddUser: () => dispatch(showAddUserForm()),
 });
 
-const PersonsTableHeader = connect(
+PersonsTableHeader = connect(
   mapStateToProps,
   mapDispatchToProps
-)(UnconnectedPersonsTableHeader);
+)(PersonsTableHeader);
 
 PersonsTableHeader.propTypes = {
   isHiddenAddUserButton: PropTypes.bool,
+  isHiddenAddUserMsg: PropTypes.bool,
   isHiddenInputForm: PropTypes.bool,
   isNotLimitReached: PropTypes.bool,
   onAddUser: PropTypes.func,
 };
 
 export default PersonsTableHeader;
+

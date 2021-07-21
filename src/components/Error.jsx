@@ -1,5 +1,6 @@
 import * as React from "react";
 import Box from "@material-ui/core/Box";
+import PropTypes from "prop-types";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { withRouter } from "react-router";
 import { withStyles } from "@material-ui/core/styles";
@@ -34,7 +35,7 @@ const NewAlert = withStyles({
   },
 })(Alert);
 
-const UnconnectedError = (props) => {
+let Error = (props) => {
   const { message } = props;
 
   return (
@@ -52,6 +53,13 @@ const UnconnectedError = (props) => {
 const mapStateToProps = (state) => ({
   message: state.errorMessage,
 });
-const Error = withRouter(connect(mapStateToProps, null)(UnconnectedError));
+
+Error = withRouter(connect(mapStateToProps, null)(Error));
 
 export default Error;
+
+
+
+Error.propTypes = {
+  message: PropTypes.string,
+};

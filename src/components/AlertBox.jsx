@@ -4,6 +4,7 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 import { Fade } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { hideWarning } from "../js/ACTIONS/actions";
+import PropTypes from "prop-types";
 
 const NewAlert = withStyles({
   root: {
@@ -17,12 +18,11 @@ const NewAlert = withStyles({
     border: "2px solid #D13525",
     margin: "40px auto",
     maxWidth: "300px",
-    boxShadow:
-      "inset 0 0 2px #D13525, 0 1px 1px rgba(0,0,0,0.14), 0 2px 2px rgba(0,0,0,0.14),0 0 4px rgba(0,0,0,0.14),0 0 8px rgba(0,0,0,0.14)",
+    boxShadow: "inset 0 0 2px #D13525, 0 1px 1px rgba(0,0,0,0.14), 0 2px 2px rgba(0,0,0,0.14),0 0 4px rgba(0,0,0,0.14),0 0 8px rgba(0,0,0,0.14)",
   },
 })(Alert);
 
-const UnconnectedMyAlert = (props) => {
+let AlertBox = props => {
   const { visible, message, hideWarning } = props;
 
   return visible ? (
@@ -35,16 +35,22 @@ const UnconnectedMyAlert = (props) => {
   ) : null;
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   message: state.errorMessage,
   visible: state.isAlert,
 });
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     hideWarning: () => dispatch(hideWarning()),
   };
 };
 
-const AlertBox = connect(mapStateToProps, mapDispatchToProps)(UnconnectedMyAlert);
+AlertBox = connect(mapStateToProps, mapDispatchToProps)(AlertBox);
 
 export default AlertBox;
+
+AlertBox.propTypes = {
+  visible: PropTypes.bool,
+  message: PropTypes.string,
+  hideWarning: PropTypes.func,
+};

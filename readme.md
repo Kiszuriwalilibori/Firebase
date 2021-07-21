@@ -29,11 +29,13 @@
 - That site is hosted on GH Pages
 
 ## Browser Support
-
 - Not for IE <10 and Opera Mini
 
 ## Versions
 ##### 2 
 - rewritten to hooks
-
+- better support for keyboard navigation
+##### 2.1
+corrected bug with meterial ui card
 ### To do
+gravatars?
