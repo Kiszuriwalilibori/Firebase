@@ -1,9 +1,10 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { useEffect, lazy, Suspense, useContext } from 'react';
 import { connect } from 'react-redux';
 import { login, hideError } from '../js/REDUX/actions';
 import { Fade } from '@material-ui/core';
 import PersonsTableHeader from './PersonsTable/PersonsTableHeader';
-import { load } from '../js/THUNKS/loadData';
+import { load } from '../js/REDUX/THUNKS/loadData';
+import { FirebaseContext } from '../contexts/firebaseContext';
 import { Application } from '../styles/style';
 import EmptyLoader from './EmptyLoader';
 import * as ROUTES from '../js/ROUTES/routes';
@@ -18,6 +19,7 @@ const MessageBox = lazy(() => import('./MessageBox'));
 
 function PrepareApp(props) {
     const { isLoading, user, load, history } = { ...props };
+    const firebase = useContext(FirebaseContext);
     const redirect = React.useMemo(
         () => ({
             error: () => {
@@ -34,8 +36,10 @@ function PrepareApp(props) {
     );
 
     useEffect(() => {
-        load(redirect);
-    }, [load, redirect]);
+        if (redirect && firebase) {
+            load(redirect, firebase);
+        }
+    }, [firebase, redirect, load]);
 
     return (
         <React.Fragment>
@@ -72,7 +76,7 @@ function mapDispatchToProps(dispatch) {
     return {
         login: data => dispatch(login(data)),
         hideError: () => dispatch(hideError()),
-        load: x => dispatch(load(x)),
+        load: (x, y) => dispatch(load(x, y)),
     };
 }
 const App = connect(mapStateToProps, mapDispatchToProps)(PrepareApp);

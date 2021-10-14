@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import firebase from '../../js/FUNCTIONS/firebase';
-import React from 'react';
+import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { showError } from '../../js/REDUX/actions';
@@ -8,6 +7,7 @@ import { Rows } from '../../styles/style';
 import * as ROUTES from '../../js/ROUTES/routes';
 import ClearRoundedIcon from '@material-ui/icons/Clear';
 import { withStyles } from '@material-ui/core/styles';
+import { FirebaseContext } from '../../contexts/firebaseContext';
 import IconButton from '@material-ui/core/IconButton';
 
 const iconColor = '#FF0801;';
@@ -29,6 +29,7 @@ const MyIconButton = withStyles({
 
 let PersonsTableContent = props => {
     const { items, user, showError } = props;
+    const firebase = React.useContext(FirebaseContext);
     const history = useHistory();
     if (!items || items.length === 0) {
         return null;
@@ -36,7 +37,7 @@ let PersonsTableContent = props => {
 
     const removeItem = e => {
         const ref = e.currentTarget.dataset.item_firebase_ref;
-        const itemRef = firebase.database().ref(`/items/${ref}`);
+        const itemRef = firebase.database.ref(`/items/${ref}`);
         if (itemRef) {
             try {
                 itemRef.remove();

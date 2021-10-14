@@ -1,10 +1,9 @@
-import { hideAddedUserMessage, submitUser, showError, showWarning, toggleSubmit } from '../REDUX/actions';
-import { itemsRef } from '../FUNCTIONS/firebase';
+import { hideAddedUserMessage, submitUser, showError, showWarning, toggleSubmit } from '../actions';
 
-function submitFigure(notDuplicate, redirect, data) {
+function submitFigure(notDuplicate, redirect, data, firebase) {
     return (dispatch, getState) => {
         if (notDuplicate) {
-            itemsRef.push(data, function (error) {
+            firebase.itemsRef.push(data, function (error) {
                 if (error) {
                     dispatch(showError(error.message));
                     redirect.error();

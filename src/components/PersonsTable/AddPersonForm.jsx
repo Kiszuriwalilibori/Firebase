@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext, useCallback } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -6,15 +6,15 @@ import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from '../.
 import * as ROUTES from '../../js/ROUTES/routes';
 import { useFormik } from 'formik';
 import { Input } from '../../styles/style';
-import { itemsRef } from '../../js/FUNCTIONS/firebase';
-import submitFigure from '../../js/THUNKS/submitFigure';
+import submitFigure from '../../js/REDUX/THUNKS/submitFigure';
 import AddPersonButton from './AddPersonButton';
+import { FirebaseContext } from '../../contexts/firebaseContext';
 import * as Yup from 'yup';
 
 let AddPersonForm = props => {
     const input = useRef(null);
     const { user, history, submitFigure, showWarning, toggleSubmit } = props;
-
+    const firebase = useContext(FirebaseContext);
     const redirect = React.useMemo(
         () => ({
             error: () => {
@@ -48,17 +48,22 @@ let AddPersonForm = props => {
         onSubmit() {
             if (user) {
                 toggleSubmit();
-                itemsRef
+                firebase.itemsRef
                     .orderByChild('email')
                     .equalTo(values.personEmail)
                     .once('value', snapshot => {
                         const isNotDuplicate = !snapshot.exists();
 
-                        submitFigure(isNotDuplicate, redirect, {
-                            name: values.personName,
-                            email: values.personEmail,
-                            user: user.displayName || user.email,
-                        });
+                        submitFigure(
+                            isNotDuplicate,
+                            redirect,
+                            {
+                                name: values.personName,
+                                email: values.personEmail,
+                                user: user.displayName || user.email,
+                            },
+                            firebase,
+                        );
                     });
             } else {
                 showWarning('Tylko zalogowani użytkownicy mogą dodawać postacie');
@@ -117,8 +122,8 @@ const mapDispatchToProps = dispatch => ({
     hideAddedUserMessage: () => {
         dispatch(hideAddedUserMessage());
     },
-    submitFigure: (notDuplicate, redirect, data) => {
-        dispatch(submitFigure(notDuplicate, redirect, data));
+    submitFigure: (notDuplicate, redirect, data, firebase) => {
+        dispatch(submitFigure(notDuplicate, redirect, data, firebase));
     },
     toggleSubmit: () => {
         dispatch(toggleSubmit());

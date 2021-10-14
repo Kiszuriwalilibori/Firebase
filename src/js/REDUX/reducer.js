@@ -16,7 +16,7 @@ const initialState = {
     nonSortableColumns: new Set([0]),
     spinnerVisible: false,
     isAlert: false,
-    limit: 20,
+    limit: 15,
     user: null,
     submitDisabled: false,
 };

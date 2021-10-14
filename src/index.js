@@ -4,7 +4,7 @@ import './styles/App.css';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-
+import Firebase, { FirebaseContext } from './contexts/firebaseContext';
 import LandingPage from './components/LandingPage';
 import reducer from './js/REDUX/reducer';
 import * as serviceWorker from './serviceWorker';
@@ -19,17 +19,19 @@ const Loader = lazy(() => import('./components/Loader'));
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router basename={process.env.PUBLIC_URL}>
-            <Switch>
-                <Route exact path={ROUTES.LANDING} component={LandingPage} />
-                <Route exact path={ROUTES.HOME} component={Awaiting(App)} />
-                <Route exact path={ROUTES.LOGIN} component={Awaiting(Login)} />
-                <Route exact path={ROUTES.ERROR} component={Awaiting(Error)} />
-                <Route exact path={ROUTES.CONNECT} component={Awaiting(Loader)} />
-            </Switch>
-        </Router>
-    </Provider>,
+    <FirebaseContext.Provider value={new Firebase()}>
+        <Provider store={store}>
+            <Router basename={process.env.PUBLIC_URL}>
+                <Switch>
+                    <Route exact path={ROUTES.LANDING} component={LandingPage} />
+                    <Route exact path={ROUTES.HOME} component={Awaiting(App)} />
+                    <Route exact path={ROUTES.LOGIN} component={Awaiting(Login)} />
+                    <Route exact path={ROUTES.ERROR} component={Awaiting(Error)} />
+                    <Route exact path={ROUTES.CONNECT} component={Awaiting(Loader)} />
+                </Switch>
+            </Router>
+        </Provider>
+    </FirebaseContext.Provider>,
     document.getElementById('root'),
 );
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+//import AddPersonForm from './AddPersonForm';
 import AddPersonForm from './AddPersonForm';
 import { showAddUserForm } from '../../js/REDUX/actions';
 import { Overhead } from '../../styles/style';

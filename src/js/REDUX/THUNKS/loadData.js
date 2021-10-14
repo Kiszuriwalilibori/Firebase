@@ -1,10 +1,9 @@
-import { getDataDone, login, showError, toggleSpinner, showMessage } from '../REDUX/actions';
-import { itemsRef, auth, connectedRef } from '../FUNCTIONS/firebase';
-import { sortFigures } from '../FUNCTIONS/functions';
+import { getDataDone, login, showError, toggleSpinner, showMessage } from '../actions';
+import { sortFigures } from '../../FUNCTIONS/functions';
 
-export function load(redirect, history) {
+export function load(redirect, context) {
     return (dispatch, getState) => {
-        connectedRef.on('value', function (snap) {
+        context.connectedRef.on('value', function (snap) {
             if (snap.val() === true) {
                 dispatch(showMessage('Ustanowiono lub przywrócono połączenie z bazą danych'));
             } else {
@@ -19,7 +18,7 @@ export function load(redirect, history) {
 
         dispatch(toggleSpinner());
         redirect.loading(); // ale nadal przy pierwszym właczeniu bez internetu kręci się kręcioł bez końca może jednak trza zrobić tak: jeżeli zaskoczy snapshot jak poniżej to gasi settimeouta który w innej sytuacji wybije error po czasie
-        itemsRef.on(
+        context.itemsRef.on(
             'value',
             snapshot => {
                 const data = snapshot.val();
@@ -58,7 +57,7 @@ export function load(redirect, history) {
             },
         );
 
-        auth.onAuthStateChanged(user => {
+        context.auth.onAuthStateChanged(user => {
             user && dispatch(login(user));
         });
     };

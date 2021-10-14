@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { useCallback } from 'react';
-import { auth, provider } from '../js/FUNCTIONS/firebase';
+import { FirebaseContext } from '../contexts/firebaseContext';
 import { Logo } from '../styles/style';
 import { login, logout, showError } from '../js/REDUX/actions';
 import PropTypes from 'prop-types';
@@ -52,9 +52,10 @@ const LinkButton = withStyles({
 
 let LoginSection = props => {
     const { user, login, logout, showError, history } = props;
-
+    const firebase = React.useContext(FirebaseContext);
     const requestLogin = useCallback(() => {
-        auth.signInWithPopup(provider)
+        firebase.auth
+            .signInWithPopup(firebase.provider)
             .then(result => {
                 login(result);
             })
@@ -62,10 +63,11 @@ let LoginSection = props => {
                 showError(err.message);
                 history.push(ROUTES.ERROR);
             });
-    }, [login]);
+    }, [login, firebase]);
 
     const requestLogout = useCallback(() => {
-        auth.signOut()
+        firebase.auth
+            .signOut()
             .then(result => {
                 logout();
             })
@@ -73,7 +75,7 @@ let LoginSection = props => {
                 showError(err.message);
                 history.push(ROUTES.ERROR);
             });
-    }, [logout]);
+    }, [logout, firebase]);
 
     const usr = user ? true : false;
     return (
