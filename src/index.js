@@ -16,6 +16,7 @@ const App = lazy(() => import('./components/App'));
 const Login = lazy(() => import('./components/Login'));
 const Error = lazy(() => import('./components/Error'));
 const Loader = lazy(() => import('./components/Loader'));
+
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
@@ -41,4 +42,4 @@ ReactDOM.render(
 // }
 // store.subscribe(noConnection);
 
-serviceWorker.unregister();
+serviceWorker.register();
