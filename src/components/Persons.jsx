@@ -6,8 +6,7 @@ import PersonsTableHeader from './PersonsTable/PersonsTableHeader';
 import { load } from '../js/REDUX/THUNKS/loadData';
 import { FirebaseContext } from '../contexts/firebaseContext';
 import { Application } from '../styles/style';
-import EmptyLoader from './EmptyLoader';
-import * as ROUTES from '../js/ROUTES/routes';
+import * as ROUTES from '../js/routing/routes';
 
 const AlertBox = lazy(() => import('./AlertBox'));
 const Loader = lazy(() => import('./Loader'));
@@ -29,7 +28,7 @@ function PrepareApp(props) {
                 history.push(ROUTES.CONNECT);
             },
             home: () => {
-                history.push(ROUTES.HOME);
+                history.push(ROUTES.PERSONS);
             },
         }),
         [history],
@@ -42,26 +41,26 @@ function PrepareApp(props) {
     }, [firebase, redirect, load]);
 
     return (
-        <React.Fragment>
-            <Suspense fallback={EmptyLoader()}>
+        <>
+            <Suspense fallback={null}>
                 <AlertBox />
                 <UserInfoCard user={user} />
                 <Loader visible={isLoading} />
                 <Application.App>
                     <LoginSection />
                     <Fade in={true} timeout={2000}>
-                        <Application.tableWrapper>
+                        <Application.TableWrapper>
                             <PersonsTableHeader />
-                            <Application.table>
+                            <Application.Table>
                                 <PersonsTableSortArea />
                                 <PersonsTableContent />
-                            </Application.table>
-                        </Application.tableWrapper>
+                            </Application.Table>
+                        </Application.TableWrapper>
                     </Fade>
                 </Application.App>
                 <MessageBox />
             </Suspense>
-        </React.Fragment>
+        </>
     );
 }
 
@@ -79,6 +78,6 @@ function mapDispatchToProps(dispatch) {
         load: (x, y) => dispatch(load(x, y)),
     };
 }
-const App = connect(mapStateToProps, mapDispatchToProps)(PrepareApp);
+const Persons = connect(mapStateToProps, mapDispatchToProps)(PrepareApp);
 
-export default App;
+export default Persons;

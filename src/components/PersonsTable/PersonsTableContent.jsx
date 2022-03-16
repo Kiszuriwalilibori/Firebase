@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { showError } from '../../js/REDUX/actions';
 import { Rows } from '../../styles/style';
-import * as ROUTES from '../../js/ROUTES/routes';
+import * as ROUTES from '../../js/routing/routes';
 import ClearRoundedIcon from '@material-ui/icons/Clear';
 import { withStyles } from '@material-ui/core/styles';
 import { FirebaseContext } from '../../contexts/firebaseContext';
@@ -57,20 +57,20 @@ let PersonsTableContent = props => {
         <tbody>
             {items.map((row, index) => (
                 <tr key={index}>
-                    <Rows.middleAligned key={index}>
-                        <Rows.circle>{index + 1}</Rows.circle>
-                    </Rows.middleAligned>
-                    <Rows.middleAligned key={index + row[1]}>{row[1]}</Rows.middleAligned>
-                    <Rows.middleAligned key={index + row[2]}>
-                        <Rows.emailCell>
+                    <Rows.MiddleAligned key={index}>
+                        <Rows.Circle>{index + 1}</Rows.Circle>
+                    </Rows.MiddleAligned>
+                    <Rows.MiddleAligned key={index + row[1]}>{row[1]}</Rows.MiddleAligned>
+                    <Rows.MiddleAligned key={index + row[2]}>
+                        <Rows.EmailCell>
                             <span>{row[2]}</span>
                             {user && user.displayName === row[3] && (
                                 <MyIconButton onClick={removeItem} data-item_firebase_ref={row[0]}>
                                     <ClearIcon />
                                 </MyIconButton>
                             )}{' '}
-                        </Rows.emailCell>
-                    </Rows.middleAligned>
+                        </Rows.EmailCell>
+                    </Rows.MiddleAligned>
                 </tr>
             ))}
         </tbody>

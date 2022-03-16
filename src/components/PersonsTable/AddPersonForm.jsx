@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from '../../js/REDUX/actions';
-import * as ROUTES from '../../js/ROUTES/routes';
+import * as ROUTES from '../../js/routing/routes';
 import { useFormik } from 'formik';
 import { Input } from '../../styles/style';
 import submitFigure from '../../js/REDUX/THUNKS/submitFigure';
@@ -24,7 +24,7 @@ let AddPersonForm = props => {
                 history.push(ROUTES.CONNECT);
             },
             home: () => {
-                history.push(ROUTES.HOME);
+                history.push(ROUTES.PERSONS);
             },
         }),
         [history],

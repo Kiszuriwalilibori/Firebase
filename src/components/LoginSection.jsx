@@ -8,7 +8,7 @@ import { FirebaseContext } from '../contexts/firebaseContext';
 import { Logo } from '../styles/style';
 import { login, logout, showError } from '../js/REDUX/actions';
 import PropTypes from 'prop-types';
-import * as ROUTES from '../js/ROUTES/routes';
+import * as ROUTES from '../js/routing/routes';
 
 const LinkButton = withStyles({
     root: {

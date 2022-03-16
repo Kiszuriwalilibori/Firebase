@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { headings } from '../../js/FIXTURES/fixtures';
+import { headings } from '../../config';
 import { sort } from '../../js/REDUX/actions';
 import { Header } from '../../styles/style';
 

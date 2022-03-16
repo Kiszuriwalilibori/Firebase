@@ -54,3 +54,7 @@ gravatars?
 
 limit in fact needs not to be in store - it's rather global constant. Togetehr with current content of
 fixtures it might be config file
+
+Nazewnictwo zabytkowe do poprawienia
+
+czy aby nie warto zrobić update reacta
