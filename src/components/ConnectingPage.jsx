@@ -22,7 +22,7 @@ const ColorCircularProgress = withStyles({
     },
 })(CircularProgress);
 
-let Loader = props => {
+let ConnectingPage = props => {
     const { isVisible } = props;
 
     return isVisible ? (
@@ -35,9 +35,9 @@ let Loader = props => {
 const mapStateToProps = state => ({
     isVisible: state.spinnerVisible,
 });
-Loader = withRouter(connect(mapStateToProps, null)(Loader));
+ConnectingPage = withRouter(connect(mapStateToProps, null)(ConnectingPage));
 
-export default Loader;
-Loader.propTypes = {
+export default ConnectingPage;
+ConnectingPage.propTypes = {
     isVisible: PropTypes.bool,
 };

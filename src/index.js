@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import Firebase, { FirebaseContext } from './contexts/firebaseContext';
-import LandingPage from './components/LandingPage';
+import LandingPage from './pages/LandingPage';
 import reducer from './js/REDUX/reducer';
 import * as serviceWorker from './serviceWorker';
 import * as ROUTES from './js/routing/routes';
@@ -13,8 +13,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Awaiting from './components/Awaiting';
 
 const Persons = lazy(() => import('./components/Persons'));
-const Error = lazy(() => import('./components/Error'));
-const Loader = lazy(() => import('./components/Loader'));
+const Error = lazy(() => import('./pages/ErrorPage'));
+const Connecting = lazy(() => import('./components/ConnectingPage'));
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -27,7 +27,7 @@ ReactDOM.render(
                         <Route exact path={ROUTES.LANDING} component={LandingPage} />
                         <Route exact path={ROUTES.PERSONS} component={Awaiting(Persons)} />
                         <Route exact path={ROUTES.ERROR} component={Awaiting(Error)} />
-                        <Route exact path={ROUTES.CONNECT} component={Awaiting(Loader)} />
+                        <Route exact path={ROUTES.CONNECT} component={Awaiting(Connecting)} />
                     </Switch>
                 </main>
             </Router>

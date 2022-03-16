@@ -58,3 +58,5 @@ fixtures it might be config file
 Nazewnictwo zabytkowe do poprawienia
 
 czy aby nie warto zrobić update reacta
+
+onauthstatechanged ma więcej mozliwych parametrów, cpomyśleć czy by nie użyć, kurs 120

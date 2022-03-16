@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-import * as ROUTES from '../js/routing/routes';
+import * as ROUTES from '../../js/routing/routes';
 import { Link } from 'react-router-dom';
 
 const Container = withStyles({

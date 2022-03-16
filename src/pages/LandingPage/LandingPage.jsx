@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { WelcomeTextContainer } from './WelcomeTextContainer';
+import { WelcomeTextContainer } from './parts/WelcomeTextContainer';
 import Grow from '@material-ui/core/Grow';
-import * as ROUTES from '../js/routing/routes';
+import * as ROUTES from '../../js/routing/routes';
 import { Link } from 'react-router-dom';
 
 const LandingPage = React.memo(() => {

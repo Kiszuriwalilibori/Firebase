@@ -9,7 +9,7 @@ import { Application } from '../styles/style';
 import * as ROUTES from '../js/routing/routes';
 
 const AlertBox = lazy(() => import('./AlertBox'));
-const Loader = lazy(() => import('./Loader'));
+const Loader = lazy(() => import('./ConnectingPage'));
 const PersonsTableContent = lazy(() => import('./PersonsTable/PersonsTableContent'));
 const LoginSection = lazy(() => import('./LoginSection'));
 const PersonsTableSortArea = lazy(() => import('./PersonsTable/PersonsTableSortArea'));
@@ -19,6 +19,7 @@ const MessageBox = lazy(() => import('./MessageBox'));
 function PrepareApp(props) {
     const { isLoading, user, load, history } = { ...props };
     const firebase = useContext(FirebaseContext);
+
     const redirect = React.useMemo(
         () => ({
             error: () => {
