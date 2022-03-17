@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-//import AddPersonForm from './AddPersonForm';
 import AddPersonForm from './AddPersonForm';
-import { showAddUserForm } from '../../js/REDUX/actions';
-import { Overhead } from '../../styles/style';
+import { showAddUserForm } from '../../../../js/REDUX/actions';
+import { Overhead } from '../../../../styles/style';
 
 let PersonsTableHeader = props => {
     const { isHiddenAddUserButton, isHiddenAddedUserMsg, isHiddenInputForm, isNotLimitReached, onAddUser } =
@@ -12,41 +11,41 @@ let PersonsTableHeader = props => {
 
     const AddUserButton = () =>
         isNotLimitReached ? (
-            <Overhead.btn
+            <Overhead.Btn
                 id="AddUserButton"
                 type="button"
                 onClick={isNotLimitReached ? onAddUser : function () {}}
             >
-                <Overhead.iconCross />
-                <Overhead.btnText>Add User</Overhead.btnText>
-            </Overhead.btn>
+                <Overhead.IconCross />
+                <Overhead.BtnText>Add User</Overhead.BtnText>
+            </Overhead.Btn>
         ) : (
-            <Overhead.btn_disabled>
-                <Overhead.iconCross />
-                <Overhead.btnText>Add User</Overhead.btnText>
-            </Overhead.btn_disabled>
+            <Overhead.BtnDisabled>
+                <Overhead.IconCross />
+                <Overhead.BtnText>Add User</Overhead.BtnText>
+            </Overhead.BtnDisabled>
         );
 
     return (
-        <Overhead.wrapper>
+        <Overhead.Wrapper>
             {!isHiddenAddUserButton && <AddUserButton />}
 
             {!isHiddenAddedUserMsg && (
-                <Overhead.successMessage>
-                    <Overhead.iconCheck />
+                <Overhead.SuccessMessage>
+                    <Overhead.IconCheck />
                     <span> You have succesfully added an user </span>
-                </Overhead.successMessage>
+                </Overhead.SuccessMessage>
             )}
 
             {!isHiddenInputForm && <AddPersonForm />}
 
             {!isNotLimitReached && (
-                <Overhead.dangerMessage>
-                    <Overhead.iconLimit />
+                <Overhead.DangerMessage>
+                    <Overhead.IconLimit />
                     <span> You have reached the limit</span>
-                </Overhead.dangerMessage>
+                </Overhead.DangerMessage>
             )}
-        </Overhead.wrapper>
+        </Overhead.Wrapper>
     );
 };
 

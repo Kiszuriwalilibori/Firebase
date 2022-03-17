@@ -12,9 +12,10 @@ import * as ROUTES from './js/routing/routes';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Awaiting from './components/Awaiting';
 
-const Persons = lazy(() => import('./components/Persons'));
+//const Persons = lazy(() => import('./pages/PersonsPage/PersonsPage'));
+const Persons = lazy(() => import('./pages/PersonsPage'));
 const Error = lazy(() => import('./pages/ErrorPage'));
-const Connecting = lazy(() => import('./components/ConnectingPage'));
+const Connecting = lazy(() => import('./pages/ConnectingPage'));
 
 const store = createStore(reducer, applyMiddleware(thunk));
 

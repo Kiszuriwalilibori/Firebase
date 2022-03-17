@@ -60,3 +60,5 @@ Nazewnictwo zabytkowe do poprawienia
 czy aby nie warto zrobić update reacta
 
 onauthstatechanged ma więcej mozliwych parametrów, cpomyśleć czy by nie użyć, kurs 120
+
+sprawdzić input.btn bo jakieś dziwactwo

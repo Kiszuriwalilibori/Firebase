@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from '../../js/REDUX/actions';
-import * as ROUTES from '../../js/routing/routes';
+import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from '../../../../js/REDUX/actions';
+import * as ROUTES from '../../../../js/routing/routes';
 import { useFormik } from 'formik';
-import { Input } from '../../styles/style';
-import submitFigure from '../../js/REDUX/THUNKS/submitFigure';
+import { Input } from '../../../../styles/style';
+import submitFigure from '../../../../js/REDUX/thunks/submitFigure';
 import AddPersonButton from './AddPersonButton';
-import { FirebaseContext } from '../../contexts/firebaseContext';
+import { FirebaseContext } from '../../../../contexts/firebaseContext';
 import * as Yup from 'yup';
 
 let AddPersonForm = props => {
@@ -72,9 +72,9 @@ let AddPersonForm = props => {
     });
 
     return (
-        <Input.outerWrapper onSubmit={handleSubmit}>
-            <Input.innerWrapper>
-                <Input.input
+        <Input.OuterWrapper onSubmit={handleSubmit}>
+            <Input.InnerWrapper>
+                <Input.Input
                     required
                     minLength="2"
                     maxLength="20"
@@ -84,31 +84,31 @@ let AddPersonForm = props => {
                     ref={input}
                     {...getFieldProps('personName')}
                 />
-            </Input.innerWrapper>
-            <Input.inputWrapper>
-                <Input.input
+            </Input.InnerWrapper>
+            <Input.InputWrapper>
+                <Input.Input
                     minLength="2"
                     pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
                     placeholder="Email..."
                     type="text"
                     {...getFieldProps('personEmail')}
                 />
-            </Input.inputWrapper>
+            </Input.InputWrapper>
 
             <AddPersonButton />
             {!isResetFieldsHidden() && (
-                <Input.resetWrapper onClick={handleReset}>
-                    <Input.dangerMessage>
+                <Input.ResetWrapper onClick={handleReset}>
+                    <Input.DangerMessage>
                         <u> Reset Fields</u>
-                    </Input.dangerMessage>
-                </Input.resetWrapper>
+                    </Input.DangerMessage>
+                </Input.ResetWrapper>
             )}
             {submitCount > 0 && errors && (
                 <span className="AddPersonForm__error-message">
                     {JSON.stringify(errors, null, 2).substring(1, JSON.stringify(errors, null, 2).length - 1)}
                 </span>
             )}
-        </Input.outerWrapper>
+        </Input.OuterWrapper>
     );
 };
 

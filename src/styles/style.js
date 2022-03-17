@@ -94,7 +94,7 @@ export const Application = {
 };
 
 export const Logo = {
-    wrapper: styled.header`
+    Wrapper: styled.header`
         display: flex;
         width: 100%;
         flex-direction: row;
@@ -120,7 +120,7 @@ export const Logo = {
 };
 
 export const Overhead = {
-    wrapper: styled.div`
+    Wrapper: styled.div`
         display: flex;
         min-height: 4.2rem;
         flex-direction: column;
@@ -134,30 +134,30 @@ export const Overhead = {
         }
     `,
 
-    successMessage: styled(message)`
+    SuccessMessage: styled(message)`
         color: ${colorSuccess};
     `,
-    dangerMessage: styled(message)`
+    DangerMessage: styled(message)`
         color: ${circleBackground};
     `,
-    btn,
-    btn_disabled: btn_dis,
-    btnText: styled.span`
+    Btn: btn,
+    BtnDisabled: btn_dis,
+    BtnText: styled.span`
         margin-left: 1rem;
     `,
-    iconCheck: () => <span className="IcoMoon">&#xe900;</span>,
-    iconCross: () => <span className="IcoMoon">&#xe902;</span>,
-    iconLimit: () => <span className="IcoMoon">&#xe901;</span>,
+    IconCheck: () => <span className="IcoMoon">&#xe900;</span>,
+    IconCross: () => <span className="IcoMoon">&#xe902;</span>,
+    IconLimit: () => <span className="IcoMoon">&#xe901;</span>,
 };
 
 export const Input = {
-    dangerMessage: styled.span`
+    DangerMessage: styled.span`
         letter-spacing: 0.08rem;
         font-weight: 700;
         cursor: pointer;
         color: ${circleBackground};
     `,
-    input: styled.input`
+    Input: styled.input`
         border: 0;
         cursor: pointer;
         overflow: visible;
@@ -166,24 +166,24 @@ export const Input = {
         background-color: ${colorMint};
         color: ${colorSailorBlue};
     `,
-    resetWrapper: styled.div`
+    ResetWrapper: styled.div`
         display: inline;
     `,
-    innerWrapper: styled.div`
-        display: inline;
-        padding: 0.25rem;
-        margin: 0.5rem;
-        border-radius: 0.25rem;
-        border: 1px solid ${inputBorderColor};
-    `,
-    inputWrapper: styled.div`
+    InnerWrapper: styled.div`
         display: inline;
         padding: 0.25rem;
         margin: 0.5rem;
         border-radius: 0.25rem;
         border: 1px solid ${inputBorderColor};
     `,
-    outerWrapper: styled.form`
+    InputWrapper: styled.div`
+        display: inline;
+        padding: 0.25rem;
+        margin: 0.5rem;
+        border-radius: 0.25rem;
+        border: 1px solid ${inputBorderColor};
+    `,
+    OuterWrapper: styled.form`
         display: flex;
         flex-direction: column;
         padding: 0.5rem;
@@ -198,11 +198,11 @@ export const Input = {
 };
 
 export const Header = {
-    wrapper: styled.thead`
+    Wrapper: styled.thead`
         background-color: ${colorSailorBlue};
         color: ${colorMint};
     `,
-    sectionStyle: styled.th`
+    SectionStyle: styled.th`
 cursor: pointer;
 text-align: left;
 @media(max-width: 568px) {padding 0.75rem 0}
@@ -211,7 +211,7 @@ text-align: left;
 vertical-align:top;
 border-top: 1px solid;
 `,
-    section: props => <Header.sectionStyle className="icon-Sort">{props.children}</Header.sectionStyle>,
+    Section: props => <Header.SectionStyle className="icon-Sort">{props.children}</Header.SectionStyle>,
 };
 
 export const Rows = {

@@ -3,7 +3,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { Alert } from '@material-ui/lab';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { hideMessage } from '../js/REDUX/actions';
+import { hideMessage } from '../../../js/REDUX/actions';
 import PropTypes from 'prop-types';
 
 const MyAlert = withStyles({

@@ -1,5 +1,5 @@
 import { getDataDone, login, showError, toggleSpinner, showMessage } from '../actions';
-import { sortFigures } from '../../FUNCTIONS/functions';
+import { sortFigures } from '../../functions';
 
 export function load(redirect, context) {
     return (dispatch, getState) => {

@@ -1,20 +1,20 @@
 import React, { useEffect, lazy, Suspense, useContext } from 'react';
 import { connect } from 'react-redux';
-import { login, hideError } from '../js/REDUX/actions';
+import { login, hideError } from '../../js/REDUX/actions';
 import { Fade } from '@material-ui/core';
-import PersonsTableHeader from './PersonsTable/PersonsTableHeader';
-import { load } from '../js/REDUX/THUNKS/loadData';
-import { FirebaseContext } from '../contexts/firebaseContext';
-import { Application } from '../styles/style';
-import * as ROUTES from '../js/routing/routes';
+import PersonsTableHeader from './parts/PersonsTable/PersonsTableHeader';
+import { load } from '../../js/REDUX/thunks/loadData';
+import { FirebaseContext } from '../../contexts/firebaseContext';
+import { Application } from '../../styles/style';
+import * as ROUTES from '../../js/routing/routes';
 
-const AlertBox = lazy(() => import('./AlertBox'));
-const Loader = lazy(() => import('./ConnectingPage'));
-const PersonsTableContent = lazy(() => import('./PersonsTable/PersonsTableContent'));
-const LoginSection = lazy(() => import('./LoginSection'));
-const PersonsTableSortArea = lazy(() => import('./PersonsTable/PersonsTableSortArea'));
-const UserInfoCard = lazy(() => import('./UserInfoCard'));
-const MessageBox = lazy(() => import('./MessageBox'));
+const AlertBox = lazy(() => import('./parts/AlertBox'));
+const Loader = lazy(() => import('../../components/Loader'));
+const PersonsTableContent = lazy(() => import('./parts/PersonsTable/PersonsTableContent'));
+const LoginSection = lazy(() => import('./parts/LoginSection'));
+const PersonsTableSortArea = lazy(() => import('./parts/PersonsTable/PersonsTableSortArea'));
+const UserInfoCard = lazy(() => import('./parts/UserInfoCard'));
+const MessageBox = lazy(() => import('./parts/MessageBox'));
 
 function PrepareApp(props) {
     const { isLoading, user, load, history } = { ...props };

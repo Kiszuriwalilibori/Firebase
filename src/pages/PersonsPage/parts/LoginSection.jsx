@@ -4,11 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { useCallback } from 'react';
-import { FirebaseContext } from '../contexts/firebaseContext';
-import { Logo } from '../styles/style';
-import { login, logout, showError } from '../js/REDUX/actions';
+import { FirebaseContext } from '../../../contexts/firebaseContext';
+import { Logo } from '../../../styles/style';
+import { login, logout, showError } from '../../../js/REDUX/actions';
 import PropTypes from 'prop-types';
-import * as ROUTES from '../js/routing/routes';
+import * as ROUTES from '../../../js/routing/routes';
 
 const LinkButton = withStyles({
     root: {
@@ -79,14 +79,14 @@ let LoginSection = props => {
 
     const usr = user ? true : false;
     return (
-        <Logo.wrapper>
+        <Logo.Wrapper>
             <LinkButton size="large" disabled={!usr} onClick={requestLogout}>
                 Wyloguj się
             </LinkButton>
             <LinkButton size="large" disabled={usr} onClick={requestLogin}>
                 Zaloguj się kontem Google
             </LinkButton>
-        </Logo.wrapper>
+        </Logo.Wrapper>
     );
 };
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Fade } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { hideWarning } from '../js/REDUX/actions';
+import { hideWarning } from '../../../js/REDUX/actions';
 import PropTypes from 'prop-types';
 
 const NewAlert = withStyles({

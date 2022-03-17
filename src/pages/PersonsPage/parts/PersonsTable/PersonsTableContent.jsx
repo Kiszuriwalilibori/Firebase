@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { showError } from '../../js/REDUX/actions';
-import { Rows } from '../../styles/style';
-import * as ROUTES from '../../js/routing/routes';
+import { showError } from '../../../../js/REDUX/actions';
+import { Rows } from '../../../../styles/style';
+import * as ROUTES from '../../../../js/routing/routes';
 import ClearRoundedIcon from '@material-ui/icons/Clear';
 import { withStyles } from '@material-ui/core/styles';
-import { FirebaseContext } from '../../contexts/firebaseContext';
+import { FirebaseContext } from '../../../../contexts/firebaseContext';
 import IconButton from '@material-ui/core/IconButton';
 
 const iconColor = '#FF0801;';

@@ -1,5 +1,5 @@
 import * as actions from './actions';
-import { sortFigures } from '../FUNCTIONS/functions';
+import { sortFigures } from '../functions';
 
 const initialState = {
     isLoading: false,

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { headings } from '../../config';
-import { sort } from '../../js/REDUX/actions';
-import { Header } from '../../styles/style';
+import { headings } from '../../../../config';
+import { sort } from '../../../../js/REDUX/actions';
+import { Header } from '../../../../styles/style';
 
 let PersonsTableSortArea = props => {
     if (props) {
@@ -26,16 +26,16 @@ let PersonsTableSortArea = props => {
             }
         };
         return (
-            <Header.wrapper onClick={handleSort}>
+            <Header.Wrapper onClick={handleSort}>
                 <tr>
                     {headings.map((item, index) => (
-                        <Header.section key={item}>
+                        <Header.Section key={item}>
                             {' '}
                             {isCurrentColumnSorted(index) ? item + arrow : item}{' '}
-                        </Header.section>
+                        </Header.Section>
                     ))}
                 </tr>
-            </Header.wrapper>
+            </Header.Wrapper>
         );
     }
 };
