@@ -5,9 +5,7 @@ import { Alert, AlertTitle } from '@material-ui/lab';
 import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-
-import * as ROUTES from '../../js/routing/routes';
-import { Link } from 'react-router-dom';
+import LinkToPersonsHOC from '../../HOCs/LinkToPersonsHOC';
 
 const Container = withStyles({
     root: {
@@ -39,14 +37,12 @@ let Error = props => {
     const { message } = props;
 
     return (
-        <Link to={ROUTES.PERSONS} style={{ textDecoration: 'none' }}>
-            <Container>
-                <NewAlert severity="error">
-                    <AlertTitle>Uwaga!!!</AlertTitle>
-                    {message}
-                </NewAlert>
-            </Container>
-        </Link>
+        <Container>
+            <NewAlert severity="error">
+                <AlertTitle>Uwaga!!!</AlertTitle>
+                {message}
+            </NewAlert>
+        </Container>
     );
 };
 
@@ -54,7 +50,7 @@ const mapStateToProps = state => ({
     message: state.errorMessage,
 });
 
-Error = withRouter(connect(mapStateToProps, null)(Error));
+Error = withRouter(connect(mapStateToProps, null)(LinkToPersonsHOC(Error)));
 
 export default Error;
 
