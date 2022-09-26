@@ -1,46 +1,14 @@
-import React, { lazy } from 'react';
-import ReactDOM from 'react-dom';
-import './styles/App.css';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import Firebase, { FirebaseContext } from './contexts/firebaseContext';
-import LandingPage from './pages/LandingPage';
-import reducer from './js/REDUX/reducer';
-import * as serviceWorker from './serviceWorker';
-import * as ROUTES from './js/routing/routes';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Awaiting from './components/Awaiting';
+import ReactDOM from "react-dom";
 
-//const Persons = lazy(() => import('./pages/PersonsPage/PersonsPage'));
-const Persons = lazy(() => import('./pages/PersonsPage'));
-const Error = lazy(() => import('./pages/ErrorPage'));
-const Connecting = lazy(() => import('./pages/ConnectingPage'));
+import { AppProvider, App } from "./components";
+import breakWhenInternetExplorer from "js/breakWhenInternertExplorer";
 
-const store = createStore(reducer, applyMiddleware(thunk));
+breakWhenInternetExplorer();
 
 ReactDOM.render(
-    <FirebaseContext.Provider value={new Firebase()}>
-        <Provider store={store}>
-            <Router basename={process.env.PUBLIC_URL}>
-                <main>
-                    <Switch>
-                        <Route exact path={ROUTES.LANDING} component={LandingPage} />
-                        <Route exact path={ROUTES.PERSONS} component={Awaiting(Persons)} />
-                        <Route exact path={ROUTES.ERROR} component={Awaiting(Error)} />
-                        <Route exact path={ROUTES.CONNECT} component={Awaiting(Connecting)} />
-                    </Switch>
-                </main>
-            </Router>
-        </Provider>
-    </FirebaseContext.Provider>,
-    document.getElementById('root'),
+  <AppProvider>
+    <App />
+  </AppProvider>,
+
+  document.getElementById("root")
 );
-
-// function noConnection() {
-//   const state = store.getState();
-//   if (state.isError) { window.alert('Błąd połączenia albo zasób sieciowy nie jest dostępny'); }
-// }
-// store.subscribe(noConnection);
-
-serviceWorker.register();
