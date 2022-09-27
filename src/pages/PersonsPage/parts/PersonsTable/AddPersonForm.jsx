@@ -69,7 +69,8 @@ const AddPersonForm = props => {
             );
           });
       } else {
-        showWarning("Tylko zalogowani użytkownicy mogą dodawać postacie");
+        //showWarning("Tylko zalogowani użytkownicy mogą dodawać postacie");
+        enqueueSnackbar("Tylko zalogowani użytkownicy mogą dodawać postacie", { variant: "warning" });
       }
     },
   });
