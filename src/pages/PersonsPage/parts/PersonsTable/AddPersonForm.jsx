@@ -17,7 +17,7 @@ import * as ROUTES from "js/routes";
 
 const AddPersonForm = props => {
   const input = useRef(null);
-  const { user, history, submitFigure, showWarning, toggleSubmit } = props;
+  const { user, history, submitFigure, toggleSubmit } = props;
   const firebase = useContext(FirebaseContext);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -56,7 +56,7 @@ const AddPersonForm = props => {
           .equalTo(values.personEmail)
           .once("value", snapshot => {
             const isNotDuplicate = !snapshot.exists();
-
+            if (snapshot.exists()) enqueueSnackbar("Użytkownik o tym e-mailu jest już zarejestrowany", { variant: "warning" });
             submitFigure(
               isNotDuplicate,
               redirect,

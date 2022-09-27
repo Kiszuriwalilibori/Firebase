@@ -1,4 +1,4 @@
-import { hideAddedUserMessage, submitUser, showError, showWarning, toggleSubmit } from "../js/redux/actions";
+import { hideAddedUserMessage, submitUser, showError, toggleSubmit } from "../js/redux/actions";
 
 function submitFigure(notDuplicate, redirect, data, firebase) {
   return (dispatch, getState) => {
@@ -17,7 +17,6 @@ function submitFigure(notDuplicate, redirect, data, firebase) {
         }
       });
     } else {
-      dispatch(showWarning("Użytkownik o tym e-mailu jest już zarejestrowany"));
       dispatch(toggleSubmit());
     }
   };
