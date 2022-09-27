@@ -10,7 +10,7 @@ const Persons = lazy(() => import("pages/PersonsPage"));
 const Error = lazy(() => import("pages/ErrorPage"));
 const Connecting = lazy(() => import("pages/ConnectingPage"));
 
-function App() {
+const App = (): JSX.Element => {
   return (
     <main>
       <Switch>
@@ -21,6 +21,6 @@ function App() {
       </Switch>
     </main>
   );
-}
+};
 
 export default App;

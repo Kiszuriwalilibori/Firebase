@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   media: {
     height: 60,
     width: 60,
-    margin: "0 auto",
+    margin: "12px auto 0 auto",
     backgroundSize: "contain",
     color: "white",
   },

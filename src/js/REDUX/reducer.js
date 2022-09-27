@@ -1,25 +1,6 @@
 import * as actions from "./actions";
+import initialState from "./initialState";
 import { sortFigures } from "../functions";
-
-const initialState = {
-  isLoading: false,
-  items: [],
-  isError: false,
-  errorMessage: "",
-  message: null,
-  columnSortBy: null,
-  isSortDescending: false,
-  isHiddenInputForm: true,
-  isHiddenAddUserButton: false,
-  isHiddenAddedUserMsg: true,
-  isNotLimitReached: true,
-  nonSortableColumns: new Set([0]),
-  spinnerVisible: false,
-  isAlert: false,
-  limit: 15,
-  user: null,
-  submitDisabled: false,
-};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -95,7 +76,7 @@ const reducer = (state = initialState, action) => {
         submitDisabled: toggled_submit,
       };
 
-    case actions.TOGGLE_SPINNER:
+    case actions.TOGGLE_SPINNER: // todo niewykluczone, że zbędna
       const spinner = state.spinnerVisible;
       const newSpinner = !spinner;
       return {

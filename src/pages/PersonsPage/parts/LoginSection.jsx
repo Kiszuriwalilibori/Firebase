@@ -81,13 +81,12 @@ const LoginSection = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logout, firebase]);
 
-  const usr = user ? true : false;
   return (
     <Logo.Wrapper>
-      <LinkButton size="large" disabled={!usr} onClick={requestLogout}>
+      <LinkButton size="large" disabled={!Boolean(user)} onClick={requestLogout}>
         Wyloguj się
       </LinkButton>
-      <LinkButton size="large" disabled={usr} onClick={requestLogin}>
+      <LinkButton size="large" disabled={Boolean(user)} onClick={requestLogin}>
         Zaloguj się kontem Google
       </LinkButton>
     </Logo.Wrapper>
@@ -97,6 +96,7 @@ const LoginSection = props => {
 const mapStateToProps = state => ({
   user: state.user,
 });
+
 const mapDispatchToProps = dispatch => ({
   login: data => dispatch(login(data)),
   logout: () => dispatch(logout()),
@@ -106,7 +106,7 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginSection));
 
 LoginSection.propTypes = {
-  user: PropTypes.string,
+  user: PropTypes.object,
   login: PropTypes.func,
   logout: PropTypes.func,
   showError: PropTypes.func,

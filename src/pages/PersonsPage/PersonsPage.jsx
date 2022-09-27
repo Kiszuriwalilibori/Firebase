@@ -6,36 +6,39 @@ import { login, hideError } from "js/redux/actions";
 import { loadData as load } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { Application } from "styles/style";
+import createRedirect from "js/functions/createRedirect";
 
 import * as ROUTES from "js/routes";
-import PersonsTableHeader from "./parts/PersonsTable/PersonsTableHeader";
+import PersonsTableHeader from "./parts/PersonsTable/Header";
 
 const AlertBox = lazy(() => import("./parts/Alert/Alert"));
 const Loader = lazy(() => import("../ConnectingPage/ConnectingPage"));
-const PersonsTableContent = lazy(() => import("./parts/PersonsTable/PersonsTableContent"));
+const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
 const LoginSection = lazy(() => import("./parts/LoginSection"));
-const PersonsTableSortArea = lazy(() => import("./parts/PersonsTable/PersonsTableSortArea"));
-const UserInfoCard = lazy(() => import("./parts/UserInfoCard"));
+const PersonsTableSortArea = lazy(() => import("./parts/PersonsTable/SortArea"));
+const UserInfoCard = lazy(() => import("./parts/UserCard"));
 const MessageBox = lazy(() => import("./parts/Message"));
 
-function PrepareApp(props) {
-  const { isLoading, user, load, history } = { ...props };
+function PersonsPage(props) {
+  const { isLoading, user, load, history } = props;
   const firebase = useContext(FirebaseContext);
 
-  const redirect = React.useMemo(
-    () => ({
-      error: () => {
-        history.push(ROUTES.ERROR);
-      },
-      loading: () => {
-        history.push(ROUTES.CONNECT);
-      },
-      home: () => {
-        history.push(ROUTES.PERSONS);
-      },
-    }),
-    [history]
-  );
+  const redirect = React.useMemo(createRedirect(history), []);
+
+  // const redirect = React.useMemo(
+  //   () => ({
+  //     error: () => {
+  //       history.push(ROUTES.ERROR);
+  //     },
+  //     loading: () => {
+  //       history.push(ROUTES.CONNECT);
+  //     },
+  //     home: () => {
+  //       history.push(ROUTES.PERSONS);
+  //     },
+  //   }),
+  //   [history]
+  // );
 
   useEffect(() => {
     if (redirect && firebase) {
@@ -68,8 +71,6 @@ function PrepareApp(props) {
 }
 
 const mapStateToProps = state => ({
-  isError: state.isError,
-  errorMessage: state.errorMessage,
   isLoading: state.isLoading,
   user: state.user,
 });
@@ -81,10 +82,4 @@ function mapDispatchToProps(dispatch) {
     load: (x, y) => dispatch(load(x, y)),
   };
 }
-const Persons = connect(mapStateToProps, mapDispatchToProps)(PrepareApp);
-
-export default Persons;
-
-/**
- * dograć towebp konwerter i TS
- */
+export default connect(mapStateToProps, mapDispatchToProps)(PersonsPage);

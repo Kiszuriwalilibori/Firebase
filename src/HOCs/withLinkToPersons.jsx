@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import * as ROUTES from "../js/routes";
 
-function withLinkToPersonsHOC(Component) {
+function withLinkToPersons(Component) {
   return props => (
     <Link to={ROUTES.PERSONS} style={{ textDecoration: "none" }}>
       <Component {...props} />
@@ -9,4 +9,4 @@ function withLinkToPersonsHOC(Component) {
   );
 }
 
-export default withLinkToPersonsHOC;
+export default withLinkToPersons;

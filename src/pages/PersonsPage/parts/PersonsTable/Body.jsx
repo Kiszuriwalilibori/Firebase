@@ -30,14 +30,13 @@ const Button = withStyles({
   },
 })(IconButton);
 
-const PersonsTableContent = props => {
+const PersonsTableBody = props => {
   const { items, user, showError } = props;
   const firebase = React.useContext(FirebaseContext);
   const history = useHistory();
   if (!items || items.length === 0) {
     return null;
   }
-
   const removeItem = e => {
     const ref = e.currentTarget.dataset.item_firebase_ref;
     const itemRef = firebase.database.ref(`/items/${ref}`);
@@ -87,9 +86,9 @@ const mapDispatchToProps = dispatch => ({
   showError: data => dispatch(showError(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PersonsTableContent);
+export default connect(mapStateToProps, mapDispatchToProps)(PersonsTableBody);
 
-PersonsTableContent.propTypes = {
+PersonsTableBody.propTypes = {
   items: PropTypes.arrayOf(PropTypes.array),
   user: PropTypes.object,
   showError: PropTypes.func,

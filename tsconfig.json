@@ -23,7 +23,8 @@
       "components/*": ["components/*"],
       "styles/*": ["styles/*"],
       "images/*": ["images/*"],
-      "pages/*": ["pages/*"]
+      "pages/*": ["pages/*"],
+      "types/*": ["types/*"]
     }
   },
   "include": ["src"]

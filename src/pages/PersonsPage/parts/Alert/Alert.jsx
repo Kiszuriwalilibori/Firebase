@@ -6,7 +6,7 @@ import { AlertTitle } from "@material-ui/lab";
 import { Fade } from "@material-ui/core";
 
 import { hideWarning } from "js/redux/actions";
-import renderConditionally from "HOCs/renderConditionally";
+import { renderConditionally } from "HOCs";
 import StyledAlert from "./style";
 
 // interface Props {

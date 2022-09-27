@@ -1,5 +1,5 @@
 import { getDataDone, login, showError, toggleSpinner, showMessage } from "../js/redux/actions";
-import { sortFigures } from "../js/functions";
+import { sortFigures } from "js/functions";
 
 export function load(redirect, context) {
   return (dispatch, getState) => {

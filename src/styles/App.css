@@ -1,6 +1,5 @@
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
@@ -12,40 +11,36 @@ body,
 }
 
 html {
-  background: url(../images/background.jpg) no-repeat center center fixed;
+  background: url(../images/background.webp) no-repeat center center fixed;
   background-size: cover;
 }
 
 @media (min-width: 760px) and (max-width: 1024px) {
   html {
-    background: url(../images/background_tablet.jpg) no-repeat center center fixed;
+    background: url(../images/background_tablet.webp) no-repeat center center fixed;
     background-size: cover;
   }
 }
-
 @media (min-width: 481px) and (max-width: 759px) {
   html {
-    background: url(../images/background_small.jpg) no-repeat center center fixed;
+    background: url(../images/background_small.webp) no-repeat center center fixed;
     background-size: cover;
   }
 }
-
 @media (max-width: 480px) {
   html {
-    background: url(../images/background_mobile.jpg) no-repeat center center fixed;
+    background: url(../images/background_mobile.webp) no-repeat center center fixed;
     background-size: cover;
   }
 }
-
 @media (min-width: 570px) {
   html {
     font-size: 16px;
   }
 }
-
 @media (min-width: 320px) and (max-width: 569px) {
   html {
-    font-size: calc(12px + 4 * ((100vw - 320px) / 250));
+    font-size: calc(12px + 4 * (100vw - 320px) / 250);
   }
 }
 
@@ -60,25 +55,22 @@ table {
   src: url(../fonts/icomoon.ttf) format("truetype");
   font-display: swap;
 }
-
 @font-face {
   font-family: Lato;
   src: url(../fonts/Lato-Regular.ttf) format("truetype");
   font-display: swap;
 }
-
 @font-face {
   font-family: Brush;
   src: url(../fonts/brush.ttf) format("truetype");
   font-display: swap;
 }
-
 .IcoMoon {
   font-family: IcoMoon;
 }
 
 .icon-Cross:before {
-  content: '\e904';
+  content: "\e904";
   margin: 0.5rem;
   font-family: IcoMoon;
   cursor: pointer;
@@ -91,7 +83,7 @@ tbody {
 }
 
 .icon-Sort:before {
-  content: '\e903';
+  content: "\e903";
   margin: 0.5rem;
   font-family: IcoMoon;
   cursor: normal;
@@ -107,10 +99,9 @@ tbody {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 @media (min-width: 320px) and (max-width: 1441px) {
   .landing_message {
-    font-size: calc(50px + 85 * ((100vw - 320px) / 1120));
+    font-size: calc(50px + 85 * (100vw - 320px) / 1120);
   }
 }
 
@@ -119,5 +110,4 @@ tbody {
   background-color: white;
   border-radius: 2px;
   padding: 0.5rem;
-}
-/*# sourceMappingURL=App.css.map */
+}/*# sourceMappingURL=App.css.map */

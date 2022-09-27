@@ -28,5 +28,5 @@
 // export default WarningVisibilityProvider;
 
 /**
- * todo usunąc za jakiś czas
+ * todo do przemyślenie czy nie cheilibysmy mieć za jakiś czas warninga w kontekscie a nie reduxie
  */

@@ -6,32 +6,45 @@ import { useFormik } from "formik";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from "js/redux/actions";
+import { useSnackbar } from "notistack";
 
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
 
 import submitFigure from "thunks/submitFigure";
+// import { useSubmitFigure } from "thunks/submitFigure";
 import AddPersonButton from "./AddPersonButton";
-import * as ROUTES from "js/routes";
+import createRedirect from "js/functions/createRedirect";
+import ErrorMessage from "./ErrorMessage";
+//import * as ROUTES from "js/routes";
+
+const namePattern = "[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+";
+const emailPattern = "[^@s]+@[^@s]+.[^@s]+";
 
 const AddPersonForm = props => {
   const input = useRef(null);
-  const { user, history, submitFigure, showWarning, toggleSubmit } = props;
+  const { user, history, submitFigure, toggleSubmit } = props;
   const firebase = useContext(FirebaseContext);
-  const redirect = React.useMemo(
-    () => ({
-      error: () => {
-        history.push(ROUTES.ERROR);
-      },
-      loading: () => {
-        history.push(ROUTES.CONNECT);
-      },
-      home: () => {
-        history.push(ROUTES.PERSONS);
-      },
-    }),
-    [history]
-  );
+  const { enqueueSnackbar } = useSnackbar();
+  //const { submitFigure } = useSubmitFigure();
+  console.log(submitFigure, "submitfigure");
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const redirect = React.useMemo(createRedirect(history), []);
+  // const redirect = React.useMemo(
+  //   () => ({
+  //     error: () => {
+  //       history.push(ROUTES.ERROR);
+  //     },
+  //     loading: () => {
+  //       history.push(ROUTES.CONNECT);
+  //     },
+  //     home: () => {
+  //       history.push(ROUTES.PERSONS);
+  //     },
+  //   }),
+  //   [history]
+  // );
 
   const isResetFieldsHidden = () => !!(values.personName === "" && values.personEmail === "");
   useEffect(() => input.current.focus(), [input]);
@@ -66,18 +79,21 @@ const AddPersonForm = props => {
             );
           });
       } else {
-        showWarning("Tylko zalogowani użytkownicy mogą dodawać postacie");
+        //showWarning("Tylko zalogowani użytkownicy mogą dodawać postacie");
+        enqueueSnackbar("Tylko zalogowani użytkownicy mogą dodawać postacie", {
+          variant: "warning",
+        });
       }
     },
   });
-
+  console.log(errors, "errors");
   return (
     <Input.OuterWrapper onSubmit={handleSubmit}>
       <Input.InnerWrapper>
-        <Input.Input required minLength="2" maxLength="20" pattern="[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+" placeholder="Name..." type="text" ref={input} {...getFieldProps("personName")} />
+        <Input.Input required minLength="2" maxLength="20" pattern={namePattern} placeholder="Name..." type="text" ref={input} {...getFieldProps("personName")} />
       </Input.InnerWrapper>
       <Input.InputWrapper>
-        <Input.Input minLength="2" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="Email..." type="text" {...getFieldProps("personEmail")} />
+        <Input.Input minLength="2" pattern={emailPattern} placeholder="Email..." type="text" {...getFieldProps("personEmail")} />
       </Input.InputWrapper>
 
       <AddPersonButton />
@@ -88,15 +104,12 @@ const AddPersonForm = props => {
           </Input.DangerMessage>
         </Input.ResetWrapper>
       )}
-      {submitCount > 0 && errors && <span className="AddPersonForm__error-message">{JSON.stringify(errors, null, 2).substring(1, JSON.stringify(errors, null, 2).length - 1)}</span>}
+      {submitCount > 0 && errors && Object.keys(errors).length && <ErrorMessage errors={errors} />}
     </Input.OuterWrapper>
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  showWarning: data => {
-    dispatch(showWarning(data));
-  },
   showError: data => {
     dispatch(showError(data));
   },
@@ -120,7 +133,6 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddPerson
 AddPersonForm.propTypes = {
   onSubmit: PropTypes.func,
   submitFigure: PropTypes.func,
-  showWarning: PropTypes.func,
   toggleSubmit: PropTypes.func,
   user: PropTypes.object,
   history: PropTypes.object,

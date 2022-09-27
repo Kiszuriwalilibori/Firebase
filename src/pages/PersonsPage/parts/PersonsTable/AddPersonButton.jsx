@@ -6,9 +6,9 @@ import { Input } from "styles/style";
 const AddPersonButton = props => {
   const { isDisabled } = props;
   return (
-    <Input.btn type="submit" id="SubmitButton" disabled={isDisabled}>
+    <Input.Btn type="submit" id="SubmitButton" disabled={isDisabled}>
       <span>Submit</span>
-    </Input.btn>
+    </Input.Btn>
   );
 };
 

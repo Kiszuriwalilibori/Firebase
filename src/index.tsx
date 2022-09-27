@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 
 import { AppProvider, App } from "./components";
-import breakWhenInternetExplorer from "js/breakWhenInternertExplorer";
+import breakWhenInternetExplorer from "js/functions/breakWhenInternertExplorer";
 
 breakWhenInternetExplorer();
 

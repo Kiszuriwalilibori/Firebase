@@ -6,7 +6,8 @@ import { withStyles } from "@material-ui/core/styles";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
-import renderConditionally from "HOCs/renderConditionally";
+
+import { renderConditionally } from "HOCs";
 
 export const ContainerVerticallyCentered = withStyles({
   root: {
@@ -16,6 +17,9 @@ export const ContainerVerticallyCentered = withStyles({
     height: "100vh",
   },
 })(Container);
+/**
+ * todo prawdopodobne nadużycie mui w powyższym
+ * */
 
 const ColorCircularProgress = withStyles({
   root: {
@@ -25,7 +29,7 @@ const ColorCircularProgress = withStyles({
   },
 })(CircularProgress);
 
-const ConnectingPage = props => {
+const ConnectingPage = () => {
   return (
     <ContainerVerticallyCentered>
       <ColorCircularProgress thickness={5} size={100} />

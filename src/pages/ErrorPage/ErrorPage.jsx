@@ -7,7 +7,7 @@ import { withRouter } from "react-router";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 
-import withLinkToPersonsHOC from "HOCs/withLinkToPersonsHOC";
+import { withLinkToPersons } from "HOCs";
 
 const Container = withStyles({
   root: {
@@ -19,7 +19,7 @@ const Container = withStyles({
     alignItems: "center",
     background: "rgba( 255,255,255,0.4)",
   },
-})(Box);
+})(Box); /// prawdopodobnie zaira nadmiary to co powyzej bo container jako mui centruje sam z siebie
 
 const NewAlert = withStyles({
   root: {
@@ -51,8 +51,12 @@ const mapStateToProps = state => ({
   message: state.errorMessage,
 });
 
-export default withRouter(connect(mapStateToProps, null)(withLinkToPersonsHOC(Error)));
+export default withRouter(connect(mapStateToProps, null)(withLinkToPersons(Error)));
 
 Error.propTypes = {
   message: PropTypes.string,
 };
+
+/**
+ * todo pytanie czy Erorpage to nie jest z armatą na wróblla, czy nie wystarczyłby notistack
+ */

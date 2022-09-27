@@ -3,15 +3,17 @@ import Grow from "@material-ui/core/Grow";
 
 import { WelcomeTextContainer } from "./parts/WelcomeTextContainer";
 
-import withLinkToPersonsHOC from "HOCs/withLinkToPersonsHOC";
+import { withLinkToPersons } from "HOCs";
+
+const welcome = "Witamy w Firebase :)";
 
 const LandingPage = React.memo(() => {
   return (
     <WelcomeTextContainer>
       <Grow in={true}>
-        <h1 className="landing_message">Witamy w Firebase :)</h1>
+        <h1 className="landing_message">{welcome}</h1>
       </Grow>
     </WelcomeTextContainer>
   );
 });
-export default withLinkToPersonsHOC(LandingPage);
+export default withLinkToPersons(LandingPage);
