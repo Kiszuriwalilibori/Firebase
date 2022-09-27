@@ -7,8 +7,8 @@ import { loadData as load } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { Application } from "styles/style";
 import createRedirect from "js/functions/createRedirect";
-
-import * as ROUTES from "js/routes";
+import isOffline from "js/functions/isOffline";
+import { useSnackbar } from "notistack";
 import PersonsTableHeader from "./parts/PersonsTable/Header";
 
 const AlertBox = lazy(() => import("./parts/Alert/Alert"));
@@ -21,32 +21,26 @@ const MessageBox = lazy(() => import("./parts/Message"));
 
 function PersonsPage(props) {
   const { isLoading, user, load, history } = props;
+  console.log("isLoading", isLoading);
   const firebase = useContext(FirebaseContext);
-
+  const { enqueueSnackbar } = useSnackbar();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const redirect = React.useMemo(createRedirect(history), []);
-
-  // const redirect = React.useMemo(
-  //   () => ({
-  //     error: () => {
-  //       history.push(ROUTES.ERROR);
-  //     },
-  //     loading: () => {
-  //       history.push(ROUTES.CONNECT);
-  //     },
-  //     home: () => {
-  //       history.push(ROUTES.PERSONS);
-  //     },
-  //   }),
-  //   [history]
-  // );
-
+  console.log(isOffline(), "isOffline");
+  isOffline() && enqueueSnackbar("W tej chwili nie masz połączenia z interenetem. Popróbuj później", { variant: "error" });
+  isOffline() && redirect.landing();
   useEffect(() => {
-    if (redirect && firebase) {
-      load(redirect, firebase);
+    console.log(isOffline(), "offline from effect");
+    if (isOffline()) {
+      redirect.landing();
+    } else {
+      if (redirect && firebase) {
+        load(redirect, firebase);
+      }
     }
   }, [firebase, redirect, load]);
 
-  return (
+  return !isOffline() ? (
     <>
       <Suspense fallback={null}>
         <AlertBox />
@@ -67,7 +61,7 @@ function PersonsPage(props) {
         <MessageBox />
       </Suspense>
     </>
-  );
+  ) : null;
 }
 
 const mapStateToProps = state => ({
@@ -83,3 +77,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PersonsPage);
+
+/**
+ * todo prawdoopodobnie jebie sie przez ten dziwaczny sposób na loader, to zasysa cały komponent connectingPage
+ */

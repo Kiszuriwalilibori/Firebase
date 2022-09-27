@@ -71,7 +71,6 @@ const reducer = (state = initialState, action) => {
       };
     case actions.TOGGLE_SUBMIT:
       const toggled_submit = !state.submitDisabled;
-      console.log(state.submitDisabled, "togglesubmit");
       return {
         ...state,
         submitDisabled: toggled_submit,

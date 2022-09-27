@@ -13,6 +13,9 @@ const createRedirect = (history /*: History*/) => {
     home: () => {
       history.push(ROUTES.PERSONS);
     },
+    landing: () => {
+      history.push(ROUTES.LANDING);
+    },
   });
 };
 
