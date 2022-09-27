@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from "js/redux/actions";
+import { useSnackbar } from "notistack";
 
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
@@ -18,6 +19,8 @@ const AddPersonForm = props => {
   const input = useRef(null);
   const { user, history, submitFigure, showWarning, toggleSubmit } = props;
   const firebase = useContext(FirebaseContext);
+  const { enqueueSnackbar } = useSnackbar();
+
   const redirect = React.useMemo(
     () => ({
       error: () => {
