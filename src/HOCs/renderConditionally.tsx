@@ -1,13 +1,12 @@
 interface renderCondition {
-  renderCondition?: boolean;
+  renderCondition: boolean;
 }
-
-function renderConditionally<T>(Component: React.ComponentType<React.PropsWithChildren<T>>) {
-  return function (props: Partial<renderCondition & React.PropsWithChildren<T>>) {
+function renderWhenIsVisible<T>(Component: React.ComponentType<T | Omit<T & renderCondition, keyof renderCondition>>) {
+  return function (props: T & renderCondition) {
     const { renderCondition: isVisible, ...newProps } = props;
 
-    return props.renderCondition ? <Component {...(newProps as unknown as React.PropsWithChildren<T>)} /> : null;
+    return props.renderCondition ? <Component {...newProps} /> : null;
   };
 }
 
-export default renderConditionally;
+export default renderWhenIsVisible;
