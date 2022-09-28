@@ -1,15 +1,16 @@
 import React, { useEffect, lazy, Suspense, useContext } from "react";
 import { connect } from "react-redux";
 import { Fade } from "@material-ui/core";
+import { useSnackbar } from "notistack";
+
+import createRedirect from "js/functions/createRedirect";
+import isOffline from "js/functions/isOffline";
+import PersonsTableHeader from "./parts/PersonsTable/Header";
 
 import { login, hideError } from "js/redux/actions";
 import { loadData as load } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { Application } from "styles/style";
-import createRedirect from "js/functions/createRedirect";
-import isOffline from "js/functions/isOffline";
-import { useSnackbar } from "notistack";
-import PersonsTableHeader from "./parts/PersonsTable/Header";
 
 const AlertBox = lazy(() => import("./parts/Alert/Alert"));
 const Loader = lazy(() => import("../ConnectingPage/ConnectingPage"));
@@ -79,5 +80,5 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(PersonsPage);
 
 /**
- * todo prawdoopodobnie jebie sie przez ten dziwaczny sposób na loader, to zasysa cały komponent connectingPage
+ * todo prawdoopodobnie przeszkadza ten  dziwaczny sposób na loader, to zasysa cały komponent connectingPage
  */
