@@ -21,6 +21,7 @@ const AppProvider: React.FC = ({ children }) => {
           vertical: "bottom",
           horizontal: "center",
         }}
+        preventDuplicate={true}
       >
         <Provider store={store}>
           <Router basename={process.env.PUBLIC_URL}>{children}</Router>

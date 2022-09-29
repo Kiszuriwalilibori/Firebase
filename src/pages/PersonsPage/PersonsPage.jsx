@@ -18,20 +18,19 @@ const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
 const LoginSection = lazy(() => import("./parts/LoginSection"));
 const PersonsTableSortArea = lazy(() => import("./parts/PersonsTable/SortArea"));
 const UserInfoCard = lazy(() => import("./parts/UserCard"));
-const MessageBox = lazy(() => import("./parts/Message"));
 
 function PersonsPage(props) {
-  const { isLoading, user, load, history } = props;
+  const { isLoading, user, load, history, isMessage, message } = props;
   console.log("isLoading", isLoading);
   const firebase = useContext(FirebaseContext);
   const { enqueueSnackbar } = useSnackbar();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const redirect = React.useMemo(createRedirect(history), []);
-  console.log(isOffline(), "isOffline");
   isOffline() && enqueueSnackbar("W tej chwili nie masz połączenia z interenetem. Popróbuj później", { variant: "error" });
   isOffline() && redirect.landing();
+  isMessage && enqueueSnackbar(message, { variant: "info" });
+
   useEffect(() => {
-    console.log(isOffline(), "offline from effect");
     if (isOffline()) {
       redirect.landing();
     } else {
@@ -59,7 +58,6 @@ function PersonsPage(props) {
             </Application.TableWrapper>
           </Fade>
         </Application.App>
-        <MessageBox />
       </Suspense>
     </>
   ) : null;
@@ -68,6 +66,8 @@ function PersonsPage(props) {
 const mapStateToProps = state => ({
   isLoading: state.isLoading,
   user: state.user,
+  isMessage: state.isMessage,
+  message: state.message,
 });
 
 function mapDispatchToProps(dispatch) {
@@ -81,4 +81,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(PersonsPage);
 
 /**
  * todo prawdoopodobnie przeszkadza ten  dziwaczny sposób na loader, to zasysa cały komponent connectingPage
+ *
  */
