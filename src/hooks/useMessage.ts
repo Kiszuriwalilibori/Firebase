@@ -4,19 +4,19 @@ const useMessage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const showMessage = {
-    info: function (str) {
+    info: function (str: string) {
       enqueueSnackbar(str, { variant: "info" });
     },
 
-    error: function (str) {
+    error: function (str: string) {
       enqueueSnackbar(str, { variant: "error" });
     },
 
-    success: function (str) {
+    success: function (str: string) {
       enqueueSnackbar(str, { variant: "success" });
     },
 
-    warning: function (str) {
+    warning: function (str: string) {
       enqueueSnackbar(str, { variant: "warning" });
     },
   };
