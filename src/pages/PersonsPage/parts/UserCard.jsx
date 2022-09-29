@@ -1,4 +1,3 @@
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Card from "@material-ui/core/Card";
@@ -30,6 +29,7 @@ const useStyles = makeStyles({
 export default function UserInfoCard(props) {
   const classes = useStyles();
   const { user } = props;
+  console.log(user);
 
   return (
     <Card className={classes.root}>
@@ -51,3 +51,7 @@ export default function UserInfoCard(props) {
 UserInfoCard.propTypes = {
   user: PropTypes.object,
 };
+
+/**
+ * todo - a jeżeli nie ma zdjęcia to co wtedy ??? babol leci dzisiaj ale wczoraj było dobrze. I teraz znowu jest dobrze. Dać by grawatara jako alternatywę
+ */

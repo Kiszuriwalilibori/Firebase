@@ -10,7 +10,7 @@ import useMessage from "hooks/useMessage";
 import { login, hideError } from "js/redux/actions";
 import { loadData as load } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
-import { Application } from "styles/style";
+import { Application, PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";
 
 const Loader = lazy(() => import("../ConnectingPage/ConnectingPage"));
 const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
@@ -29,11 +29,9 @@ function PersonsPage(props) {
 
   isOffline() && redirect.landing();
 
-  isMessage && showMessage.info(message);
-
   isAlert && console.warn("isAlert");
   useEffect(() => {
-    if (isOffline()) {
+    if (isOffline() && redirect) {
       redirect.landing();
     } else {
       if (redirect && firebase) {
@@ -42,24 +40,28 @@ function PersonsPage(props) {
     }
   }, [firebase, redirect, load]);
 
+  useEffect(() => {
+    isMessage && showMessage.info(message);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMessage]);
+
   return !isOffline() ? (
     <>
       <Suspense fallback={null}>
-        {/* <AlertBox /> */}
         {user && <UserInfoCard user={user} />}
         <Loader visible={isLoading} />
-        <Application.App>
+        <PersonsPageContainer>
           <LoginSection />
           <Fade in={true} timeout={2000}>
-            <Application.TableWrapper>
+            <PersonsTableContainer>
               <PersonsTableHeader />
-              <Application.Table>
+              <PersonsTableBody>
                 <PersonsTableSortArea />
                 <PersonsTableContent />
-              </Application.Table>
-            </Application.TableWrapper>
+              </PersonsTableBody>
+            </PersonsTableContainer>
           </Fade>
-        </Application.App>
+        </PersonsPageContainer>
       </Suspense>
     </>
   ) : null;
@@ -85,5 +87,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(PersonsPage);
 /**
  * todo prawdoopodobnie przeszkadza ten  dziwaczny sposób na loader, to zasysa cały komponent connectingPage
  * todo isAlert dodane testowo jeżeli nie bedzie wyskakiwało usunąć
- *
+ * todo po pierwsze load wywołuje sie dwa razy i nie wiem dlaczego.
+ * todo te application.App powinny być semantyczne
  */

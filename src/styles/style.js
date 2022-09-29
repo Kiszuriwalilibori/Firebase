@@ -50,18 +50,18 @@ const btn_dis = styled(btn)`
 `;
 
 export const Application = {
-  App: styled.div`
-    overflow-y: auto;
-    display: flex;
-    min-height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 20vh;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-  `,
+  // App: styled.div`
+  //   overflow-y: auto;
+  //   display: flex;
+  //   min-height: 100%;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   justify-content: flex-start;
+  //   padding-top: 20vh;
+  //   width: 100%;
+  //   max-width: 800px;
+  //   margin: 0 auto;
+  // `,
   TableWrapper: styled.main`
     width: 96%;
     border-radius: 0.25rem;
@@ -278,4 +278,49 @@ html {
  
 
 }
+`;
+
+export const PersonsPageContainer = styled.div`
+  overflow-y: auto;
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20vh;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+/**
+ * todo Application.App w zasadzie dow wywalenia
+ * */
+
+export const PersonsTableContainer = styled.main`
+  width: 96%;
+  border-radius: 0.25rem;
+  border: 1px solid #3c5063;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 2px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: "Lato", sans-serif;
+  margin: 1vw 1vw;
+  @media (max-width: 569px) {
+    font-size: calc(12px + 4 * ((100vw - 320px) / 249));
+  }
+`;
+
+export const PersonsTableBody = styled.table`
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
+  box-shadow: inset 0 1px 1px rgba(200, 200, 200, 0.11);
+
+  @media (max-width: 300px) {
+    display: block;
+  }
+
+  @media (min-width: 569px) {
+    overflow-y: visible;
+  }
 `;
