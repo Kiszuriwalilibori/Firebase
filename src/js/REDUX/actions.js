@@ -108,3 +108,7 @@ export function hideAddedUserMessage() {
     type: HIDE_ADDED_USER_MESSAGE,
   };
 }
+
+/**
+ * todo prawdopodobnie SHOW_WARNING i HIDE_WARNING nie są nigdzie wykorzystywane, to samo w reducerze
+ */

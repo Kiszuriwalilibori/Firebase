@@ -1,4 +1,4 @@
-import { getDataDone, login, showError, toggleSpinner, showMessage } from "../js/redux/actions";
+import { getDataDone, login, showError, toggleSpinner, showMessage, hideMessage } from "../js/redux/actions";
 import { sortFigures } from "js/functions";
 
 export function load(redirect, context) {
@@ -6,6 +6,7 @@ export function load(redirect, context) {
     context.connectedRef.on("value", function (snap) {
       if (snap.val() === true) {
         dispatch(showMessage("Ustanowiono lub przywrócono połączenie z bazą danych"));
+        dispatch(hideMessage());
       } else {
         dispatch(showError("W tej chwili nie masz połączenia z bazą. Wskazane jest abyś nie wykonywał operacji zapisu i odczytu, gdyż mają one wyłacznie lokalny zasięg i nie zmieniają bazy"));
         redirect.error();

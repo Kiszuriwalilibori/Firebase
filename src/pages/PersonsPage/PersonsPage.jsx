@@ -1,18 +1,17 @@
 import React, { useEffect, lazy, Suspense, useContext } from "react";
 import { connect } from "react-redux";
 import { Fade } from "@material-ui/core";
-import { useSnackbar } from "notistack";
 
 import createRedirect from "js/functions/createRedirect";
 import isOffline from "js/functions/isOffline";
 import PersonsTableHeader from "./parts/PersonsTable/Header";
+import useMessage from "hooks/useMessage";
 
 import { login, hideError } from "js/redux/actions";
 import { loadData as load } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { Application } from "styles/style";
 
-const AlertBox = lazy(() => import("./parts/Alert/Alert"));
 const Loader = lazy(() => import("../ConnectingPage/ConnectingPage"));
 const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
 const LoginSection = lazy(() => import("./parts/LoginSection"));
@@ -20,16 +19,19 @@ const PersonsTableSortArea = lazy(() => import("./parts/PersonsTable/SortArea"))
 const UserInfoCard = lazy(() => import("./parts/UserCard"));
 
 function PersonsPage(props) {
-  const { isLoading, user, load, history, isMessage, message } = props;
-  console.log("isLoading", isLoading);
+  const { isLoading, user, load, history, isMessage, message, isAlert } = props;
   const firebase = useContext(FirebaseContext);
-  const { enqueueSnackbar } = useSnackbar();
+  const showMessage = useMessage();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const redirect = React.useMemo(createRedirect(history), []);
-  isOffline() && enqueueSnackbar("W tej chwili nie masz połączenia z interenetem. Popróbuj później", { variant: "error" });
-  isOffline() && redirect.landing();
-  isMessage && enqueueSnackbar(message, { variant: "info" });
 
+  isOffline() && showMessage.error("W tej chwili nie masz połączenia z interenetem. Popróbuj później");
+
+  isOffline() && redirect.landing();
+
+  isMessage && showMessage.info(message);
+
+  isAlert && console.warn("isAlert");
   useEffect(() => {
     if (isOffline()) {
       redirect.landing();
@@ -43,7 +45,7 @@ function PersonsPage(props) {
   return !isOffline() ? (
     <>
       <Suspense fallback={null}>
-        <AlertBox />
+        {/* <AlertBox /> */}
         {user && <UserInfoCard user={user} />}
         <Loader visible={isLoading} />
         <Application.App>
@@ -68,6 +70,7 @@ const mapStateToProps = state => ({
   user: state.user,
   isMessage: state.isMessage,
   message: state.message,
+  isAlert: state.isAlert,
 });
 
 function mapDispatchToProps(dispatch) {
@@ -81,5 +84,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(PersonsPage);
 
 /**
  * todo prawdoopodobnie przeszkadza ten  dziwaczny sposób na loader, to zasysa cały komponent connectingPage
+ * todo isAlert dodane testowo jeżeli nie bedzie wyskakiwało usunąć
  *
  */

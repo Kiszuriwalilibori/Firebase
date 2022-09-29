@@ -24,7 +24,8 @@
       "styles/*": ["styles/*"],
       "images/*": ["images/*"],
       "pages/*": ["pages/*"],
-      "types/*": ["types/*"]
+      "types/*": ["types/*"],
+      "hooks/*": ["hooks/*"]
     }
   },
   "include": ["src"]
