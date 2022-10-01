@@ -13,6 +13,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "add": "^2.0.6",
+    "caniuse-lite": "^1.0.30001414",
     "es6-promise": "^4.2.8",
     "firebase": "^7.14.3",
     "formik": "^2.2.9",
