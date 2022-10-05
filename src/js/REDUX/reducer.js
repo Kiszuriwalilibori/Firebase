@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isError: true,
-        errorMessage: action.payload,
+        errorMessage: action.payload ? action.payload : "Nieokreslony błąd",
       };
     case actions.HIDE_ERROR:
       return {
