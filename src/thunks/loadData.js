@@ -2,7 +2,6 @@ import { getDataDone, login, showError, toggleSpinner, showMessage, hideMessage 
 import { sortFigures } from "js/functions";
 
 export function load(redirect, context) {
-  console.log("from load");
   return (dispatch, getState) => {
     context.connectedRef.on("value", function (snap) {
       if (snap.val() === true) {
