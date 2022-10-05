@@ -10,7 +10,7 @@ import useMessage from "hooks/useMessage";
 import { login, hideError } from "js/redux/actions";
 import { loadData as load } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
-import { Application, PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";
+import { PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";
 
 const Loader = lazy(() => import("../ConnectingPage/ConnectingPage"));
 const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
@@ -29,7 +29,7 @@ function PersonsPage(props) {
 
   isOffline() && redirect.landing();
 
-  isAlert && console.warn("isAlert");
+  isAlert && console.warn("isAlert"); /// isAlert dodane testowo jeżeli nie bedzie wyskakiwało usunąć
   useEffect(() => {
     if (isOffline() && redirect) {
       redirect.landing();
@@ -88,5 +88,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(PersonsPage);
  * todo prawdoopodobnie przeszkadza ten  dziwaczny sposób na loader, to zasysa cały komponent connectingPage
  * todo isAlert dodane testowo jeżeli nie bedzie wyskakiwało usunąć
  * todo po pierwsze load wywołuje sie dwa razy i nie wiem dlaczego.
- * todo te application.App powinny być semantyczne
  */
