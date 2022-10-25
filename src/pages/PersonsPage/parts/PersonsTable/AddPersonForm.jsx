@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useContext } from "react";
 import * as Yup from "yup";
 import PropTypes from "prop-types";
+import isEmpty from "lodash/isEmpty";
 
 import { useFormik } from "formik";
 import { connect } from "react-redux";
@@ -91,7 +92,7 @@ const AddPersonForm = props => {
           </Input.DangerMessage>
         </Input.ResetWrapper>
       )}
-      {submitCount > 0 && errors && <span className="AddPersonForm__error-message">{JSON.stringify(errors, null, 2).substring(1, JSON.stringify(errors, null, 2).length - 1)}</span>}
+      {submitCount > 0 && !isEmpty(errors) && <span className="AddPersonForm__error-message">{JSON.stringify(errors, null, 2).substring(1, JSON.stringify(errors, null, 2).length - 1)}</span>}
     </Input.OuterWrapper>
   );
 };

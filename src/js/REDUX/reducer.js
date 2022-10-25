@@ -76,14 +76,6 @@ const reducer = (state = initialState, action) => {
         submitDisabled: toggled_submit,
       };
 
-    case actions.TOGGLE_SPINNER: // todo niewykluczone, że zbędna
-      const spinner = state.spinnerVisible;
-      const newSpinner = !spinner;
-      return {
-        ...state,
-        spinnerVisible: newSpinner,
-      };
-
     case actions.GET_DATA_DONE:
       const { limit } = state;
 
