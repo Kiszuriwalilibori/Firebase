@@ -12,7 +12,6 @@ const initialState = {
   isHiddenAddUserButton: false,
   isHiddenAddedUserMsg: true,
   isNotLimitReached: true,
-  nonSortableColumns: new Set([0]),
   spinnerVisible: false,
   isAlert: false,
   limit: 15,

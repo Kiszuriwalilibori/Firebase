@@ -166,8 +166,11 @@ text-align: left;
 
 vertical-align:top;
 border-top: 1px solid;
+&:hover,&:focus{
+  background-color: #67829e;
+}
 `,
-  Section: props => <Header.SectionStyle className="icon-Sort">{props.children}</Header.SectionStyle>,
+  Section: props => <Header.SectionStyle className="icon-Sort" tabIndex={props.focusable? 0:-1}>{props.children}</Header.SectionStyle>,
 };
 
 export const Rows = {

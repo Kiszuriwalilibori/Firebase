@@ -2,15 +2,17 @@ import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 
-import { headings } from "../../../../config";
+import createSortOrderMarker from "./scripts/createSortOrderMarker";
+
+import { headings, nonSortableColumns } from "../../../../config";
 import { sort } from "js/redux/actions";
 import { Header } from "styles/style";
 
-const PersonsTableSortArea = props => {
-  const { columnSortBy, nonSortableColumns, isSortDescending, onSort } = props;
-  const isCurrentColumnSorted = x => columnSortBy === x;
-  const arrow = isSortDescending ? "\u2191" : "\u2193";
 
+
+const PersonsTableSortArea = props => {
+  const { columnSortBy,isSortDescending, onSort } = props;
+  
   const handleSort = e => {
     const targetColumn = e.target.cellIndex;
     const columnNotExcludedFromSorting = nonSortableColumns === undefined || !nonSortableColumns.has(targetColumn);
@@ -29,7 +31,7 @@ const PersonsTableSortArea = props => {
     <Header.Wrapper onClick={handleSort}>
       <tr>
         {headings.map((item, index) => (
-          <Header.Section key={item}> {isCurrentColumnSorted(index) ? item + arrow : item} </Header.Section>
+          <Header.Section key={item} focusable={!nonSortableColumns.has(index)}>   {item + createSortOrderMarker(index, isSortDescending, columnSortBy)} </Header.Section>
         ))}
       </tr>
     </Header.Wrapper>
@@ -39,7 +41,7 @@ const PersonsTableSortArea = props => {
 const mapStateToProps = state => ({
   columnSortBy: state.columnSortBy,
   isSortDescending: state.isSortDescending,
-  nonSortableColumns: state.nonSortableColumns,
+  
 });
 
 const mapDispatchToProps = dispatch => ({

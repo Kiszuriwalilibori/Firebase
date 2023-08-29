@@ -31,13 +31,13 @@ const LinkButton = withStyles({
     "&:hover": {
       backgroundColor: "white",
       color: "#1E656D",
-      borderColor: "303f4f",
+      borderColor: "#303f4f",
     },
     "&:active": {
       boxShadow: "none",
       backgroundColor: "white",
       color: "#1E656D",
-      borderColor: "303f4f",
+      borderColor: "#303f4f",
     },
     "&:focus": {
       boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",

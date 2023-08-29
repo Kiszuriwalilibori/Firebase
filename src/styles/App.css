@@ -86,7 +86,7 @@ tbody {
   content: "\e903";
   margin: 0.5rem;
   font-family: IcoMoon;
-  cursor: normal;
+  cursor: pointer;
   color: #fbea58;
 }
 
@@ -110,4 +110,4 @@ tbody {
   background-color: white;
   border-radius: 2px;
   padding: 0.5rem;
-}/*# sourceMappingURL=App.css.map */
+}
