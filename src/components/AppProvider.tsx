@@ -6,13 +6,14 @@ import { SnackbarProvider } from "notistack";
 
 import reducer from "js/redux/reducer";
 import thunk from "redux-thunk";
-import * as serviceWorker from "../serviceWorker";
 
 import "styles/App.css";
 import React from "react";
+import { register } from "serviceWorkerRegistration";
 
-const store = createStore(reducer, applyMiddleware(thunk));
-const AppProvider: React.FC = ({ children }) => {
+const store = createStore(reducer, applyMiddleware(thunk)); // do not ever update or app will break
+
+export const AppProvider: React.FC = ({ children }) => {
   return (
     <FirebaseContext.Provider value={new Firebase()}>
       <SnackbarProvider
@@ -32,7 +33,7 @@ const AppProvider: React.FC = ({ children }) => {
 };
 
 export type RootStateType = ReturnType<typeof store.getState>;
-
-serviceWorker.register();
+export type AppDispatch = typeof store.dispatch;
+register();
 
 export default AppProvider;

@@ -6,8 +6,17 @@ import AddPersonForm from "./AddPersonForm";
 
 import { showAddUserForm } from "js/redux/actions";
 import { Overhead } from "styles/style";
+import { AppDispatch, RootStateType } from "components/AppProvider";
 
-const PersonsTableHeader = props => {
+interface Props {
+    isHiddenAddUserButton: Boolean;
+    isHiddenAddedUserMsg: Boolean;
+    isHiddenInputForm: Boolean;
+    isNotLimitReached: Boolean;
+    onAddUser: Function;
+}
+
+const PersonsTableHeader = (props:Props) => {
   const { isHiddenAddUserButton, isHiddenAddedUserMsg, isHiddenInputForm, isNotLimitReached, onAddUser } = props;
 
   const AddUserButton = () =>
@@ -46,14 +55,14 @@ const PersonsTableHeader = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state:RootStateType) => ({
   isHiddenAddUserButton: state.isHiddenAddUserButton,
   isHiddenAddedUserMsg: state.isHiddenAddedUserMsg,
   isHiddenInputForm: state.isHiddenInputForm,
   isNotLimitReached: state.isNotLimitReached,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch:AppDispatch) => ({
   onAddUser: () => dispatch(showAddUserForm()),
 });
 

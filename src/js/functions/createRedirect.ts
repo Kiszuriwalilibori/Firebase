@@ -1,9 +1,8 @@
 import * as ROUTES from "js/routes";
-//import { History } from "history";
-// import { RedirectType } from "types";
 
-const createRedirect = (history /*: History*/) => {
-  return () /*: RedirectType*/ => ({
+
+const createRedirect = (history:string[]) => {
+  return ()  => ({
     error: () => {
       history.push(ROUTES.ERROR);
     },

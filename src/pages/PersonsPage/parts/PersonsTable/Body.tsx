@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import ClearRoundedIcon from "@material-ui/icons/Clear";
 import IconButton from "@material-ui/core/IconButton";
 import uuid from "react-uuid";
@@ -11,7 +10,10 @@ import { connect } from "react-redux";
 import { showError } from "js/redux/actions";
 import { Rows } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
+import { ErrorType, FirebaseError, User } from "types";
+
 import * as ROUTES from "js/routes";
+import { AppDispatch, RootStateType } from "components/AppProvider";
 
 const iconColor = "#FF0801;";
 const iconHoverColor = "rgba(247,0,0,0.34)";
@@ -30,25 +32,39 @@ const Button = withStyles({
   },
 })(IconButton);
 
-const PersonsTableBody = props => {
+
+
+interface Props {
+    items: string[][];
+    user: User;
+    showError: (data: ErrorType) => void;
+}
+
+const PersonsTableBody = (props:Props) => {
   const { items, user, showError } = props;
   const firebase = React.useContext(FirebaseContext);
   const history = useHistory();
   if (!items || items.length === 0) {
     return null;
   }
-  const removeItem = e => {
+ 
+  const removeItem: React.MouseEventHandler<HTMLButtonElement> = (e: React.MouseEvent<HTMLButtonElement>) => {
     const ref = e.currentTarget.dataset.item_firebase_ref;
     const itemRef = firebase.database.ref(`/items/${ref}`);
     if (itemRef) {
       try {
         itemRef.remove();
-      } catch (err) {
-        showError(err.message);
+      } catch (err:any) {
+        const e =err as FirebaseError;
+        showError({ errorMessage: e.message, isError:true});
         history.push(ROUTES.ERROR);
       }
     } else {
-      showError("Podczas próby usunięcia użytkownika pojawił się problem. Wszystko wskazuje, że tego użytkownika nie ma już w bazie");
+      showError({
+                errorMessage:
+                    "Podczas próby usunięcia użytkownika pojawił się problem. Wszystko wskazuje, że tego użytkownika nie ma już w bazie",
+                isError: true,
+            });
       history.push(ROUTES.ERROR);
     }
   };
@@ -77,19 +93,14 @@ const PersonsTableBody = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state:RootStateType) => ({
   items: state.items,
-  user: state.user,
+  user: state.user as unknown as  User,
 });
 
-const mapDispatchToProps = dispatch => ({
-  showError: data => dispatch(showError(data)),
+const mapDispatchToProps = (dispatch:AppDispatch) => ({
+  showError: (data:ErrorType) => dispatch(showError(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonsTableBody);
 
-PersonsTableBody.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.array),
-  user: PropTypes.object,
-  showError: PropTypes.func,
-};

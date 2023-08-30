@@ -7,13 +7,21 @@ import createSortOrderMarker from "./scripts/createSortOrderMarker";
 import { headings, nonSortableColumns } from "../../../../config";
 import { sort } from "js/redux/actions";
 import { Header } from "styles/style";
+import { AppDispatch, RootStateType } from "components/AppProvider";
+
+interface Props {
+    columnSortBy: number | undefined;
+    isSortDescending: true | false;
+    onSort:Function;
+   
+}
 
 
 
-const PersonsTableSortArea = props => {
+const PersonsTableSortArea = (props:Props) => {
   const { columnSortBy,isSortDescending, onSort } = props;
   
-  const handleSort = e => {
+  const handleSort = (e: { target: { cellIndex: any }}) => {
     const targetColumn = e.target.cellIndex;
     const columnNotExcludedFromSorting = nonSortableColumns === undefined || !nonSortableColumns.has(targetColumn);
 
@@ -38,21 +46,15 @@ const PersonsTableSortArea = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state:RootStateType) => ({
   columnSortBy: state.columnSortBy,
   isSortDescending: state.isSortDescending,
   
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSort: data => dispatch(sort(data)),
+const mapDispatchToProps = (dispatch:AppDispatch) => ({
+  onSort: (data:any) => dispatch(sort(data)),
 });
-//PersonsTableSortArea = connect(mapStateToProps, mapDispatchToProps)(PersonsTableSortArea);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonsTableSortArea);
 
-PersonsTableSortArea.propTypes = {
-  columnSortBy: PropTypes.number,
-  isSortDescending: PropTypes.oneOf([true, false, null]),
-  onSort: PropTypes.func,
-};

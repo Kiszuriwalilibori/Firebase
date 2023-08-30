@@ -1,5 +1,7 @@
 import App from "./App";
-import AppProvider from "./AppProvider";
+
 import Awaiting from "./Awaiting";
+import { AppDispatch, RootStateType, AppProvider } from "./AppProvider";
 
 export { App, AppProvider, Awaiting };
+export type { RootStateType, AppDispatch };

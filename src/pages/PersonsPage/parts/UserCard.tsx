@@ -5,7 +5,8 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
+
+import { User } from "types/index";
 
 const useStyles = makeStyles({
   root: {
@@ -26,14 +27,18 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UserInfoCard(props) {
+interface Props{
+  user:User;
+}
+
+export default function UserInfoCard(props:Props) {
   const classes = useStyles();
   const { user } = props;
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={user.photoURL} title="user photo" component="img" />
+        <CardMedia className={classes.media} image={user.photoURL  as string|undefined} title="user photo" component="img" />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             {user.displayName || user.email}
@@ -46,11 +51,3 @@ export default function UserInfoCard(props) {
     </Card>
   );
 }
-
-UserInfoCard.propTypes = {
-  user: PropTypes.object,
-};
-
-/**
- * todo - a jeżeli nie ma zdjęcia to co wtedy ??? babol leci dzisiaj ale wczoraj było dobrze. I teraz znowu jest dobrze. Dać by grawatara jako alternatywę
- */

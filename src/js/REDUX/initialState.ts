@@ -6,7 +6,7 @@ const initialState = {
   isError: false,
   errorMessage: "",
   message: null,
-  columnSortBy: null,
+  columnSortBy: undefined,
   isSortDescending: false,
   isHiddenInputForm: true,
   isHiddenAddUserButton: false,

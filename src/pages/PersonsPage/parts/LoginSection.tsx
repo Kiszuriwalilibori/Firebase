@@ -10,6 +10,8 @@ import { FirebaseContext } from "contexts/firebaseContext";
 
 import { Logo } from "styles/style";
 import { login, logout, showError } from "js/redux/actions";
+import { AppDispatch, RootStateType } from "components/AppProvider";
+import { ErrorType, FirebaseError, User } from "types/index";
 
 import * as ROUTES from "../../../js/routes";
 
@@ -52,16 +54,26 @@ const LinkButton = withStyles({
   },
 })(Button);
 
-const LoginSection = props => {
+
+interface Props {
+    user: User;
+    login: Function;
+    logout: Function;
+    showError: Function;
+    history: any;
+}
+
+
+const LoginSection = (props:Props) => {
   const { user, login, logout, showError, history } = props;
   const firebase = React.useContext(FirebaseContext);
   const requestLogin = useCallback(() => {
     firebase.auth
       .signInWithPopup(firebase.provider)
-      .then(result => {
+      .then((result:any) => {
         login(result);
       })
-      .catch(err => {
+      .catch((err:FirebaseError) => {
         showError(err.message);
         history.push(ROUTES.ERROR);
       });
@@ -71,10 +83,10 @@ const LoginSection = props => {
   const requestLogout = useCallback(() => {
     firebase.auth
       .signOut()
-      .then(result => {
+      .then((result:any) => {
         logout();
       })
-      .catch(err => {
+      .catch((err:FirebaseError) => {
         showError(err.message);
         history.push(ROUTES.ERROR);
       });
@@ -93,21 +105,15 @@ const LoginSection = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  user: state.user,
+const mapStateToProps = (state:RootStateType) => ({
+  user: state.user as unknown as User,
 });
 
-const mapDispatchToProps = dispatch => ({
-  login: data => dispatch(login(data)),
+const mapDispatchToProps = (dispatch:AppDispatch) => ({
+  login: (data:any) => dispatch(login(data)),
   logout: () => dispatch(logout()),
-  showError: code => dispatch(showError(code)),
+  showError: (err:ErrorType) => dispatch(showError(err)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginSection));
 
-LoginSection.propTypes = {
-  user: PropTypes.object,
-  login: PropTypes.func,
-  logout: PropTypes.func,
-  showError: PropTypes.func,
-};

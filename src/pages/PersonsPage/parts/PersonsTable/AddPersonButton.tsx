@@ -1,9 +1,12 @@
+import { RootStateType } from "components";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+
 
 import { Input } from "styles/style";
-
-const AddPersonButton = props => {
+interface Props {
+    isDisabled: Boolean;
+}
+const AddPersonButton = (props:Props) => {
   const { isDisabled } = props;
   return (
     <Input.Btn type="submit" id="SubmitButton" disabled={isDisabled}>
@@ -12,12 +15,8 @@ const AddPersonButton = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state:RootStateType) => ({
   isDisabled: state.submitDisabled,
 });
 
 export default connect(mapStateToProps, null)(AddPersonButton);
-
-AddPersonButton.propTypes = {
-  isDisabled: PropTypes.bool,
-};

@@ -31,3 +31,5 @@ Body, Sortarea, LoginSection i gdziekolwiek jest User- cofnąć do .jsx. Może z
 
 
 jednak te th w sort to muszą być guziki
+
+ a co jeżeli w komponencie UserCard jeżeli nie ma zdjęcia to co wtedy ??? babol leci dzisiaj ale wczoraj było dobrze. I teraz znowu jest dobrze. Dać by grawatara jako alternatywę
