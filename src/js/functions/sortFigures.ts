@@ -1,7 +1,9 @@
 import lowerCase from "lodash/lowerCase";
 
-export default function sortFigures(table, isDescending, key, func = lowerCase) {
-  const comparatorDescending = (a, b) => {
+export function sortFigures(table:string[][], isDescending:boolean, key:number, func = lowerCase) {
+
+  const comparatorDescending = (a:string[], b:string[]) => {
+ 
     if (func(a[key]) > func(b[key])) {
       return -1;
     }
@@ -11,7 +13,7 @@ export default function sortFigures(table, isDescending, key, func = lowerCase) 
     return 0;
   };
 
-  const comparatorAscending = (a, b) => {
+  const comparatorAscending = (a:string[], b:string[]) => {
     if (func(a[key]) > func(b[key])) {
       return 1;
     }
@@ -23,3 +25,5 @@ export default function sortFigures(table, isDescending, key, func = lowerCase) 
 
   return isDescending ? [...table].sort(comparatorDescending) : [...table].sort(comparatorAscending);
 }
+
+export default sortFigures;

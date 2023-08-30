@@ -1,11 +1,12 @@
 import React, { lazy } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { LandingPage } from "pages";
+
 import Awaiting from "components/Awaiting";
 import * as ROUTES from "js/routes";
 import "styles/App.css";
 import {useHandleConnectionStatus} from "hooks";
+import { LandingPage } from "pages";
 
 const Persons = lazy(() => import("pages/PersonsPage"));
 const Error = lazy(() => import("pages/ErrorPage"));

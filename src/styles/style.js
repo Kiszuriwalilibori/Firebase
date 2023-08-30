@@ -159,18 +159,20 @@ export const Header = {
     color: ${colorMint};
   `,
   SectionStyle: styled.th`
-cursor: pointer;
+
 text-align: left;
 @media(max-width: 568px) {padding 0.75rem 0}
 @media(min-width: 569px) {padding 0.75rem}
 
 vertical-align:top;
 border-top: 1px solid;
-&:hover,&:focus{
+&.focusable{cursor: pointer;
+  &:hover,&:focus{
   background-color: #67829e;
-}
+}}
+
 `,
-  Section: props => <Header.SectionStyle className="icon-Sort" tabIndex={props.focusable? 0:-1}>{props.children}</Header.SectionStyle>,
+  Section: props => <Header.SectionStyle role ={props.focusable?"button":""}className={props.focusable?"icon-Sort focusable":"icon-Sort"} tabIndex={props.focusable? 0:-1}>{props.children}</Header.SectionStyle>,
 };
 
 export const Rows = {

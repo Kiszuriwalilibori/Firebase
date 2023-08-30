@@ -28,3 +28,6 @@ sprawdzić czy nnie rzuca błędu service workera
 Zwala się przy autentykacji i logowaniu niestety To co przychodzi z gOOgla jest niekompatybilne
 
 Body, Sortarea, LoginSection i gdziekolwiek jest User- cofnąć do .jsx. Może zadziała
+
+
+jednak te th w sort to muszą być guziki
