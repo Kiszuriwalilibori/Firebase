@@ -1,9 +1,8 @@
 import * as React from "react";
 import Button from "@material-ui/core/Button";
-import PropTypes from "prop-types";
 
+import { useNavigate } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { useCallback } from "react";
 import { FirebaseContext } from "contexts/firebaseContext";
@@ -60,12 +59,13 @@ interface Props {
     login: Function;
     logout: Function;
     showError: Function;
-    history: any;
+   
 }
 
 
 const LoginSection = (props:Props) => {
-  const { user, login, logout, showError, history } = props;
+ const navigate = useNavigate();
+  const { user, login, logout, showError} = props;
   const firebase = React.useContext(FirebaseContext);
   const requestLogin = useCallback(() => {
     firebase.auth
@@ -75,7 +75,7 @@ const LoginSection = (props:Props) => {
       })
       .catch((err:FirebaseError) => {
         showError(err.message);
-        history.push(ROUTES.ERROR);
+        navigate(ROUTES.ERROR);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [login, firebase]);
@@ -88,7 +88,7 @@ const LoginSection = (props:Props) => {
       })
       .catch((err:FirebaseError) => {
         showError(err.message);
-        history.push(ROUTES.ERROR);
+        navigate(ROUTES.ERROR);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logout, firebase]);
@@ -106,7 +106,7 @@ const LoginSection = (props:Props) => {
 };
 
 const mapStateToProps = (state:RootStateType) => ({
-  user: state.user as unknown as User,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch:AppDispatch) => ({
@@ -115,5 +115,5 @@ const mapDispatchToProps = (dispatch:AppDispatch) => ({
   showError: (err:ErrorType) => dispatch(showError(err)),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginSection));
+export default connect(mapStateToProps, mapDispatchToProps)(LoginSection);
 

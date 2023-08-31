@@ -25,7 +25,7 @@ export const AppProvider: React.FC = ({ children }) => {
         preventDuplicate={true}
       >
         <Provider store={store}>
-          <Router basename={process.env.PUBLIC_URL}>{children}</Router>
+          <Router >{children}</Router>
         </Provider>
       </SnackbarProvider>
     </FirebaseContext.Provider>

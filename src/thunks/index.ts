@@ -1,5 +1,4 @@
-//import error from "./error";
-import loadData from "./loadData";
+import getPersons from "./getPersons";
 import submitFigure from "./submitFigure";
 
-export { /*error,*/ loadData, submitFigure };
+export { getPersons, submitFigure };

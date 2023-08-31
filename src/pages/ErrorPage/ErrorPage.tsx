@@ -3,11 +3,11 @@ import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
 
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { withRouter } from "react-router";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 
 import { withLinkToPersons } from "HOCs";
+import { RootStateType } from "components/AppProvider";
 
 const Container = withStyles({
   root: {
@@ -34,7 +34,10 @@ const NewAlert = withStyles({
   },
 })(Alert);
 
-const Error = props => {
+interface Props{
+  message: string;
+}
+const Error = (props:Props) => {
   const { message } = props;
 
   return (
@@ -47,11 +50,11 @@ const Error = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state:RootStateType) => ({
   message: state.errorMessage,
 });
 
-export default withRouter(connect(mapStateToProps, null)(withLinkToPersons(Error)));
+export default connect(mapStateToProps, null)(withLinkToPersons(Error));
 
 Error.propTypes = {
   message: PropTypes.string,

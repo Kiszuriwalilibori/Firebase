@@ -1,29 +1,26 @@
-import React, { lazy } from "react";
-import { Switch, Route } from "react-router-dom";
+import loadable from "@loadable/component";
 
+import { Route, Routes } from "react-router-dom";
 
-import Awaiting from "components/Awaiting";
 import * as ROUTES from "js/routes";
 import "styles/App.css";
-import {useHandleConnectionStatus} from "hooks";
+import { useHandleConnectionStatus } from "hooks";
 import { LandingPage } from "pages";
 
-const Persons = lazy(() => import("pages/PersonsPage"));
-const Error = lazy(() => import("pages/ErrorPage"));
-const Connecting = lazy(() => import("pages/ConnectingPage"));
+const Persons = loadable(() => import("pages/PersonsPage"));
+const Error = loadable(() => import("pages/ErrorPage"));
 
 const App = (): JSX.Element => {
-  useHandleConnectionStatus();
-  return (
-    <main>
-      <Switch>
-        <Route exact path={ROUTES.LANDING} component={LandingPage} />
-        <Route exact path={ROUTES.PERSONS} component={Awaiting(Persons)} />
-        <Route exact path={ROUTES.ERROR} component={Awaiting(Error)} />
-        <Route exact path={ROUTES.CONNECT} component={Awaiting(Connecting)} />
-      </Switch>
-    </main>
-  );
+    useHandleConnectionStatus();
+    return (
+        <main>
+            <Routes>
+                <Route path={ROUTES.LANDING} element={<LandingPage />} />
+                <Route path={ROUTES.PERSONS} element={<Persons />} />
+                <Route path={ROUTES.ERROR} element={<Error />} />
+            </Routes>
+        </main>
+    );
 };
 
 export default App;

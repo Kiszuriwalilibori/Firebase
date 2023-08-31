@@ -1,3 +1,5 @@
+
+
 export function createSortOrderMarker(index: number, isSortDescending: boolean, columnSortBy: number | undefined) {
     if (columnSortBy === undefined) return "";
     const isCurrentColumnSorted = (x: number) => columnSortBy === x;

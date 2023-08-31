@@ -12,5 +12,11 @@ interface ErrorType {
     isError: boolean;
     errorMessage: string | undefined;
 }
+type HistoryCall = () => void;
+type PathKeys = "LANDING" | "LOGIN" | "PERSONS" | "ERROR";
 
-export { ErrorType, FirebaseError, Item, Items, Sort, User };
+type Redirect = {
+    [Item in PathKeys]: HistoryCall;
+};
+
+export { ErrorType, FirebaseError, Item, Items, Redirect, Sort, User };

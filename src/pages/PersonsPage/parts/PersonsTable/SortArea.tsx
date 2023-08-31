@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import { connect } from "react-redux";
 
 import createSortOrderMarker from "./scripts/createSortOrderMarker";
@@ -7,7 +5,7 @@ import createSortOrderMarker from "./scripts/createSortOrderMarker";
 import { headings, nonSortableColumns } from "../../../../config";
 import { sort } from "js/redux/actions";
 import { Header } from "styles/style";
-import { AppDispatch, RootStateType } from "components/AppProvider";
+import { AppDispatch, RootStateType } from "components";
 
 interface Props {
     columnSortBy: number | undefined;
@@ -15,14 +13,18 @@ interface Props {
     onSort:Function;
    
 }
-
+interface SortParams {
+        isSortDescending: boolean,
+        columnSortBy: number,
+      };
 
 
 const PersonsTableSortArea = (props:Props) => {
   const { columnSortBy,isSortDescending, onSort } = props;
   
-  const handleSort = (e: { target: { cellIndex: any }}) => {
-    const targetColumn = e.target.cellIndex;
+  const handleSort = (e:  React.MouseEvent<HTMLTableCellElement>) => {
+    const {target} = e;
+    const targetColumn = (target as HTMLTableCellElement).cellIndex;
     const columnNotExcludedFromSorting = nonSortableColumns === undefined || !nonSortableColumns.has(targetColumn);
 
     if (columnNotExcludedFromSorting) {
@@ -39,7 +41,7 @@ const PersonsTableSortArea = (props:Props) => {
     <Header.Wrapper onClick={handleSort}>
       <tr>
         {headings.map((item, index) => (
-          <Header.Section key={item} focusable={!nonSortableColumns.has(index)}>   {item + createSortOrderMarker(index, isSortDescending, columnSortBy)} </Header.Section>
+          <Header.Section role="button" aria-label ={`Sort by ${item}`} key={item} focusable={!nonSortableColumns.has(index)}>   {item + createSortOrderMarker(index, isSortDescending, columnSortBy)} </Header.Section>
         ))}
       </tr>
     </Header.Wrapper>
@@ -53,7 +55,7 @@ const mapStateToProps = (state:RootStateType) => ({
 });
 
 const mapDispatchToProps = (dispatch:AppDispatch) => ({
-  onSort: (data:any) => dispatch(sort(data)),
+  onSort: (sortParams:SortParams) => dispatch(sort(sortParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonsTableSortArea);

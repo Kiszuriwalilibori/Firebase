@@ -1,21 +1,18 @@
 import * as ROUTES from "js/routes";
+import { NavigateFunction } from "react-router-dom";
 
-
-const createRedirect = (history:string[]) => {
-  return ()  => ({
-    error: () => {
-      history.push(ROUTES.ERROR);
-    },
-    loading: () => {
-      history.push(ROUTES.CONNECT);
-    },
-    home: () => {
-      history.push(ROUTES.PERSONS);
-    },
-    landing: () => {
-      history.push(ROUTES.LANDING);
-    },
-  });
+const createRedirect = (history: NavigateFunction) => {
+    return () => ({
+        error: () => {
+            history(ROUTES.ERROR);
+        },
+        home: () => {
+            history(ROUTES.PERSONS);
+        },
+        landing: () => {
+            history(ROUTES.LANDING);
+        },
+    });
 };
 
 export default createRedirect;

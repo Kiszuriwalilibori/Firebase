@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import uuid from "react-uuid";
 
 import { withStyles } from "@material-ui/core/styles";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { showError } from "js/redux/actions";
@@ -43,7 +43,7 @@ interface Props {
 const PersonsTableBody = (props:Props) => {
   const { items, user, showError } = props;
   const firebase = React.useContext(FirebaseContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   if (!items || items.length === 0) {
     return null;
   }
@@ -57,7 +57,7 @@ const PersonsTableBody = (props:Props) => {
       } catch (err:any) {
         const e =err as FirebaseError;
         showError({ errorMessage: e.message, isError:true});
-        history.push(ROUTES.ERROR);
+        navigate(ROUTES.ERROR);
       }
     } else {
       showError({
@@ -65,7 +65,7 @@ const PersonsTableBody = (props:Props) => {
                     "Podczas próby usunięcia użytkownika pojawił się problem. Wszystko wskazuje, że tego użytkownika nie ma już w bazie",
                 isError: true,
             });
-      history.push(ROUTES.ERROR);
+      navigate(ROUTES.ERROR);
     }
   };
 
@@ -81,7 +81,7 @@ const PersonsTableBody = (props:Props) => {
             <Rows.EmailCell>
               <span>{row[2]}</span>
               {user && user.displayName === row[3] && (
-                <Button onClick={removeItem} data-item_firebase_ref={row[0]}>
+                <Button onClick={removeItem} aria-label ={"remove user"}data-item_firebase_ref={row[0]}>
                   <ClearIcon />
                 </Button>
               )}{" "}
@@ -95,7 +95,7 @@ const PersonsTableBody = (props:Props) => {
 
 const mapStateToProps = (state:RootStateType) => ({
   items: state.items,
-  user: state.user as unknown as  User,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch:AppDispatch) => ({
