@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from "js/redux/actions";
+import ErrorMessage from "./ErrorMessage";
 
 import submitFigure from "thunks/submitFigure";
 import AddPersonButton from "./AddPersonButton";
@@ -110,11 +111,7 @@ const AddPersonForm = props => {
                     </Input.DangerMessage>
                 </Input.ResetWrapper>
             )}
-            {submitCount > 0 && !isEmpty(errors) && (
-                <span className="AddPersonForm__error-message">
-                    {JSON.stringify(errors, null, 2).substring(1, JSON.stringify(errors, null, 2).length - 1)}
-                </span>
-            )}
+            {submitCount > 0 && !isEmpty(errors) && <ErrorMessage errors={errors} />}
         </Input.OuterWrapper>
     );
 };

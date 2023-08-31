@@ -68,18 +68,6 @@ const reducer = (state = initialState, action) => {
                 isLoaderVisible: false,
             };
 
-        case actions.SHOW_MESSAGE:
-            return {
-                ...state,
-                isMessage: true,
-                message: action.payload,
-            };
-        case actions.HIDE_MESSAGE:
-            return {
-                ...state,
-                isMessage: false,
-                message: null,
-            };
         case actions.TOGGLE_SUBMIT:
             const toggled_submit = !state.submitDisabled;
             return {
@@ -117,6 +105,7 @@ const reducer = (state = initialState, action) => {
             };
 
         default:
+            console.log("unknown action", action.type);
             return state;
     }
 };

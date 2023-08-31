@@ -27,7 +27,7 @@ interface Props {
     isMessage: boolean;
     message: any;
     isAlert: boolean;
-    isLoading?: boolean;
+    isLoading: boolean;
     // isLoaderVisible: boolean;
 }
 
@@ -42,17 +42,18 @@ function PersonsPage(props: Props) {
 
     isOffline() && showMessage.error("W tej chwili nie masz połączenia z interenetem. Popróbuj później");
 
-    isOffline() && redirect.landing();
+    // isOffline() && redirect.landing();
 
     useEffect(() => {
-        if (isOffline() && redirect) {
+        if (isOffline()) {
             redirect.landing();
         } else {
-            if (redirect && firebase) {
+            if (!isOffline() && redirect && firebase) {
                 getPersons(redirect, firebase, showMessage);
             }
         }
-    }, [firebase, redirect, getPersons, showMessage]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [firebase, isOffline(), redirect, getPersons]);
 
     useEffect(() => {
         isMessage && showMessage.info(message);
@@ -93,7 +94,8 @@ function mapDispatchToProps(dispatch: AppDispatch) {
     return {
         login: (data: any) => dispatch(login(data)),
         hideError: () => dispatch(hideError()),
-        getPersons: (redirect: Redirect, firebase: any) => dispatch(getPersons(redirect, firebase)),
+        getPersons: (redirect: Redirect, firebase: any, showMessage: any) =>
+            dispatch(getPersons(redirect, firebase, showMessage)),
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PersonsPage);

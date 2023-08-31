@@ -5,7 +5,6 @@ const useMessage = () => {
 
     const showMessage = {
         info: function (str: string) {
-            console.log("info");
             enqueueSnackbar(str, { variant: "info" });
         },
 

@@ -1,13 +1,15 @@
-import { getDataDone, login, showError, showMessage, showLoader, hideLoader } from "../js/redux/actions";
+import { getDataDone, login, showError, showLoader, hideLoader } from "../js/redux/actions";
 import { sortFigures } from "js/functions";
 
 export function getPersons(redirect, firebase, showMessage) {
     return (dispatch, getState) => {
         firebase.connectedRef.on("value", function (snap) {
             if (snap.val() === true) {
-                // dispatch(showMessage("Ustanowiono lub przywrócono połączenie z bazą danych"));
                 showMessage.info("Ustanowiono lub przywrócono połączenie z bazą danych");
             } else {
+                // showMessage.error(
+                //     "W tej chwili nie masz połączenia z bazą. Wskazane jest abyś nie wykonywał operacji zapisu i odczytu, gdyż mają one wyłacznie lokalny zasięg i nie zmieniają bazy"
+                // );
                 dispatch(
                     showError(
                         "W tej chwili nie masz połączenia z bazą. Wskazane jest abyś nie wykonywał operacji zapisu i odczytu, gdyż mają one wyłacznie lokalny zasięg i nie zmieniają bazy"
