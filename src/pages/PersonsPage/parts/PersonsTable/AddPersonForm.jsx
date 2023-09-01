@@ -18,6 +18,28 @@ import submitFigure from "thunks/submitFigure";
 import AddPersonButton from "./AddPersonButton";
 import * as ROUTES from "js/routes";
 
+const schema = {
+    personEmail: Yup.string().email("Invalid email address").required("Required"),
+    personName: Yup.string()
+        .min(4, "Must be more than 3 characters")
+        .required("Required")
+        .matches("[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+", "Invalid characters"),
+};
+
+const yupConfig = {
+    schema: {
+        personEmail: Yup.string().email("Invalid email address").required("Required"),
+        personName: Yup.string()
+            .min(4, "Must be more than 3 characters")
+            .required("Required")
+            .matches("[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+", "Invalid characters"),
+    },
+    initialValues: {
+        personEmail: "",
+        personName: "",
+    },
+};
+
 const AddPersonForm = props => {
     const input = useRef(null);
     const navigate = useNavigate();
@@ -41,17 +63,8 @@ const AddPersonForm = props => {
     useEffect(() => input.current.focus(), [input]);
 
     const { values, handleSubmit, getFieldProps, handleReset, submitCount, errors } = useFormik({
-        initialValues: {
-            personEmail: "",
-            personName: "",
-        },
-        validationSchema: Yup.object().shape({
-            personEmail: Yup.string().email("Invalid email address").required("Required"),
-            personName: Yup.string()
-                .min(4, "Must be more than 3 characters")
-                .required("Required")
-                .matches("[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+", "Invalid characters"),
-        }),
+        initialValues: yupConfig.initialValues,
+        validationSchema: Yup.object().shape(yupConfig.schema),
         onSubmit() {
             if (user) {
                 toggleSubmit();
