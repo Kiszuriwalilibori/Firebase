@@ -16,35 +16,27 @@ interface Props {
     isHiddenInputForm: Boolean;
     isNotLimitReached: Boolean;
     user: User;
-    onAddUser: Function;
+    addUser: Function;
 }
 
 const PersonsTableHeader = (props: Props) => {
-    const { isHiddenAddUserButton, isHiddenAddedUserMsg, isHiddenInputForm, isNotLimitReached, onAddUser, user } =
-        props;
+    const { isHiddenAddUserButton, isHiddenAddedUserMsg, isHiddenInputForm, isNotLimitReached, addUser, user } = props;
 
-    const AddUserButton = () =>
-        isNotLimitReached && !isOffline() ? (
-            <Overhead.Btn
-                disabled={!isNotLimitReached || isOffline() || !user}
-                id="AddUserButton"
-                type="button"
-                onClick={isNotLimitReached ? onAddUser : function () {}}
-            >
-                <Overhead.IconCross />
-                <Overhead.BtnText>Add User</Overhead.BtnText>
-            </Overhead.Btn>
-        ) : (
-            <Overhead.BtnDisabled>
-                <Overhead.IconCross />
-                <Overhead.BtnText>Add User</Overhead.BtnText>
-            </Overhead.BtnDisabled>
-        );
+    const AddUserButton = () => (
+        <Overhead.Btn
+            disabled={!isNotLimitReached || isOffline() || !user}
+            id="AddUserButton"
+            type="button"
+            onClick={isNotLimitReached ? addUser : function () {}}
+        >
+            <Overhead.IconCross />
+            <Overhead.BtnText>Add User</Overhead.BtnText>
+        </Overhead.Btn>
+    );
 
     return (
         <Overhead.Wrapper>
             {!isHiddenAddUserButton && <AddUserButton />}
-
             {!isHiddenAddedUserMsg && (
                 <Overhead.SuccessMessage>
                     <Overhead.IconCheck />
@@ -73,7 +65,7 @@ const mapStateToProps = (state: RootStateType) => ({
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-    onAddUser: () => dispatch(showAddUserForm()),
+    addUser: () => dispatch(showAddUserForm()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonsTableHeader);

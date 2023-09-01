@@ -1,7 +1,6 @@
 import { Items, User } from "types";
 
 const initialState = {
-    isLoading: false,
     items: [] as Items,
     isError: false,
     errorMessage: "",
@@ -13,7 +12,7 @@ const initialState = {
     isHiddenAddUserButton: false,
     isHiddenAddedUserMsg: true,
     isNotLimitReached: true,
-    isLoaderVisible: false,
+    isLoading: false,
     isAlert: false,
     limit: 15,
     user: undefined as unknown as User,

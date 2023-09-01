@@ -24,69 +24,52 @@ const UserInfoCard = lazy(() => import("./parts/UserCard"));
 interface Props {
     user: User;
     getPersons: any;
-    isMessage: boolean;
-    message: any;
     isAlert: boolean;
     isLoading: boolean;
-    // isLoaderVisible: boolean;
 }
 
 function PersonsPage(props: Props) {
-    const { user, getPersons, isMessage, message, isLoading /*,isLoaderVisible */ } = props;
-
+    const { user, getPersons } = props;
     const firebase = useContext(FirebaseContext);
     const showMessage = useMessage();
     const history = useNavigate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const redirect = React.useMemo(createRedirect(history), []);
 
-    isOffline() && showMessage.error("W tej chwili nie masz połączenia z interenetem. Popróbuj później");
-
-    // isOffline() && redirect.landing();
-
     useEffect(() => {
         if (isOffline()) {
             redirect.landing();
+            showMessage.error("W tej chwili nie masz połączenia z interenetem. Popróbuj później");
         } else {
             if (!isOffline() && redirect && firebase) {
                 getPersons(redirect, firebase, showMessage);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [firebase, isOffline(), redirect, getPersons]);
-
-    useEffect(() => {
-        isMessage && showMessage.info(message);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMessage]);
+    }, [firebase, isOffline()]);
 
     return !isOffline() ? (
-        <>
-            <Suspense fallback={<Loader />}>
-                {user && <UserInfoCard user={user} />}
-                <PersonsPageContainer>
-                    <LoginSection />
-                    <Fade in={true} timeout={2000}>
-                        <PersonsTableContainer>
-                            <PersonsTableHeader />
-                            <PersonsTableBody>
-                                <PersonsTableSortArea />
-                                <PersonsTableContent />
-                            </PersonsTableBody>
-                        </PersonsTableContainer>
-                    </Fade>
-                </PersonsPageContainer>
-            </Suspense>
-        </>
+        <Suspense fallback={<Loader />}>
+            {user && <UserInfoCard user={user} />}
+            <PersonsPageContainer>
+                <LoginSection />
+                <Fade in={true} timeout={2000}>
+                    <PersonsTableContainer>
+                        <PersonsTableHeader />
+                        <PersonsTableBody>
+                            <PersonsTableSortArea />
+                            <PersonsTableContent />
+                        </PersonsTableBody>
+                    </PersonsTableContainer>
+                </Fade>
+            </PersonsPageContainer>
+        </Suspense>
     ) : null;
 }
 
 const mapStateToProps = (state: RootStateType) => ({
     user: state.user,
-    isMessage: state.isMessage,
-    message: state.message,
     isAlert: state.isAlert,
-    isLoaderVisible: state.isLoaderVisible,
     isLoading: state.isLoading,
 });
 

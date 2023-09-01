@@ -11,8 +11,8 @@ export const HIDE_WARNING = "HIDE_WARNING";
 export const HIDE_ADDED_USER_MESSAGE = "HIDE_ADDED_USER_MESSAGE";
 export const BLOCK_SUBMIT = "BLOCK_SUBMIT";
 export const TOGGLE_SUBMIT = "TOGGLE_SUBMIT";
-export const SHOW_LOADER = "LOADER_SHOW";
-export const HIDE_LOADER = "LOADER_HIDE";
+export const SET_LOADING_TRUE = "LOADING_TRUE";
+export const SET_LOADING_FALSE = "LOADING_FALSE";
 
 export function toggleSubmit() {
     return { type: TOGGLE_SUBMIT };
@@ -63,15 +63,14 @@ export function hideWarning() {
     };
 }
 
-
-export function showLoader() {
+export function startLoading() {
     return {
-        type: SHOW_LOADER,
+        type: SET_LOADING_TRUE,
     };
 }
-export function hideLoader() {
+export function stopLoading() {
     return {
-        type: HIDE_LOADER,
+        type: SET_LOADING_FALSE,
     };
 }
 

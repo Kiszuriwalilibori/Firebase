@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isError: true,
-                errorMessage: action.payload ? action.payload : "Nieokreslony błąd",
+                errorMessage: action.payload ? action.payload : "Nieokreślony błąd",
             };
         case actions.HIDE_ERROR:
             return {
@@ -57,15 +57,15 @@ const reducer = (state = initialState, action) => {
                 isAlert: false,
                 errorMessage: null,
             };
-        case actions.SHOW_LOADER:
+        case actions.SET_LOADING_TRUE:
             return {
                 ...state,
-                isLoaderVisible: true,
+                isLoading: true,
             };
-        case actions.HIDE_LOADER:
+        case actions.SET_LOADING_FALSE:
             return {
                 ...state,
-                isLoaderVisible: false,
+                isLoading: false,
             };
 
         case actions.TOGGLE_SUBMIT:

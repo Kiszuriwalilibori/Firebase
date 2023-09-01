@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from "js/redux/actions";
+import { useMessage } from "hooks";
 import ErrorMessage from "./ErrorMessage";
 
 import submitFigure from "thunks/submitFigure";
@@ -23,14 +24,14 @@ const AddPersonForm = props => {
     const navigate = useNavigate();
     const { user, submitFigure, toggleSubmit } = props;
     const firebase = useContext(FirebaseContext);
-    const { enqueueSnackbar } = useSnackbar();
+    const { showMessage } = useMessage();
 
     const redirect = React.useMemo(
         () => ({
             error: () => {
                 navigate(ROUTES.ERROR);
             },
-            home: () => {
+            persons: () => {
                 navigate(ROUTES.PERSONS);
             },
         }),
@@ -60,8 +61,7 @@ const AddPersonForm = props => {
                     .equalTo(values.personEmail)
                     .once("value", snapshot => {
                         const isNotDuplicate = !snapshot.exists();
-                        if (snapshot.exists())
-                            enqueueSnackbar("Użytkownik o tym e-mailu jest już zarejestrowany", { variant: "warning" });
+                        if (snapshot.exists()) showMessage.warning("Użytkownik o tym e-mailu jest już zarejestrowany");
                         submitFigure(
                             isNotDuplicate,
                             redirect,
@@ -74,7 +74,7 @@ const AddPersonForm = props => {
                         );
                     });
             } else {
-                enqueueSnackbar("Tylko zalogowani użytkownicy mogą dodawać postacie", { variant: "warning" });
+                showMessage.warning("Tylko zalogowani użytkownicy mogą dodawać postacie");
             }
         },
     });

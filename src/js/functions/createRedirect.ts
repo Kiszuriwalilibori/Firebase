@@ -6,7 +6,7 @@ const createRedirect = (history: NavigateFunction) => {
         error: () => {
             history(ROUTES.ERROR);
         },
-        home: () => {
+        persons: () => {
             history(ROUTES.PERSONS);
         },
         landing: () => {

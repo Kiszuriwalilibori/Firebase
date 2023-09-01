@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { Input } from "styles/style";
 import { User } from "types/index";
+
 interface Props {
     isDisabled: Boolean;
     user: User;
