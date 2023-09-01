@@ -50,19 +50,6 @@ export function hideError() {
     };
 }
 
-export function showWarning(data) {
-    return {
-        type: SHOW_WARNING,
-        payload: data,
-    };
-}
-
-export function hideWarning() {
-    return {
-        type: HIDE_WARNING,
-    };
-}
-
 export function startLoading() {
     return {
         type: SET_LOADING_TRUE,
@@ -91,12 +78,6 @@ export function login(data) {
 export function logout() {
     return {
         type: LOGOUT,
-    };
-}
-
-export function hideAddedUserMessage() {
-    return {
-        type: HIDE_ADDED_USER_MESSAGE,
     };
 }
 

@@ -6,12 +6,11 @@ import isEmpty from "lodash/isEmpty";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
 
-import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
-import { showError, hideAddedUserMessage, showWarning, toggleSubmit } from "js/redux/actions";
+import { showError, toggleSubmit } from "js/redux/actions";
 import { useMessage } from "hooks";
 import ErrorMessage from "./ErrorMessage";
 
@@ -24,7 +23,7 @@ const AddPersonForm = props => {
     const navigate = useNavigate();
     const { user, submitFigure, toggleSubmit } = props;
     const firebase = useContext(FirebaseContext);
-    const { showMessage } = useMessage();
+    const showMessage = useMessage();
 
     const redirect = React.useMemo(
         () => ({
@@ -70,7 +69,8 @@ const AddPersonForm = props => {
                                 email: values.personEmail,
                                 user: user.displayName || user.email,
                             },
-                            firebase
+                            firebase,
+                            showMessage
                         );
                     });
             } else {
@@ -117,17 +117,12 @@ const AddPersonForm = props => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    showWarning: data => {
-        dispatch(showWarning(data));
-    },
     showError: data => {
         dispatch(showError(data));
     },
-    hideAddedUserMessage: () => {
-        dispatch(hideAddedUserMessage());
-    },
-    submitFigure: (notDuplicate, redirect, data, firebase) => {
-        dispatch(submitFigure(notDuplicate, redirect, data, firebase));
+
+    submitFigure: (notDuplicate, redirect, data, firebase, showMessage) => {
+        dispatch(submitFigure(notDuplicate, redirect, data, firebase, showMessage));
     },
     toggleSubmit: () => {
         dispatch(toggleSubmit());
@@ -143,9 +138,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(AddPersonForm);
 AddPersonForm.propTypes = {
     onSubmit: PropTypes.func,
     submitFigure: PropTypes.func,
-    showWarning: PropTypes.func,
+
     toggleSubmit: PropTypes.func,
     user: PropTypes.object,
     history: PropTypes.object,
-    hideAddedUserMessage: PropTypes.func,
 };

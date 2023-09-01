@@ -24,7 +24,6 @@ const UserInfoCard = lazy(() => import("./parts/UserCard"));
 interface Props {
     user: User;
     getPersons: any;
-    isAlert: boolean;
     isLoading: boolean;
 }
 
@@ -69,7 +68,6 @@ function PersonsPage(props: Props) {
 
 const mapStateToProps = (state: RootStateType) => ({
     user: state.user,
-    isAlert: state.isAlert,
     isLoading: state.isLoading,
 });
 

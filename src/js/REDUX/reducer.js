@@ -9,14 +9,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isHiddenInputForm: true,
                 isHiddenAddUserButton: false,
-                isHiddenAddedUserMsg: false,
             };
 
         case actions.SHOW_ADD_USER_FORM:
             return state.isHiddenInputForm
                 ? {
                       ...state,
-                      isHiddenAddedUserMsg: true,
+
                       isHiddenAddUserButton: true,
                       isHiddenInputForm: false,
                   }
@@ -76,14 +75,10 @@ const reducer = (state = initialState, action) => {
             };
 
         case actions.GET_DATA_DONE:
-            const { limit } = state;
-
-            const isNotLimitReached = action.payload ? action.payload.length < limit : true;
             return {
                 ...state,
                 isLoading: false,
                 items: action.payload,
-                isNotLimitReached: isNotLimitReached,
             };
 
         case actions.HIDE_ADDED_USER_MESSAGE:

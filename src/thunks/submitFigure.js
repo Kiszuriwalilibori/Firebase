@@ -1,24 +1,22 @@
-import { hideAddedUserMessage, submitUser, showError, toggleSubmit } from "../js/redux/actions";
+import { submitUser, showError, toggleSubmit } from "../js/redux/actions";
 
-function submitFigure(notDuplicate, redirect, data, firebase) {
-  return (dispatch, getState) => {
-    if (notDuplicate) {
-      firebase.itemsRef.push(data, function (error) {
-        if (error) {
-          dispatch(showError(error.message));
-          redirect.error();
-          dispatch(toggleSubmit());
+function submitFigure(notDuplicate, redirect, data, firebase, showMessage) {
+    return (dispatch, getState) => {
+        if (notDuplicate) {
+            firebase.itemsRef.push(data, function (error) {
+                if (error) {
+                    dispatch(showError(error.message));
+                    redirect.error();
+                    dispatch(toggleSubmit());
+                } else {
+                    dispatch(submitUser(data));
+                    showMessage.success("You have successfully added and user");
+                    dispatch(toggleSubmit());
+                }
+            });
         } else {
-          setTimeout(function () {
-            dispatch(hideAddedUserMessage());
-          }, 3000);
-          dispatch(submitUser(data));
-          dispatch(toggleSubmit());
+            dispatch(toggleSubmit());
         }
-      });
-    } else {
-      dispatch(toggleSubmit());
-    }
-  };
+    };
 }
 export default submitFigure;

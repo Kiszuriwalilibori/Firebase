@@ -1,17 +1,20 @@
+import { useSelector } from "react-redux";
+
 import { RootStateType } from "components";
+import { selectIsLogged } from "js/redux/selectors";
 import { connect } from "react-redux";
 
 import { Input } from "styles/style";
-import { User } from "types/index";
-
 interface Props {
     isDisabled: Boolean;
-    user: User;
 }
 const AddPersonButton = (props: Props) => {
-    const { isDisabled, user } = props;
+    const isLogged = useSelector(selectIsLogged);
+
+    const { isDisabled } = props;
+    console.log();
     return (
-        <Input.Btn type="submit" id="SubmitButton" disabled={isDisabled || !user}>
+        <Input.Btn type="submit" id="SubmitButton" disabled={/*isDisabled ||*/ !isLogged}>
             <span>Submit</span>
         </Input.Btn>
     );
@@ -19,7 +22,6 @@ const AddPersonButton = (props: Props) => {
 
 const mapStateToProps = (state: RootStateType) => ({
     isDisabled: state.submitDisabled,
-    user: state.user,
 });
 
 export default connect(mapStateToProps, null)(AddPersonButton);

@@ -11,10 +11,7 @@ const initialState = {
     isHiddenInputForm: true,
     isHiddenAddUserButton: false,
     isHiddenAddedUserMsg: true,
-    isNotLimitReached: true,
     isLoading: false,
-    isAlert: false,
-    limit: 15,
     user: undefined as unknown as User,
     submitDisabled: false,
 };
