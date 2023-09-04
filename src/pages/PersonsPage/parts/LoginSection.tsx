@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { useCallback } from "react";
 import { FirebaseContext } from "contexts/firebaseContext";
 
-import { Logo } from "styles/style";
+import { Login } from "styles/style";
 import { login, logout, showError } from "js/redux/actions";
 import { AppDispatch, RootStateType } from "components/AppProvider";
 import { ErrorType, FirebaseError, User } from "types/index";
@@ -45,8 +45,8 @@ const LinkButton = withStyles({
             boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
         },
         "&:disabled": {
-            backgroundColor: "DimGray",
-            color: "DarkGray",
+            backgroundColor: "#474747",
+            color: "#e0e0e0;",
             boxShadow: "none",
             border: "none",
             cursor: "none",
@@ -92,14 +92,14 @@ const LoginSection = (props: Props) => {
     }, [logout, firebase]);
 
     return (
-        <Logo.Wrapper>
+        <Login.Wrapper aria-label="login area">
             <LinkButton size="large" disabled={!Boolean(user)} onClick={requestLogout}>
                 Wyloguj się
             </LinkButton>
             <LinkButton size="large" disabled={Boolean(user)} onClick={requestLogin}>
                 Zaloguj się kontem Google
             </LinkButton>
-        </Logo.Wrapper>
+        </Login.Wrapper>
     );
 };
 

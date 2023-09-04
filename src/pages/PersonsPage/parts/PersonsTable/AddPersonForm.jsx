@@ -5,26 +5,20 @@ import isEmpty from "lodash/isEmpty";
 
 import { useFormik } from "formik";
 import { connect } from "react-redux";
-
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import ErrorMessage from "./ErrorMessage";
+import submitFigure from "thunks/submitFigure";
+import SubmitFormButton from "./SubmitFormButton";
+import createRedirect from "js/functions/createRedirect";
+// import * as ROUTES from "js/routes";
 
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { showError, toggleSubmit } from "js/redux/actions";
 import { useMessage } from "hooks";
-import ErrorMessage from "./ErrorMessage";
-
-import submitFigure from "thunks/submitFigure";
-import AddPersonButton from "./AddPersonButton";
-import * as ROUTES from "js/routes";
-
-const schema = {
-    personEmail: Yup.string().email("Invalid email address").required("Required"),
-    personName: Yup.string()
-        .min(4, "Must be more than 3 characters")
-        .required("Required")
-        .matches("[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+", "Invalid characters"),
-};
+import { selectIsLogged } from "js/redux/selectors";
 
 const yupConfig = {
     schema: {
@@ -42,31 +36,35 @@ const yupConfig = {
 
 const AddPersonForm = props => {
     const input = useRef(null);
-    const navigate = useNavigate();
+    const isLogged = useSelector(selectIsLogged);
+    // const navigate = useNavigate();
     const { user, submitFigure, toggleSubmit } = props;
     const firebase = useContext(FirebaseContext);
     const showMessage = useMessage();
+    const history = useNavigate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const redirect = React.useMemo(createRedirect(history), []);
 
-    const redirect = React.useMemo(
-        () => ({
-            error: () => {
-                navigate(ROUTES.ERROR);
-            },
-            persons: () => {
-                navigate(ROUTES.PERSONS);
-            },
-        }),
-        [navigate]
-    );
+    // const redirect = React.useMemo(
+    //     () => ({
+    //         error: () => {
+    //             navigate(ROUTES.ERROR);
+    //         },
+    //         persons: () => {
+    //             navigate(ROUTES.PERSONS);
+    //         },
+    //     }),
+    //     [navigate]
+    // );
 
-    const isResetFieldsHidden = () => !!(values.personName === "" && values.personEmail === "");
+    const isFormEmpty = () => !!(values.personName === "" && values.personEmail === "");
     useEffect(() => input.current.focus(), [input]);
 
     const { values, handleSubmit, getFieldProps, handleReset, submitCount, errors } = useFormik({
         initialValues: yupConfig.initialValues,
         validationSchema: Yup.object().shape(yupConfig.schema),
         onSubmit() {
-            if (user) {
+            if (isLogged) {
                 toggleSubmit();
                 firebase.itemsRef
                     .orderByChild("email")
@@ -116,8 +114,8 @@ const AddPersonForm = props => {
                 />
             </Input.InputWrapper>
 
-            <AddPersonButton />
-            {!isResetFieldsHidden() && (
+            <SubmitFormButton />
+            {!isFormEmpty() && (
                 <Input.ResetWrapper onClick={handleReset}>
                     <Input.DangerMessage>
                         <u> Reset Fields</u>

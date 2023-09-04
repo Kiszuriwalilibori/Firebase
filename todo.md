@@ -29,7 +29,8 @@ Zwala się przy autentykacji i logowaniu niestety To co przychodzi z gOOgla jest
 
 Body, Sortarea, LoginSection i gdziekolwiek jest User- cofnąć do .jsx. Może zadziała
 
-
 jednak te th w sort to muszą być guziki
 
- a co jeżeli w komponencie UserCard jeżeli nie ma zdjęcia to co wtedy ??? babol leci dzisiaj ale wczoraj było dobrze. I teraz znowu jest dobrze. Dać by grawatara jako alternatywę
+a co jeżeli w komponencie UserCard jeżeli nie ma zdjęcia to co wtedy ??? babol leci dzisiaj ale wczoraj było dobrze. I teraz znowu jest dobrze. Dać by grawatara jako alternatywę
+
+landing page: taki sposób linkowania jak jest teraz nie podoba się siteimprove. Trzeba przerobić na njzwyklekszy onclick z navigate prawdopodobnie

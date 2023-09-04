@@ -18,21 +18,19 @@ import { AppDispatch, RootStateType } from "components/AppProvider";
 const iconColor = "#FF0801;";
 const iconHoverColor = "rgba(247,0,0,0.34)";
 const ClearIcon = withStyles({
-  root: {
-    color: iconColor,
-    cursor: "pointer",
-  },
+    root: {
+        color: iconColor,
+        cursor: "pointer",
+    },
 })(ClearRoundedIcon);
 
 const Button = withStyles({
-  root: {
-    color: iconColor,
-    transition: "background-color 0.5s ease-in-out",
-    "&:hover": { backgroundColor: iconHoverColor },
-  },
+    root: {
+        color: iconColor,
+        transition: "background-color 0.5s ease-in-out",
+        "&:hover": { backgroundColor: iconHoverColor },
+    },
 })(IconButton);
-
-
 
 interface Props {
     items: string[][];
@@ -40,67 +38,70 @@ interface Props {
     showError: (data: ErrorType) => void;
 }
 
-const PersonsTableBody = (props:Props) => {
-  const { items, user, showError } = props;
-  const firebase = React.useContext(FirebaseContext);
-  const navigate = useNavigate();
-  if (!items || items.length === 0) {
-    return null;
-  }
- 
-  const removeItem: React.MouseEventHandler<HTMLButtonElement> = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const ref = e.currentTarget.dataset.item_firebase_ref;
-    const itemRef = firebase.database.ref(`/items/${ref}`);
-    if (itemRef) {
-      try {
-        itemRef.remove();
-      } catch (err:any) {
-        const e =err as FirebaseError;
-        showError({ errorMessage: e.message, isError:true});
-        navigate(ROUTES.ERROR);
-      }
-    } else {
-      showError({
+const PersonsTableBody = (props: Props) => {
+    const { items, user, showError } = props;
+    const firebase = React.useContext(FirebaseContext);
+    const navigate = useNavigate();
+    if (!items || items.length === 0) {
+        return null;
+    }
+
+    const removeItem: React.MouseEventHandler<HTMLButtonElement> = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const ref = e.currentTarget.dataset.item_firebase_ref;
+        const itemRef = firebase.database.ref(`/items/${ref}`);
+        if (itemRef) {
+            try {
+                itemRef.remove();
+            } catch (err: any) {
+                const e = err as FirebaseError;
+                showError({ errorMessage: e.message, isError: true });
+                navigate(ROUTES.ERROR);
+            }
+        } else {
+            showError({
                 errorMessage:
                     "Podczas próby usunięcia użytkownika pojawił się problem. Wszystko wskazuje, że tego użytkownika nie ma już w bazie",
                 isError: true,
             });
-      navigate(ROUTES.ERROR);
-    }
-  };
+            navigate(ROUTES.ERROR);
+        }
+    };
 
-  return (
-    <tbody>
-      {items.map((row, index) => (
-        <tr key={uuid()}>
-          <Rows.MiddleAligned key={uuid()}>
-            <Rows.Circle>{index + 1}</Rows.Circle>
-          </Rows.MiddleAligned>
-          <Rows.MiddleAligned key={uuid()}>{row[1]}</Rows.MiddleAligned>
-          <Rows.MiddleAligned key={uuid()}>
-            <Rows.EmailCell>
-              <span>{row[2]}</span>
-              {user && user.displayName === row[3] && (
-                <Button onClick={removeItem} aria-label ={"remove user"}data-item_firebase_ref={row[0]}>
-                  <ClearIcon />
-                </Button>
-              )}{" "}
-            </Rows.EmailCell>
-          </Rows.MiddleAligned>
-        </tr>
-      ))}
-    </tbody>
-  );
+    return (
+        <tbody>
+            {items.map((row, index) => (
+                <tr key={uuid()}>
+                    <Rows.MiddleAligned key={uuid()}>
+                        <Rows.Circle>{index + 1}</Rows.Circle>
+                    </Rows.MiddleAligned>
+                    <Rows.MiddleAligned key={uuid()}>{row[1]}</Rows.MiddleAligned>
+                    <Rows.MiddleAligned key={uuid()}>
+                        <Rows.EmailCell>
+                            <span>{row[2]}</span>
+                            {user && user.displayName === row[3] && (
+                                <Button
+                                    onClick={removeItem}
+                                    aria-label={"remove user having e-mail  " + row[2]}
+                                    data-item_firebase_ref={row[0]}
+                                >
+                                    <ClearIcon />
+                                </Button>
+                            )}{" "}
+                        </Rows.EmailCell>
+                    </Rows.MiddleAligned>
+                </tr>
+            ))}
+        </tbody>
+    );
 };
 
-const mapStateToProps = (state:RootStateType) => ({
-  items: state.items,
-  user: state.user,
+const mapStateToProps = (state: RootStateType) => ({
+    items: state.items,
+    user: state.user,
 });
 
-const mapDispatchToProps = (dispatch:AppDispatch) => ({
-  showError: (data:ErrorType) => dispatch(showError(data)),
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+    showError: (data: ErrorType) => dispatch(showError(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonsTableBody);
-

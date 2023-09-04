@@ -19,14 +19,14 @@ const btn = styled.button`
     white-space: nowrap;
     vertical-align: middle;
     user-select: none;
-    border: 1px solid #c2f1db;
+    border: 1px solid ${colorMint};
     padding: 0.375rem 3rem;
     margin: 0.5rem;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
     overflow: visible;
-    color: #c2f1db;
+    color: ${colorMint};
     background-color: transparent;
     cursor: pointer;
     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out,
@@ -35,7 +35,7 @@ const btn = styled.button`
     &:focus {
         color: #495f75;
         outline: none;
-        background-color: #c2f1db;
+        background-color: ${colorMint};
         border-color: transparent;
     }
     &:disabled {
@@ -44,10 +44,20 @@ const btn = styled.button`
         background-color: transparent;
         &:hover {
             background-color: transparent;
-            color: #c2f1db;
-            border-color: #c2f1db;
+            color: ${colorMint};
+            border-color: ${colorMint};
         }
     }
+    // &:disabled {
+    //     cursor: default;
+    //     background-color: #474747;
+    //     color: #e0e0e0;
+    //     &:hover {
+    //         background-color: #474747;
+    //         color: #e0e0e0;
+    //         border-color: ${colorMint};
+    //     }
+    // }
 `;
 
 const btnDisabled = styled(btn)`
@@ -60,8 +70,8 @@ const btnDisabled = styled(btn)`
     }
 `;
 
-export const Logo = {
-    Wrapper: styled.header`
+export const Login = {
+    Wrapper: styled.aside`
         display: flex;
         width: 100%;
         flex-direction: row;
@@ -85,6 +95,14 @@ export const Logo = {
         font-family: "Lato", sans-serif;
     `,
 };
+export const PersonsPageHeader = styled.h1`
+    font-family: "Lato", sans-serif;
+    background-color: ${overheaderColor};
+    color: ${colorMint};
+    padding: 8px;
+    border: 4px solid;
+    border-radius: 6px;
+`;
 
 export const Overhead = {
     Wrapper: styled.div`
@@ -179,7 +197,7 @@ vertical-align:top;
 border-top: 1px solid;
 &.focusable{cursor: pointer;
   &:hover,&:focus{
-  background-color: #67829e;
+  background-color: #3A4C5F;
 }}
 
 `,

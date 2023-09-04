@@ -12,14 +12,14 @@ import { login, hideError } from "js/redux/actions";
 import { getPersons } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";
-import { AppDispatch, RootStateType } from "components/AppProvider";
+import { AppDispatch, RootStateType, Loader } from "components";
 import { Redirect, User } from "types/index";
-import Loader from "components/Loader";
 
 const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
 const LoginSection = lazy(() => import("./parts/LoginSection"));
 const PersonsTableSortArea = lazy(() => import("./parts/PersonsTable/SortArea"));
 const UserInfoCard = lazy(() => import("./parts/UserCard"));
+const Header = lazy(() => import("./parts/Header"));
 
 interface Props {
     user: User;
@@ -49,13 +49,14 @@ function PersonsPage(props: Props) {
 
     return !isOffline() ? (
         <Suspense fallback={<Loader />}>
-            {user && <UserInfoCard user={user} />}
             <PersonsPageContainer>
+                {user && <UserInfoCard user={user} />}
+                <Header />
                 <LoginSection />
                 <Fade in={true} timeout={2000}>
                     <PersonsTableContainer>
                         <PersonsTableHeader />
-                        <PersonsTableBody>
+                        <PersonsTableBody summary="Table of users by name and email. ID is a label only. Users are sortable by name or email alternatively and can be removed.">
                             <PersonsTableSortArea />
                             <PersonsTableContent />
                         </PersonsTableBody>

@@ -8,13 +8,11 @@ import { Input } from "styles/style";
 interface Props {
     isDisabled: Boolean;
 }
-const AddPersonButton = (props: Props) => {
+const SubmitFormButton = (props: Props) => {
     const isLogged = useSelector(selectIsLogged);
 
-    const { isDisabled } = props;
-    console.log();
     return (
-        <Input.Btn type="submit" id="SubmitButton" disabled={/*isDisabled ||*/ !isLogged}>
+        <Input.Btn type="submit" id="SubmitButton" disabled={!isLogged}>
             <span>Submit</span>
         </Input.Btn>
     );
@@ -24,5 +22,5 @@ const mapStateToProps = (state: RootStateType) => ({
     isDisabled: state.submitDisabled,
 });
 
-export default connect(mapStateToProps, null)(AddPersonButton);
+export default connect(mapStateToProps, null)(SubmitFormButton);
 // todo  ten guzik rzeczywiście jest zablokowany, ale nie ma wyglądu zablokowangeo, do pilnej

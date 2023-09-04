@@ -13,13 +13,13 @@ const Error = loadable(() => import("pages/ErrorPage"));
 const App = (): JSX.Element => {
     useHandleConnectionStatus();
     return (
-        <main>
-            <Routes>
-                <Route path={ROUTES.LANDING} element={<LandingPage />} />
-                <Route path={ROUTES.PERSONS} element={<Persons />} />
-                <Route path={ROUTES.ERROR} element={<Error />} />
-            </Routes>
-        </main>
+        // <main>
+        <Routes>
+            <Route path={ROUTES.LANDING} element={<LandingPage />} />
+            <Route path={ROUTES.PERSONS} element={<Persons />} />
+            <Route path={ROUTES.ERROR} element={<Error />} />
+        </Routes>
+        // </main>
     );
 };
 
