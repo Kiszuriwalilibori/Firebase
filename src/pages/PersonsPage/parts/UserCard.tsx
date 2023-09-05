@@ -15,8 +15,10 @@ const useStyles = makeStyles({
         position: "fixed",
         right: "1vw",
         top: "1vh",
-        backgroundColor: "#0D5E6D",
+        backgroundColor: "#1E656D",
         color: "white",
+        border: "1px solid",
+        cursor: "default !important",
     },
     media: {
         height: 60,

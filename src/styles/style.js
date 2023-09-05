@@ -11,6 +11,7 @@ const circleSize = "30px";
 const circleBackground = "#FBEA58";
 const circleText = "#5A5D50";
 const message = styled.div`margin 0 1rem; color: grey;`;
+const buttonColor = "#1E656D";
 
 const btn = styled.button`
     display: inline-block;
@@ -97,11 +98,13 @@ export const Login = {
 };
 export const PersonsPageHeader = styled.h1`
     font-family: "Lato", sans-serif;
-    background-color: ${overheaderColor};
-    color: ${colorMint};
-    padding: 8px;
-    border: 4px solid;
-    border-radius: 6px;
+    background-color: ${buttonColor};
+    color: white;
+    padding: 12px;
+    border: 2px solid;
+    border-radius: 4px;
+    font-weight: 300;
+    font-size: 25px;
 `;
 
 export const Overhead = {
