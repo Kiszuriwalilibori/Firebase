@@ -42,3 +42,8 @@ isSortDescending:
 w zasadzie należałoby z tego stworzyć obiekt sortParams
 
 export const headings = ["ID", "NAME", "E-MAIL"]; w pliku config, czy nie przerobić tego na enum?
+
+Pytanie czy Erorpage to nie jest z armatą na wróblla, czy nie wystarczyłby notistack
+
+App.scss powinien się raczej skladać z importów
+Co tu robią odniesienia do Unamo jeszcze?

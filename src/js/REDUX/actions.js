@@ -6,8 +6,6 @@ export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const SHOW_ERROR = "SHOW_ERROR";
 export const HIDE_ERROR = "HIDE_ERROR";
-export const SHOW_WARNING = "SHOW_WARNING";
-export const HIDE_WARNING = "HIDE_WARNING";
 export const HIDE_ADDED_USER_MESSAGE = "HIDE_ADDED_USER_MESSAGE";
 export const BLOCK_SUBMIT = "BLOCK_SUBMIT";
 export const TOGGLE_SUBMIT = "TOGGLE_SUBMIT";
@@ -82,7 +80,3 @@ export function logout() {
         type: LOGOUT,
     };
 }
-
-/**
- * todo prawdopodobnie SHOW_WARNING i HIDE_WARNING nie są nigdzie wykorzystywane, to samo w reducerze
- */

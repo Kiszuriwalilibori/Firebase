@@ -12,7 +12,6 @@ import ErrorMessage from "./ErrorMessage";
 import submitFigure from "thunks/submitFigure";
 import SubmitFormButton from "./SubmitFormButton";
 import createRedirect from "js/functions/createRedirect";
-// import * as ROUTES from "js/routes";
 
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
@@ -37,26 +36,12 @@ const yupConfig = {
 const AddPersonForm = props => {
     const input = useRef(null);
     const isLogged = useSelector(selectIsLogged);
-    // const navigate = useNavigate();
     const { user, submitFigure, toggleSubmit } = props;
     const firebase = useContext(FirebaseContext);
     const showMessage = useMessage();
     const history = useNavigate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const redirect = React.useMemo(createRedirect(history), []);
-
-    // const redirect = React.useMemo(
-    //     () => ({
-    //         error: () => {
-    //             navigate(ROUTES.ERROR);
-    //         },
-    //         persons: () => {
-    //             navigate(ROUTES.PERSONS);
-    //         },
-    //     }),
-    //     [navigate]
-    // );
-
     const isFormEmpty = () => !!(values.personName === "" && values.personEmail === "");
     useEffect(() => input.current.focus(), [input]);
 

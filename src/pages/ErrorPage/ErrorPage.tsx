@@ -40,6 +40,7 @@ interface Props {
 }
 const Error = (props: Props) => {
     const { message } = props;
+    if (!message) return null;
 
     return (
         <Container>
@@ -60,7 +61,3 @@ export default connect(mapStateToProps, null)(withLinkToPersons(Error));
 Error.propTypes = {
     message: PropTypes.string,
 };
-
-/**
- * todo pytanie czy Erorpage to nie jest z armatą na wróblla, czy nie wystarczyłby notistack
- */

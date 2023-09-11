@@ -42,18 +42,7 @@ const reducer = (state = initialState, action) => {
                 isError: false,
                 errorMessage: null,
             };
-        case actions.SHOW_WARNING:
-            return {
-                ...state,
-                isAlert: true,
-                errorMessage: action.payload,
-            };
-        case actions.HIDE_WARNING:
-            return {
-                ...state,
-                isAlert: false,
-                errorMessage: null,
-            };
+
         case actions.SET_LOADING_TRUE:
             return {
                 ...state,
@@ -73,7 +62,6 @@ const reducer = (state = initialState, action) => {
             };
 
         case actions.PERSONS_SET:
-            console.log("payload persons set", action.payload);
             return {
                 ...state,
                 isLoading: false,

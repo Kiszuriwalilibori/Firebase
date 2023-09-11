@@ -111,9 +111,6 @@ export const Overhead = {
         }
     `,
 
-    SuccessMessage: styled(message)`
-        color: ${colorSuccess};
-    `,
     DangerMessage: styled(message)`
         color: ${circleBackground};
     `,
@@ -272,8 +269,3 @@ export const PersonsTableBody = styled.table`
         overflow-y: visible;
     }
 `;
-
-/**
- * todo dangerMessage, successM3essage do usunięcia po zastąpieniu notistackiem
- *
- */
