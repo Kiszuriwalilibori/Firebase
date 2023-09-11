@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle } from "styled-components";
-import React from "react";
 
 const overheaderColor = "#495F75";
 const colorUnamo = "rgb(0, 193, 179)";
@@ -7,9 +6,9 @@ const colorSuccess = "#39ff14";
 const colorSailorBlue = "#495F75";
 const colorMint = "#C2F1DB";
 const inputBorderColor = "#C2F1DB";
-const circleSize = "30px";
+
 const circleBackground = "#FBEA58";
-const circleText = "#5A5D50";
+
 const message = styled.div`margin 0 1rem; color: grey;`;
 const buttonColor = "#1E656D";
 
@@ -49,16 +48,6 @@ const btn = styled.button`
             border-color: ${colorMint};
         }
     }
-    // &:disabled {
-    //     cursor: default;
-    //     background-color: #474747;
-    //     color: #e0e0e0;
-    //     &:hover {
-    //         background-color: #474747;
-    //         color: #e0e0e0;
-    //         border-color: ${colorMint};
-    //     }
-    // }
 `;
 
 const btnDisabled = styled(btn)`
@@ -213,46 +202,6 @@ border-top: 1px solid;
             {props.children}
         </Header.SectionStyle>
     ),
-};
-
-export const Rows = {
-    EmailCell: styled.div`
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    `,
-    MiddleAligned: styled.td`
-        vertical-align: middle;
-        padding: 0.75rem;
-        border-top: 1px solid;
-    `,
-    MiddleAlignedTop: styled.td`
-        vertical-align: top;
-        padding: 0.75rem;
-        border-top: 1px solid;
-    `,
-    Circle: styled.span`
-        text-shadow: 0 -0.03rem 0.03rem;
-        font-weight: 100;
-        width: ${circleSize};
-        height: ${circleSize};
-        color: ${circleText};
-        border: 1px solid;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: ${circleBackground};
-        @media (max-width: 569px) {
-            width: calc(20px + 10 * ((100vw - 320px) / 249));
-            height: calc(20px + 10 * ((100vw - 320px) / 249));
-        }
-    `,
-    button: styled.button.attrs(props => ({ type: "button", "aria-label": "delete" }))`
-        background: transparent;
-        border-radius: 50%;
-        border: none;
-    `,
 };
 
 export const GlobalStyle = createGlobalStyle`

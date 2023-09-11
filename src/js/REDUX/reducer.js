@@ -1,6 +1,6 @@
 import * as actions from "./actions";
 import initialState from "./initialState";
-import { sortFigures } from "../functions";
+import { sortPersons } from "../functions";
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -15,23 +15,21 @@ const reducer = (state = initialState, action) => {
             return state.isHiddenInputForm
                 ? {
                       ...state,
-
                       isHiddenAddUserButton: true,
                       isHiddenInputForm: false,
                   }
                 : { ...state };
 
-        case actions.SORT:
+        case actions.PERSONS_SORT:
             const { isSortDescending, columnSortBy } = action.payload;
-            const sorted_items = sortFigures([...state.items], isSortDescending, columnSortBy);
+            const sortedPersons = sortPersons([...state.persons], isSortDescending, columnSortBy);
             return {
                 ...state,
-                items: sorted_items,
+                persons: sortedPersons,
                 isHiddenAddedUserMsg: true,
                 isSortDescending,
                 columnSortBy,
             };
-
         case actions.SHOW_ERROR:
             return {
                 ...state,
@@ -74,13 +72,13 @@ const reducer = (state = initialState, action) => {
                 submitDisabled: toggled_submit,
             };
 
-        case actions.GET_DATA_DONE:
+        case actions.PERSONS_SET:
+            console.log("payload persons set", action.payload);
             return {
                 ...state,
                 isLoading: false,
-                items: action.payload,
+                persons: action.payload,
             };
-
         case actions.HIDE_ADDED_USER_MESSAGE:
             return {
                 ...state,
@@ -100,7 +98,7 @@ const reducer = (state = initialState, action) => {
             };
 
         default:
-            console.log("unknown action", action.type);
+            // console.log("unknown action", action.type);
             return state;
     }
 };

@@ -1,8 +1,4 @@
 import { User, FirebaseError } from "firebase";
-
-type Item = string[];
-type Items = Item[];
-
 interface Sort {
     isSortDescending: boolean;
     columnSortBy: number;
@@ -19,4 +15,14 @@ type Redirect = {
     [Item in PathKeys]: HistoryCall;
 };
 
-export { ErrorType, FirebaseError, Item, Items, Redirect, Sort, User };
+type PersonFields = "email" | "name" | "firebaseRef" | "user";
+
+type PurePerson = { [key in PersonFields]: string };
+interface Person extends PurePerson {
+    isAuthorised?: boolean;
+}
+type Persons = Person[];
+
+type HTMLClick = (e: React.MouseEvent<HTMLElement>) => void;
+
+export { ErrorType, FirebaseError, HTMLClick, Person, PersonFields, Persons, Redirect, Sort, User };

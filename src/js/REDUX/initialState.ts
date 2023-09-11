@@ -1,7 +1,7 @@
-import { Items, User } from "types";
+import { Persons, User } from "types";
 
 const initialState = {
-    items: [] as Items,
+    persons: [] as Persons,
     isError: false,
     errorMessage: "",
     message: null,

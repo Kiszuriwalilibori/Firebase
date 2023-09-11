@@ -48,6 +48,12 @@ table {
   border-collapse: collapse;
 }
 
+*:focus {
+  outline: 2px ridge #0ca4f6;
+  outline-offset: 1px;
+  z-index: 2000;
+}
+
 @font-face {
   font-family: IcoMoon;
   src: url(../fonts/icomoon.eot);

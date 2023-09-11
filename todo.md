@@ -34,3 +34,11 @@ jednak te th w sort to muszą być guziki
 a co jeżeli w komponencie UserCard jeżeli nie ma zdjęcia to co wtedy ??? babol leci dzisiaj ale wczoraj było dobrze. I teraz znowu jest dobrze. Dać by grawatara jako alternatywę
 
 landing page: taki sposób linkowania jak jest teraz nie podoba się siteimprove. Trzeba przerobić na njzwyklekszy onclick z navigate prawdopodobnie
+
+PersonFields i Fields, tu podobno da się wykorzystać tuple.
+
+columnSortBy:
+isSortDescending:
+w zasadzie należałoby z tego stworzyć obiekt sortParams
+
+export const headings = ["ID", "NAME", "E-MAIL"]; w pliku config, czy nie przerobić tego na enum?

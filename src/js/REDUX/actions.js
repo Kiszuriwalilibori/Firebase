@@ -13,6 +13,8 @@ export const BLOCK_SUBMIT = "BLOCK_SUBMIT";
 export const TOGGLE_SUBMIT = "TOGGLE_SUBMIT";
 export const SET_LOADING_TRUE = "LOADING_TRUE";
 export const SET_LOADING_FALSE = "LOADING_FALSE";
+export const PERSONS_SET = "PERSONS_SET";
+export const PERSONS_SORT = "PERSONS_SORT";
 
 export function toggleSubmit() {
     return { type: TOGGLE_SUBMIT };
@@ -30,9 +32,9 @@ export function showAddUserForm() {
     return { type: SHOW_ADD_USER_FORM };
 }
 
-export function sort(data) {
+export function sortPersons(data) {
     return {
-        type: SORT,
+        type: PERSONS_SORT,
         payload: data,
     };
 }
@@ -61,9 +63,9 @@ export function stopLoading() {
     };
 }
 
-export function getDataDone(data) {
+export function setPersons(data) {
     return {
-        type: GET_DATA_DONE,
+        type: PERSONS_SET,
         payload: data,
     };
 }

@@ -42,7 +42,9 @@ const LinkButton = withStyles({
             borderColor: "#303f4f",
         },
         "&:focus": {
-            boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+            outline: "2px ridge #0ca4f6",
+            outlineOffset: "1px",
+            zIndex: 2000,
         },
         "&:disabled": {
             backgroundColor: "#474747",
@@ -93,10 +95,10 @@ const LoginSection = (props: Props) => {
 
     return (
         <Login.Wrapper aria-label="login area">
-            <LinkButton size="large" disabled={!Boolean(user)} onClick={requestLogout}>
+            <LinkButton disableFocusRipple size="large" disabled={!Boolean(user)} onClick={requestLogout}>
                 Wyloguj się
             </LinkButton>
-            <LinkButton size="large" disabled={Boolean(user)} onClick={requestLogin}>
+            <LinkButton disableFocusRipple size="large" disabled={Boolean(user)} onClick={requestLogin}>
                 Zaloguj się kontem Google
             </LinkButton>
         </Login.Wrapper>

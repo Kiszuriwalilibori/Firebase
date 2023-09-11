@@ -1,5 +1,5 @@
-import { getDataDone, login, showError, startLoading, stopLoading } from "../js/redux/actions";
-import { sortFigures } from "js/functions";
+import { login, showError, startLoading, stopLoading, setPersons } from "../js/redux/actions";
+import { sortPersons } from "js/functions";
 
 export function getPersons(redirect, firebase, showMessage) {
     return (dispatch, getState) => {
@@ -7,12 +7,9 @@ export function getPersons(redirect, firebase, showMessage) {
             if (snap.val() === true) {
                 showMessage.info("Ustanowiono lub przywrócono połączenie z bazą danych");
             } else {
-                dispatch(
-                    showError(
-                        "W tej chwili nie masz połączenia z bazą. Wskazane jest abyś nie wykonywał operacji zapisu i odczytu, gdyż mają one wyłacznie lokalny zasięg i nie zmieniają bazy"
-                    )
+                showMessage.warning(
+                    "W tej chwili nie masz połączenia z bazą. Wskazane jest abyś nie wykonywał operacji zapisu i odczytu, gdyż mają one wyłacznie lokalny zasięg i nie zmieniają bazy"
                 );
-                redirect.error();
             }
         });
 
@@ -21,29 +18,29 @@ export function getPersons(redirect, firebase, showMessage) {
             "value",
             snapshot => {
                 const data = snapshot.val();
+
                 if (!data) {
-                    //prevents reading empty database
                     dispatch(showError("Baza jest pusta lub wystąpił problem z połączeniem"));
                     redirect.error();
                     return;
                 }
+                const persons = [];
+                Object.entries(snapshot.val())
+                    .map(entry => {
+                        return { [entry[0]]: entry[1] };
+                    })
+                    .forEach(entry => {
+                        const person = { firebaseRef: Object.keys(entry)[0], ...entry[Object.keys(entry)[0]] };
+                        persons.push(person);
+                    });
+                const columnPersons = getState().columnSortBy;
 
-                for (let property in data) {
-                    const x = data[property];
-                    const y = [property];
-                    y[1] = x.name;
-                    y[2] = x.email;
-                    y[3] = x.user;
-
-                    data[property] = y;
-                }
-                const column = getState().columnSortBy;
-                if (column) {
-                    dispatch(getDataDone(sortFigures(Object.values(data), getState().isSortDescending, column)));
+                if (columnPersons && persons) {
+                    dispatch(setPersons(sortPersons(persons, getState().isSortDescending, columnPersons)));
                 } else {
-                    if (data) {
-                        dispatch(getDataDone(Object.values(data)));
-                    } /*else{dispatch(getDataDone(null));} */ //if by mistake all is removed sending null is a sort of service entry
+                    if (persons) {
+                        dispatch(setPersons(persons));
+                    } /*else{dispatch(setPersons([]));} */ //if by mistake all is removed sending null is a sort of service entry
                 }
 
                 dispatch(stopLoading());

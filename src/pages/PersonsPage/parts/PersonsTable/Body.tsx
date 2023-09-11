@@ -1,54 +1,34 @@
 import * as React from "react";
-import ClearRoundedIcon from "@material-ui/icons/Clear";
-import IconButton from "@material-ui/core/IconButton";
 import uuid from "react-uuid";
 
-import { withStyles } from "@material-ui/core/styles";
 import { useNavigate } from "react-router-dom";
-import { connect } from "react-redux";
-
-import { showError } from "js/redux/actions";
-import { Rows } from "styles/style";
-import { FirebaseContext } from "contexts/firebaseContext";
-import { ErrorType, FirebaseError, User } from "types";
+import { connect, useSelector } from "react-redux";
 
 import * as ROUTES from "js/routes";
-import { AppDispatch, RootStateType } from "components/AppProvider";
 
-const iconColor = "#FF0801;";
-const iconHoverColor = "rgba(247,0,0,0.34)";
-const ClearIcon = withStyles({
-    root: {
-        color: iconColor,
-        cursor: "pointer",
-    },
-})(ClearRoundedIcon);
-
-const Button = withStyles({
-    root: {
-        color: iconColor,
-        transition: "background-color 0.5s ease-in-out",
-        "&:hover": { backgroundColor: iconHoverColor },
-    },
-})(IconButton);
+import { showError } from "js/redux/actions";
+import { FirebaseContext } from "contexts/firebaseContext";
+import { ErrorType, FirebaseError } from "types";
+import { AppDispatch } from "components/AppProvider";
+import { selectPersons } from "js/redux/selectors";
+import { Button, ClearIcon, RegularCell, Circle, EmailCell } from "./styles";
 
 interface Props {
-    items: string[][];
-    user: User;
     showError: (data: ErrorType) => void;
 }
 
 const PersonsTableBody = (props: Props) => {
-    const { items, user, showError } = props;
+    const { showError } = props;
     const firebase = React.useContext(FirebaseContext);
     const navigate = useNavigate();
-    if (!items || items.length === 0) {
+    const persons = useSelector(selectPersons);
+
+    if (!persons || persons.length === 0) {
         return null;
     }
 
-    const removeItem: React.MouseEventHandler<HTMLButtonElement> = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const ref = e.currentTarget.dataset.item_firebase_ref;
-        const itemRef = firebase.database.ref(`/items/${ref}`);
+    const removeItem = (str: string) => {
+        const itemRef = firebase.database.ref(`/items/${str}`);
         if (itemRef) {
             try {
                 itemRef.remove();
@@ -69,39 +49,33 @@ const PersonsTableBody = (props: Props) => {
 
     return (
         <tbody>
-            {items.map((row, index) => (
+            {persons.map((person, index) => (
                 <tr key={uuid()}>
-                    <Rows.MiddleAligned key={uuid()}>
-                        <Rows.Circle>{index + 1}</Rows.Circle>
-                    </Rows.MiddleAligned>
-                    <Rows.MiddleAligned key={uuid()}>{row[1]}</Rows.MiddleAligned>
-                    <Rows.MiddleAligned key={uuid()}>
-                        <Rows.EmailCell>
-                            <span>{row[2]}</span>
-                            {user && user.displayName === row[3] && (
+                    <RegularCell key={uuid()}>
+                        <Circle>{index + 1}</Circle>
+                    </RegularCell>
+                    <RegularCell key={uuid()}>{person.name}</RegularCell>
+                    <RegularCell key={uuid()}>
+                        <EmailCell>
+                            <span>{person.email}</span>
+                            {person.isAuthorised && (
                                 <Button
-                                    onClick={removeItem}
-                                    aria-label={"remove user having e-mail  " + row[2]}
-                                    data-item_firebase_ref={row[0]}
+                                    onClick={person.isAuthorised ? () => removeItem(person.firebaseRef) : () => {}}
+                                    aria-label={"remove user having e-mail  " + person.email}
                                 >
                                     <ClearIcon />
                                 </Button>
                             )}{" "}
-                        </Rows.EmailCell>
-                    </Rows.MiddleAligned>
+                        </EmailCell>
+                    </RegularCell>
                 </tr>
             ))}
         </tbody>
     );
 };
 
-const mapStateToProps = (state: RootStateType) => ({
-    items: state.items,
-    user: state.user,
-});
-
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
     showError: (data: ErrorType) => dispatch(showError(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PersonsTableBody);
+export default connect(null, mapDispatchToProps)(PersonsTableBody);
