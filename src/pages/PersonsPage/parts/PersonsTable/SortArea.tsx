@@ -6,20 +6,15 @@ import { tableHeadings, nonSortableColumns } from "../../../../config";
 import { sortPersons } from "js/redux/actions";
 import { Header } from "styles/style";
 import { AppDispatch, RootStateType } from "components";
-import { HTMLClick } from "types/index";
+import { HTMLClick, SortParams } from "types/index";
 
 interface Props {
-    columnSortBy: number | undefined;
-    isSortDescending: true | false;
-    sortPersons: Function;
-}
-interface SortParams {
-    isSortDescending: boolean;
-    columnSortBy: number;
+    sortPersons: (arg0: SortParams) => void;
+    sortParams: SortParams;
 }
 
 const PersonsTableSortArea = (props: Props) => {
-    const { columnSortBy, isSortDescending, sortPersons } = props;
+    const { sortPersons, sortParams } = props;
 
     const handleSort = (e: React.MouseEvent<HTMLTableCellElement>) => {
         const { target } = e;
@@ -27,10 +22,9 @@ const PersonsTableSortArea = (props: Props) => {
         const columnNotExcludedFromSorting = nonSortableColumns === undefined || !nonSortableColumns.has(targetColumn);
 
         if (columnNotExcludedFromSorting) {
-            const isDescending = columnSortBy === targetColumn && !isSortDescending;
             const data = {
-                isSortDescending: isDescending,
-                columnSortBy: targetColumn,
+                isDescending: sortParams.column === targetColumn && !sortParams.isDescending,
+                column: targetColumn,
             };
             sortPersons(data);
         }
@@ -45,8 +39,7 @@ const PersonsTableSortArea = (props: Props) => {
                         key={item}
                         focusable={!nonSortableColumns.has(index)}
                     >
-                        {" "}
-                        {item + createSortOrderMarker(index, isSortDescending, columnSortBy)}{" "}
+                        {item + createSortOrderMarker(index, sortParams.isDescending, sortParams.column)}{" "}
                     </Header.Section>
                 ))}
             </tr>
@@ -55,8 +48,7 @@ const PersonsTableSortArea = (props: Props) => {
 };
 
 const mapStateToProps = (state: RootStateType) => ({
-    columnSortBy: state.columnSortBy,
-    isSortDescending: state.isSortDescending,
+    sortParams: state.sortParams,
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

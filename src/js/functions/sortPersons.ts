@@ -1,9 +1,15 @@
 import lowerCase from "lodash/lowerCase";
-import { Person, PersonFields, Persons } from "types";
+import { Person, PersonFields, Persons, SortParams } from "types";
 
 const fields: PersonFields[] = ["firebaseRef", "name", "email", "user"];
 
-export function sortPersons(ary: Persons, isDescending: boolean, key: number, func = lowerCase) {
+export function sortPersons(
+    ary: Persons,
+    isDescending: boolean,
+    key: number,
+    sortParams: SortParams,
+    func = lowerCase
+) {
     const comparatorDescending = (a: Person, b: Person) => {
         if (func(a[fields[key]]) > func(b[fields[key]])) {
             return -1;

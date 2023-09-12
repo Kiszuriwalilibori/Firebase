@@ -21,14 +21,14 @@ const reducer = (state = initialState, action) => {
                 : { ...state };
 
         case actions.PERSONS_SORT:
-            const { isSortDescending, columnSortBy } = action.payload;
-            const sortedPersons = sortPersons([...state.persons], isSortDescending, columnSortBy);
+            const { isDescending, column } = action.payload;
+            const sortedPersons = sortPersons([...state.persons], isDescending, column, action.payload);
+
             return {
                 ...state,
                 persons: sortedPersons,
+                sortParams: { ...action.payload },
                 isHiddenAddedUserMsg: true,
-                isSortDescending,
-                columnSortBy,
             };
         case actions.SHOW_ERROR:
             return {
@@ -74,6 +74,7 @@ const reducer = (state = initialState, action) => {
             };
 
         case actions.LOGIN:
+            console.log(action.payload);
             return {
                 ...state,
                 user: action.payload,

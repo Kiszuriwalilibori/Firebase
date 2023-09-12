@@ -12,7 +12,7 @@ import { HTMLClick } from "types/index";
 interface Props {
     isHiddenAddUserButton: Boolean;
     isHiddenInputForm: Boolean;
-    showAddUserForm: Function;
+    showAddUserForm: () => void;
 }
 
 const PersonsTableHeader = (props: Props) => {

@@ -1,8 +1,4 @@
 import { User, FirebaseError } from "firebase";
-interface Sort {
-    isSortDescending: boolean;
-    columnSortBy: number;
-}
 
 interface ErrorType {
     isError: boolean;
@@ -30,4 +26,4 @@ interface SortParams {
     isDescending: boolean;
 }
 
-export { ErrorType, FirebaseError, HTMLClick, Person, PersonFields, Persons, Redirect, Sort, SortParams, User };
+export { ErrorType, FirebaseError, HTMLClick, Person, PersonFields, Persons, Redirect, SortParams, User };

@@ -33,10 +33,10 @@ export function getPersons(redirect, firebase, showMessage) {
                         const person = { firebaseRef: Object.keys(entry)[0], ...entry[Object.keys(entry)[0]] };
                         persons.push(person);
                     });
-                const columnPersons = getState().columnSortBy;
+                const columnPersons = getState().sortParams.column;
 
                 if (columnPersons && persons) {
-                    dispatch(setPersons(sortPersons(persons, getState().isSortDescending, columnPersons)));
+                    dispatch(setPersons(sortPersons(persons, getState().sortParams.isDescending, columnPersons)));
                 } else {
                     if (persons) {
                         dispatch(setPersons(persons));

@@ -10,7 +10,7 @@ import { FirebaseContext } from "contexts/firebaseContext";
 import { Login } from "styles/style";
 import { login, logout, showError } from "js/redux/actions";
 import { AppDispatch, RootStateType } from "components/AppProvider";
-import { ErrorType, FirebaseError, User } from "types/index";
+import { FirebaseError, User } from "types/index";
 
 import * as ROUTES from "../../../js/routes";
 
@@ -58,9 +58,9 @@ const LinkButton = withStyles({
 
 interface Props {
     user: User;
-    login: Function;
-    logout: Function;
-    showError: Function;
+    login: (data: any) => void;
+    logout: () => void;
+    showError: (err: string) => void;
 }
 
 const LoginSection = (props: Props) => {
@@ -112,7 +112,7 @@ const mapStateToProps = (state: RootStateType) => ({
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
     login: (data: any) => dispatch(login(data)),
     logout: () => dispatch(logout()),
-    showError: (err: ErrorType) => dispatch(showError(err)),
+    showError: (err: string) => dispatch(showError(err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginSection);
