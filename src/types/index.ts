@@ -25,4 +25,9 @@ type Persons = Person[];
 
 type HTMLClick = (e: React.MouseEvent<HTMLElement>) => void;
 
-export { ErrorType, FirebaseError, HTMLClick, Person, PersonFields, Persons, Redirect, Sort, User };
+interface SortParams {
+    column: undefined | number;
+    isDescending: boolean;
+}
+
+export { ErrorType, FirebaseError, HTMLClick, Person, PersonFields, Persons, Redirect, Sort, SortParams, User };

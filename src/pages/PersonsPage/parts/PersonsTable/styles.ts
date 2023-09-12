@@ -54,3 +54,10 @@ export const EmailCell = styled.div`
     justify-content: space-between;
     align-items: center;
 `;
+
+export const ErrorMsg = styled.span`
+    color: red;
+    background-color: white;
+    border-radius: 2px;
+    padding: 0.5rem;
+`;

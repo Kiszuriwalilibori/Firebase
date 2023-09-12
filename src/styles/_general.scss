@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background: url(../images/background.webp) no-repeat center center fixed;
+    background-size: cover;
+}
+@media (min-width: 760px) and (max-width: 1024px) {
+    html {
+        background: url(../images/background_tablet.webp) no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+@media (min-width: 481px) and (max-width: 759px) {
+    html {
+        background: url(../images/background_small.webp) no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+@media (max-width: 480px) {
+    html {
+        background: url(../images/background_mobile.webp) no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+
+html {
+    @media (min-width: 570px) {
+        font-size: 16px;
+    }
+
+    @media (min-width: 320px) and (max-width: 569px) {
+        font-size: calc(12px + 4 * ((100vw - 320px) / 250));
+    }
+}
+
+table {
+    border-collapse: collapse;
+}
+
+*:focus {
+    outline: 2px ridge #4153af;
+    outline-offset: 1px;
+    z-index: 2000;
+}

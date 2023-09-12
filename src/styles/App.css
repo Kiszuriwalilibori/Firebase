@@ -1,3 +1,20 @@
+@font-face {
+  font-family: IcoMoon;
+  src: url(../fonts/icomoon.eot);
+  src: url(../fonts/icomoon.woff) format("woff");
+  src: url(../fonts/icomoon.ttf) format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url(../fonts/Lato-Regular.ttf) format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: Brush;
+  src: url(../fonts/brush.ttf) format("truetype");
+  font-display: swap;
+}
 * {
   box-sizing: border-box;
 }
@@ -49,28 +66,11 @@ table {
 }
 
 *:focus {
-  outline: 2px ridge #0ca4f6;
+  outline: 2px ridge #4153af;
   outline-offset: 1px;
   z-index: 2000;
 }
 
-@font-face {
-  font-family: IcoMoon;
-  src: url(../fonts/icomoon.eot);
-  src: url(../fonts/icomoon.woff) format("woff");
-  src: url(../fonts/icomoon.ttf) format("truetype");
-  font-display: swap;
-}
-@font-face {
-  font-family: Lato;
-  src: url(../fonts/Lato-Regular.ttf) format("truetype");
-  font-display: swap;
-}
-@font-face {
-  font-family: Brush;
-  src: url(../fonts/brush.ttf) format("truetype");
-  font-display: swap;
-}
 .IcoMoon {
   font-family: IcoMoon;
 }
@@ -109,11 +109,4 @@ tbody {
   .landing_message {
     font-size: calc(50px + 85 * (100vw - 320px) / 1120);
   }
-}
-
-.AddPersonForm__error-message {
-  color: red;
-  background-color: white;
-  border-radius: 2px;
-  padding: 0.5rem;
 }

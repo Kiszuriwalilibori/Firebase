@@ -1,12 +1,9 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 const overheaderColor = "#495F75";
-const colorUnamo = "rgb(0, 193, 179)";
-const colorSuccess = "#39ff14";
 const colorSailorBlue = "#495F75";
 const colorMint = "#C2F1DB";
 const inputBorderColor = "#C2F1DB";
-
 const circleBackground = "#FBEA58";
 
 const message = styled.div`margin 0 1rem; color: grey;`;
@@ -74,15 +71,6 @@ export const Login = {
             justify-content: center;
             align-items: center;
         }
-    `,
-    page: styled.a.attrs(props => ({
-        href: "https://unamo.com/pl/",
-        target: "_blank",
-        rel: "noopener",
-    }))`
-        font-size: 1.5rem;
-        color: ${colorUnamo};
-        font-family: "Lato", sans-serif;
     `,
 };
 export const PersonsPageHeader = styled.h1`

@@ -1,0 +1,36 @@
+.IcoMoon {
+    font-family: IcoMoon;
+}
+
+.icon-Cross:before {
+    content: "\e904";
+    margin: 0.5rem;
+    font-family: IcoMoon;
+    cursor: pointer;
+    color: #ff0801;
+}
+
+tbody {
+    color: #495f75;
+    background-color: #c2f1db;
+}
+.icon-Sort:before {
+    content: "\e903";
+    margin: 0.5rem;
+    font-family: IcoMoon;
+    cursor: pointer;
+    color: #fbea58;
+}
+
+.landing_message {
+    font-family: brush;
+    font-size: 120px;
+    font-weight: initial;
+    @media (min-width: 320px) and (max-width: 1441px) {
+        font-size: calc(50px + 85 * ((100vw - 320px) / 1120));
+    }
+    background: -webkit-linear-gradient(red, #154caf);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
