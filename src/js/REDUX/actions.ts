@@ -1,3 +1,5 @@
+import { ErrorType, Persons, SortParams } from "types/index";
+
 export const GET_DATA_DONE = "GET_DATA_DONE";
 export const SORT = "SORT";
 export const SHOW_ADD_USER_FORM = "SHOW_ADD_USER_FORM";
@@ -22,7 +24,7 @@ export function blockSubmit() {
     return { type: BLOCK_SUBMIT };
 }
 
-export function submitUser(data) {
+export function submitUser(data: any) {
     return { type: SUBMIT_USER, payload: data };
 }
 
@@ -30,14 +32,14 @@ export function showAddUserForm() {
     return { type: SHOW_ADD_USER_FORM };
 }
 
-export function sortPersons(data) {
+export function sortPersons(data: SortParams) {
     return {
         type: PERSONS_SORT,
         payload: data,
     };
 }
 
-export function showError(data) {
+export function showError(data: ErrorType) {
     return {
         type: SHOW_ERROR,
         payload: data,
@@ -61,14 +63,14 @@ export function stopLoading() {
     };
 }
 
-export function setPersons(data) {
+export function setPersons(data: Persons) {
     return {
         type: PERSONS_SET,
         payload: data,
     };
 }
 
-export function login(data) {
+export function login(data: any) {
     return {
         type: LOGIN,
         payload: data,

@@ -7,9 +7,12 @@ export function getPersons(redirect, firebase, showMessage) {
             if (snap.val() === true) {
                 showMessage.info("Ustanowiono lub przywrócono połączenie z bazą danych");
             } else {
-                showMessage.warning(
-                    "W tej chwili nie masz połączenia z bazą. Wskazane jest abyś nie wykonywał operacji zapisu i odczytu, gdyż mają one wyłacznie lokalny zasięg i nie zmieniają bazy"
-                );
+                setTimeout(() => {
+                    snap.val() &&
+                        showMessage.warning(
+                            "W tej chwili nie masz połączenia z bazą. Wskazane jest abyś nie wykonywał operacji zapisu i odczytu, gdyż mają one wyłacznie lokalny zasięg i nie zmieniają bazy"
+                        );
+                }, 500);
             }
         });
 
@@ -33,10 +36,13 @@ export function getPersons(redirect, firebase, showMessage) {
                         const person = { firebaseRef: Object.keys(entry)[0], ...entry[Object.keys(entry)[0]] };
                         persons.push(person);
                     });
-                const columnPersons = getState().sortParams.column;
 
-                if (columnPersons && persons) {
-                    dispatch(setPersons(sortPersons(persons, getState().sortParams.isDescending, columnPersons)));
+                if (getState().sortParams.column && persons) {
+                    dispatch(
+                        setPersons(
+                            sortPersons(persons, getState().sortParams.isDescending, getState().sortParams.column)
+                        )
+                    );
                 } else {
                     if (persons) {
                         dispatch(setPersons(persons));

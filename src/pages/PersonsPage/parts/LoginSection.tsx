@@ -10,7 +10,7 @@ import { FirebaseContext } from "contexts/firebaseContext";
 import { Login } from "styles/style";
 import { login, logout, showError } from "js/redux/actions";
 import { AppDispatch, RootStateType } from "components/AppProvider";
-import { FirebaseError, User } from "types/index";
+import { ErrorType, FirebaseError, User } from "types/index";
 
 import * as ROUTES from "../../../js/routes";
 
@@ -60,7 +60,7 @@ interface Props {
     user: User;
     login: (data: any) => void;
     logout: () => void;
-    showError: (err: string) => void;
+    showError: (err: ErrorType) => void;
 }
 
 const LoginSection = (props: Props) => {
@@ -74,7 +74,7 @@ const LoginSection = (props: Props) => {
                 login(result);
             })
             .catch((err: FirebaseError) => {
-                showError(err.message);
+                showError({ errorMessage: err.message, isError: true });
                 navigate(ROUTES.ERROR);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,7 +87,7 @@ const LoginSection = (props: Props) => {
                 logout();
             })
             .catch((err: FirebaseError) => {
-                showError(err.message);
+                showError({ errorMessage: err.message, isError: true });
                 navigate(ROUTES.ERROR);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,7 +112,7 @@ const mapStateToProps = (state: RootStateType) => ({
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
     login: (data: any) => dispatch(login(data)),
     logout: () => dispatch(logout()),
-    showError: (err: string) => dispatch(showError(err)),
+    showError: (err: ErrorType) => dispatch(showError(err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginSection);
