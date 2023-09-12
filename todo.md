@@ -36,3 +36,5 @@ Pytanie czy Erorpage to nie jest z armatą na wróblla, czy nie wystarczyłby no
 bezpośrednio po zalogowaniu nie widać kalwiszy usuwania. Trzeba przesortować i wtedy sie pojawiaja
 
 jest tak, że submitUser pobiera dane użytkownika ale ich nigdzie nie zapisuje (tzn w reducerze nic się z tym nie dzieje). Zasadniczo nie przeszkadza to w niczym, ale jednak prawdopodobnie ted dane powinny być dołączane do widoku ( w reducerze, niezależnie od tego, że to idzie zasadniczo z fb)
+
+ta unknown action w reducerze może wartaby przepsania z env. variables? że jak develpoment to jest a jak nie ma to nie ma

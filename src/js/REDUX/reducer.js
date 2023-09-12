@@ -62,7 +62,6 @@ const reducer = (state = initialState, action) => {
             };
 
         case actions.PERSONS_SET:
-            console.log("persons set", action.payload);
             return {
                 ...state,
                 isLoading: false,
@@ -75,7 +74,6 @@ const reducer = (state = initialState, action) => {
             };
 
         case actions.LOGIN:
-            console.log(action.payload);
             return {
                 ...state,
                 user: action.payload,
