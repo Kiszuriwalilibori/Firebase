@@ -1,10 +1,16 @@
 import * as actions from "./actions";
 import initialState from "./initialState";
 import { sortPersons } from "../functions";
+import { Action } from "./actions";
 
-const reducer = (state = initialState, action) => {
+export interface BaseAction {
+    type: string;
+    payload?: any;
+}
+
+const reducer = (state = initialState, action: any) => {
     switch (action.type) {
-        case actions.SUBMIT_USER:
+        case actions.SET_USER_SUBMITTED:
             return {
                 ...state,
                 isHiddenInputForm: true,
@@ -86,7 +92,6 @@ const reducer = (state = initialState, action) => {
             };
 
         default:
-            // console.log("unknown action", action.type);
             return state;
     }
 };

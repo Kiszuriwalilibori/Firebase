@@ -24,4 +24,6 @@ const useMessage = () => {
     return showMessage;
 };
 
+export type ShowMessage = ReturnType<typeof useMessage>;
+
 export default useMessage;

@@ -3,7 +3,7 @@ import { ErrorType, Persons, SortParams } from "types/index";
 export const GET_DATA_DONE = "GET_DATA_DONE";
 export const SORT = "SORT";
 export const SHOW_ADD_USER_FORM = "SHOW_ADD_USER_FORM";
-export const SUBMIT_USER = "SUBMIT";
+export const SET_USER_SUBMITTED = "SUBMIT";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const SHOW_ERROR = "SHOW_ERROR";
@@ -24,8 +24,8 @@ export function blockSubmit() {
     return { type: BLOCK_SUBMIT };
 }
 
-export function submitUser(data: any) {
-    return { type: SUBMIT_USER, payload: data };
+export function setUserSubmitted() {
+    return { type: SET_USER_SUBMITTED };
 }
 
 export function showAddUserForm() {
@@ -82,3 +82,17 @@ export function logout() {
         type: LOGOUT,
     };
 }
+
+export type Action =
+    | typeof logout
+    | typeof login
+    | typeof setPersons
+    | typeof stopLoading
+    | typeof startLoading
+    | typeof hideError
+    | typeof showError
+    | typeof showAddUserForm
+    | typeof sortPersons
+    | typeof setUserSubmitted
+    | typeof blockSubmit
+    | typeof toggleSubmit;

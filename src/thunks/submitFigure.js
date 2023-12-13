@@ -1,4 +1,4 @@
-import { submitUser, showError, toggleSubmit } from "../js/redux/actions";
+import { setUserSubmitted, showError, toggleSubmit } from "../js/redux/actions";
 
 function submitFigure(notDuplicate, redirect, data, firebase, showMessage) {
     return (dispatch, getState) => {
@@ -9,7 +9,7 @@ function submitFigure(notDuplicate, redirect, data, firebase, showMessage) {
                     redirect.error();
                     dispatch(toggleSubmit());
                 } else {
-                    dispatch(submitUser(data));
+                    dispatch(setUserSubmitted());
                     showMessage.success("You have successfully added and user");
                     dispatch(toggleSubmit());
                 }

@@ -111,6 +111,15 @@ export const Overhead = {
     IconCross: () => <span className="IcoMoon">&#xe902;</span>,
     IconLimit: () => <span className="IcoMoon">&#xe901;</span>,
 };
+export const AddPersonFormInput = styled.input`
+    border: 0;
+    cursor: pointer;
+    overflow: visible;
+    font-size: 16px;
+    padding: 0.3rem;
+    background-color: ${colorMint};
+    color: ${colorSailorBlue};
+`;
 
 export const Input = {
     DangerMessage: styled.span`

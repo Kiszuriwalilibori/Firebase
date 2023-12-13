@@ -13,7 +13,7 @@ import { getPersons } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";
 import { AppDispatch, RootStateType, Loader } from "components";
-import { Redirect, User } from "types/index";
+import { Redirect, User } from "types";
 
 const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
 const LoginSection = lazy(() => import("./parts/LoginSection"));

@@ -14,7 +14,7 @@ import { selectPersons } from "js/redux/selectors";
 import { Button, ClearIcon, RegularCell, Circle, EmailCell } from "./styles";
 
 interface Props {
-    showError: (data: ErrorType) => void;
+    showError: typeof showError;
 }
 
 const PersonsTableBody = (props: Props) => {
