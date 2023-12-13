@@ -1,7 +1,8 @@
 import { login, showError, startLoading, stopLoading, setPersons } from "../js/redux/actions";
 import { sortPersons } from "js/functions";
+import * as ROUTES from "js/routes";
 
-export function getPersons(redirect, firebase, showMessage) {
+export function getPersons(navigate, firebase, showMessage) {
     return (dispatch, getState) => {
         firebase.connectedRef.on("value", function (snap) {
             if (snap.val() === true) {
@@ -24,7 +25,7 @@ export function getPersons(redirect, firebase, showMessage) {
 
                 if (!data) {
                     dispatch(showError("Baza jest pusta lub wystąpił problem z połączeniem"));
-                    redirect.error();
+                    navigate(ROUTES.ERROR);
                     return;
                 }
                 const persons = [];
@@ -53,7 +54,7 @@ export function getPersons(redirect, firebase, showMessage) {
             },
             error => {
                 showError(error.message);
-                redirect.error();
+                navigate(ROUTES.ERROR);
             }
         );
 

@@ -1,9 +1,10 @@
 import React, { useEffect, lazy, Suspense, useContext } from "react";
 import { connect } from "react-redux";
 import { Fade } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
-import createRedirect from "js/functions/createRedirect";
+import * as ROUTES from "js/routes";
+
 import isOffline from "js/functions/isOffline";
 import PersonsTableHeader from "./parts/PersonsTable/Header";
 import useMessage from "hooks/useMessage";
@@ -13,7 +14,7 @@ import { getPersons } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";
 import { AppDispatch, RootStateType, Loader } from "components";
-import { Redirect, User } from "types";
+import { User } from "types";
 
 const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
 const LoginSection = lazy(() => import("./parts/LoginSection"));
@@ -31,17 +32,15 @@ function PersonsPage(props: Props) {
     const { user, getPersons } = props;
     const firebase = useContext(FirebaseContext);
     const showMessage = useMessage();
-    const history = useNavigate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const redirect = React.useMemo(createRedirect(history), []);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (isOffline()) {
-            redirect.landing();
+            navigate(ROUTES.LANDING);
             showMessage.error("W tej chwili nie masz połączenia z interenetem. Popróbuj później");
         } else {
-            if (!isOffline() && redirect && firebase) {
-                getPersons(redirect, firebase, showMessage);
+            if (!isOffline() && navigate && firebase) {
+                getPersons(navigate, firebase, showMessage);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,8 +75,8 @@ function mapDispatchToProps(dispatch: AppDispatch) {
     return {
         login: (data: any) => dispatch(login(data)),
         hideError: () => dispatch(hideError()),
-        getPersons: (redirect: Redirect, firebase: any, showMessage: any) =>
-            dispatch(getPersons(redirect, firebase, showMessage)),
+        getPersons: (navigate: NavigateFunction, firebase: any, showMessage: any) =>
+            dispatch(getPersons(navigate, firebase, showMessage)),
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PersonsPage);

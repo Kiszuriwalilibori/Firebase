@@ -6,19 +6,16 @@ interface ErrorType {
 }
 type HistoryCall = () => void;
 type PathKeys = "LANDING" | "LOGIN" | "PERSONS" | "ERROR";
-
 type Redirect = {
     [Item in PathKeys]: HistoryCall;
 };
 
 type PersonFields = "email" | "name" | "firebaseRef" | "user";
-
 type PurePerson = { [key in PersonFields]: string };
 interface Person extends PurePerson {
     isAuthorised?: boolean;
 }
 type Persons = Person[];
-
 type HTMLClick = (e: React.MouseEvent<HTMLElement>) => void;
 
 interface SortParams {

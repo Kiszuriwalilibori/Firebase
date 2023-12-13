@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import ErrorMessage from "./ErrorMessage";
 import submitFigure from "thunks/submitFigure";
 import SubmitFormButton from "./SubmitFormButton";
-import createRedirect from "js/functions/createRedirect";
 
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
@@ -39,9 +38,8 @@ const AddPersonForm = props => {
     const { user, submitFigure, toggleSubmit } = props;
     const firebase = useContext(FirebaseContext);
     const showMessage = useMessage();
-    const history = useNavigate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const redirect = React.useMemo(createRedirect(history), []);
+    const navigate = useNavigate();
+
     const isFormEmpty = () => !!(values.personName === "" && values.personEmail === "");
     useEffect(() => input.current.focus(), [input]);
 
@@ -59,7 +57,7 @@ const AddPersonForm = props => {
                         if (snapshot.exists()) showMessage.warning("Użytkownik o tym e-mailu jest już zarejestrowany");
                         submitFigure(
                             isNotDuplicate,
-                            redirect,
+                            navigate,
                             {
                                 name: values.personName,
                                 email: values.personEmail,
@@ -117,8 +115,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(showError(data));
     },
 
-    submitFigure: (notDuplicate, redirect, data, firebase, showMessage) => {
-        dispatch(submitFigure(notDuplicate, redirect, data, firebase, showMessage));
+    submitFigure: (notDuplicate, navigate, data, firebase, showMessage) => {
+        dispatch(submitFigure(notDuplicate, navigate, data, firebase, showMessage));
     },
     toggleSubmit: () => {
         dispatch(toggleSubmit());
@@ -134,7 +132,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(AddPersonForm);
 AddPersonForm.propTypes = {
     onSubmit: PropTypes.func,
     submitFigure: PropTypes.func,
-
     toggleSubmit: PropTypes.func,
     user: PropTypes.object,
     history: PropTypes.object,

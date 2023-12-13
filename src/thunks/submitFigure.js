@@ -1,12 +1,13 @@
 import { setUserSubmitted, showError, toggleSubmit } from "../js/redux/actions";
+import * as ROUTES from "js/routes";
 
-function submitFigure(notDuplicate, redirect, data, firebase, showMessage) {
-    return (dispatch, getState) => {
+function submitFigure(notDuplicate, navigate, data, firebase, showMessage) {
+    return dispatch => {
         if (notDuplicate) {
             firebase.itemsRef.push(data, function (error) {
                 if (error) {
                     dispatch(showError(error.message));
-                    redirect.error();
+                    navigate(ROUTES.ERROR);
                     dispatch(toggleSubmit());
                 } else {
                     dispatch(setUserSubmitted());
