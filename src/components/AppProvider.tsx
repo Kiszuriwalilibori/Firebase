@@ -4,7 +4,7 @@ import Firebase, { FirebaseContext } from "contexts/firebaseContext";
 import { HashRouter as Router } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 
-import reducer from "js/redux/reducer";
+import reducer from "reduxware/reducer";
 import thunk from "redux-thunk";
 
 import "styles/App.css";

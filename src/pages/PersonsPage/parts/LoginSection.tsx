@@ -8,12 +8,12 @@ import { useCallback } from "react";
 import { FirebaseContext } from "contexts/firebaseContext";
 
 import { Login } from "styles/style";
-import { login, logout, showError } from "js/redux/actions";
+import { login, logout, showError } from "reduxware/actions";
 import { AppDispatch, RootStateType } from "components/AppProvider";
 import { ErrorType, FirebaseError, User } from "types/index";
 import { LinkButton } from "../styles";
 
-import * as ROUTES from "js/routes";
+import * as ROUTES from "routes";
 
 // const LinkButton = withStyles({
 //     root: {

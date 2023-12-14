@@ -1,6 +1,6 @@
-import { login, showError, startLoading, stopLoading, setPersons } from "../js/redux/actions";
-import { sortPersons } from "js/functions";
-import * as ROUTES from "js/routes";
+import { login, showError, startLoading, stopLoading, setPersons } from "../reduxware/actions";
+import { sortPersons } from "functions";
+import * as ROUTES from "routes";
 
 export function getPersons(navigate, firebase, showMessage) {
     return (dispatch, getState) => {

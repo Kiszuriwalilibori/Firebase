@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import createSortOrderMarker from "./scripts/createSortOrderMarker";
 
 import { tableHeadings, nonSortableColumns } from "../../../../config";
-import { sortPersons } from "js/redux/actions";
+import { sortPersons } from "reduxware/actions";
 import { Header } from "styles/style";
 import { AppDispatch, RootStateType } from "components";
 import { HTMLClick, SortParams } from "types/index";

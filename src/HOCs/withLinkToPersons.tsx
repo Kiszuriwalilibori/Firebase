@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import * as ROUTES from "../js/routes";
+import * as ROUTES from "../routes";
 
 function withLinkToPersons<T>(Component: React.ComponentType<T>) {
     return (props: React.PropsWithChildren<T>) => (

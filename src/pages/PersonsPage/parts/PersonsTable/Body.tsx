@@ -4,13 +4,13 @@ import uuid from "react-uuid";
 import { useNavigate } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 
-import * as ROUTES from "js/routes";
+import * as ROUTES from "routes";
 
-import { showError } from "js/redux/actions";
+import { showError } from "reduxware/actions";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { ErrorType, FirebaseError } from "types";
 import { AppDispatch } from "components/AppProvider";
-import { selectPersons } from "js/redux/selectors";
+import { selectPersons } from "reduxware/selectors";
 import { Button, ClearIcon, RegularCell, Circle, EmailCell } from "./styles";
 
 interface Props {

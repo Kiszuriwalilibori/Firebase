@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ROUTES from "js/routes";
+import * as ROUTES from "routes";
 import Grow from "@material-ui/core/Grow";
 
 import { WelcomeTextWrapper } from "./styles";

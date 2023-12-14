@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { Fade } from "@material-ui/core";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
-import * as ROUTES from "js/routes";
+import * as ROUTES from "routes";
 
-import isOffline from "js/functions/isOffline";
+import isOffline from "functions/isOffline";
 import PersonsTableHeader from "./parts/PersonsTable/Header";
 import useMessage from "hooks/useMessage";
 
-import { login, hideError } from "js/redux/actions";
+import { login, hideError } from "reduxware/actions";
 import { getPersons } from "thunks";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";

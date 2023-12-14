@@ -2,7 +2,7 @@ import loadable from "@loadable/component";
 
 import { Route, Routes } from "react-router-dom";
 
-import * as ROUTES from "js/routes";
+import * as ROUTES from "routes";
 import "styles/App.css";
 import { useHandleConnectionStatus } from "hooks";
 import { LandingPage } from "pages";

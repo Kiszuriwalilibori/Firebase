@@ -2,11 +2,11 @@ import { connect, useSelector } from "react-redux";
 
 import AddPersonForm from "./AddPersonForm";
 
-import { showAddUserForm } from "js/redux/actions";
+import { showAddUserForm } from "reduxware/actions";
 import { Overhead } from "styles/style";
 import { AppDispatch, RootStateType } from "components/AppProvider";
-import { isOffline } from "js/functions";
-import { selectIsLogged, selectArePersonsInRange } from "js/redux/selectors";
+import { isOffline } from "functions";
+import { selectIsLogged, selectArePersonsInRange } from "reduxware/selectors";
 import { HTMLClick } from "types/index";
 
 interface Props {

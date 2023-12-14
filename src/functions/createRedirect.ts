@@ -1,4 +1,4 @@
-import * as ROUTES from "js/routes";
+import * as ROUTES from "routes";
 import { NavigateFunction } from "react-router-dom";
 
 const createRedirect = (history: NavigateFunction) => {

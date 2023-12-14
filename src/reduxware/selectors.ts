@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { LIMIT } from "config";
-import { RootStateType } from "../../components/AppProvider";
+import { RootStateType } from "../components/AppProvider";
 import { Persons } from "types/index";
 
 const user = (store: RootStateType) => store.user;

@@ -1,5 +1,5 @@
-import { setUserSubmitted, showError, toggleSubmit } from "../js/redux/actions";
-import * as ROUTES from "js/routes";
+import { setUserSubmitted, showError, toggleSubmit } from "../reduxware/actions";
+import * as ROUTES from "routes";
 
 function submitFigure(notDuplicate, navigate, data, firebase, showMessage) {
     return dispatch => {

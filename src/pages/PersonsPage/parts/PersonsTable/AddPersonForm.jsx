@@ -14,9 +14,9 @@ import SubmitFormButton from "./SubmitFormButton";
 
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
-import { showError, toggleSubmit } from "js/redux/actions";
+import { showError, toggleSubmit } from "reduxware/actions";
 import { useMessage } from "hooks";
-import { selectIsLogged } from "js/redux/selectors";
+import { selectIsLogged } from "reduxware/selectors";
 
 const yupConfig = {
     schema: {

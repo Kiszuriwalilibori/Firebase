@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectIsLogged } from "js/redux/selectors";
+import { selectIsLogged } from "reduxware/selectors";
 
 import { Input } from "styles/style";
 
