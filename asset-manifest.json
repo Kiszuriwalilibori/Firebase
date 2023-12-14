@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/firebase/static/css/main.8776a7fd.css",
-    "main.js": "/firebase/static/js/main.03124e75.js",
-    "static/js/391.762c4caf.chunk.js": "/firebase/static/js/391.762c4caf.chunk.js",
-    "static/js/785.5585acae.chunk.js": "/firebase/static/js/785.5585acae.chunk.js",
-    "static/js/734.08af91c6.chunk.js": "/firebase/static/js/734.08af91c6.chunk.js",
-    "static/js/184.a386ea07.chunk.js": "/firebase/static/js/184.a386ea07.chunk.js",
+    "main.js": "/firebase/static/js/main.a2085128.js",
+    "static/js/391.e85256ee.chunk.js": "/firebase/static/js/391.e85256ee.chunk.js",
+    "static/js/189.389a28bb.chunk.js": "/firebase/static/js/189.389a28bb.chunk.js",
+    "static/js/734.2d84dcdc.chunk.js": "/firebase/static/js/734.2d84dcdc.chunk.js",
+    "static/js/184.dd1d27c5.chunk.js": "/firebase/static/js/184.dd1d27c5.chunk.js",
     "static/js/245.8b621b2d.chunk.js": "/firebase/static/js/245.8b621b2d.chunk.js",
     "static/media/background.webp": "/firebase/static/media/background.efa6572856cc797af63a.webp",
     "static/media/background_tablet.webp": "/firebase/static/media/background_tablet.87d1dd4cc7ae72c3c742.webp",
@@ -19,15 +19,15 @@
     "static/media/icomoon.ttf": "/firebase/static/media/icomoon.d7160adc64884ccb0b98.ttf",
     "index.html": "/firebase/index.html",
     "main.8776a7fd.css.map": "/firebase/static/css/main.8776a7fd.css.map",
-    "main.03124e75.js.map": "/firebase/static/js/main.03124e75.js.map",
-    "391.762c4caf.chunk.js.map": "/firebase/static/js/391.762c4caf.chunk.js.map",
-    "785.5585acae.chunk.js.map": "/firebase/static/js/785.5585acae.chunk.js.map",
-    "734.08af91c6.chunk.js.map": "/firebase/static/js/734.08af91c6.chunk.js.map",
-    "184.a386ea07.chunk.js.map": "/firebase/static/js/184.a386ea07.chunk.js.map",
+    "main.a2085128.js.map": "/firebase/static/js/main.a2085128.js.map",
+    "391.e85256ee.chunk.js.map": "/firebase/static/js/391.e85256ee.chunk.js.map",
+    "189.389a28bb.chunk.js.map": "/firebase/static/js/189.389a28bb.chunk.js.map",
+    "734.2d84dcdc.chunk.js.map": "/firebase/static/js/734.2d84dcdc.chunk.js.map",
+    "184.dd1d27c5.chunk.js.map": "/firebase/static/js/184.dd1d27c5.chunk.js.map",
     "245.8b621b2d.chunk.js.map": "/firebase/static/js/245.8b621b2d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8776a7fd.css",
-    "static/js/main.03124e75.js"
+    "static/js/main.a2085128.js"
   ]
 }
