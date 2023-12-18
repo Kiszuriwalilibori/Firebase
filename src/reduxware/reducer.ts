@@ -28,7 +28,7 @@ const reducer = (state = initialState, action: any) => {
 
         case actions.PERSONS_SORT:
             const { isDescending, column } = action.payload;
-            const sortedPersons = sortPersons([...state.persons], isDescending, column, action.payload);
+            const sortedPersons = sortPersons([...state.persons], isDescending, column);
 
             return {
                 ...state,
@@ -80,15 +80,29 @@ const reducer = (state = initialState, action: any) => {
             };
 
         case actions.LOGIN:
+            const personsForLogin = [...state.persons];
+            personsForLogin.forEach(person => {
+                if (person.firebaseRef === action.payload.firebaseRef) {
+                    person.isAuthorised = true;
+                }
+            });
             return {
                 ...state,
                 user: action.payload,
+                persons: personsForLogin,
             };
 
         case actions.LOGOUT:
+            const personsForLogout = [...state.persons];
+            personsForLogout.forEach(person => {
+                if (person.firebaseRef === state.user.uid) {
+                    person.isAuthorised = false;
+                }
+            });
             return {
                 ...state,
                 user: null,
+                persons: personsForLogout,
             };
 
         default:

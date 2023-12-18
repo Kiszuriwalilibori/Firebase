@@ -231,7 +231,7 @@ export const PersonsPageContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 20vh;
+    padding-top: 25vh;
     width: 100%;
     max-width: 800px;
     margin: 0 auto;

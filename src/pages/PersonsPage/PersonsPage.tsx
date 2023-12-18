@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense, useContext } from "react";
+import { useEffect, lazy, Suspense, useContext } from "react";
 import { connect } from "react-redux";
 import { Fade } from "@material-ui/core";
 import { NavigateFunction, useNavigate } from "react-router-dom";
@@ -7,11 +7,12 @@ import * as ROUTES from "routes";
 
 import isOffline from "functions/isOffline";
 import PersonsTableHeader from "./parts/PersonsTable/Header";
-import useMessage from "hooks/useMessage";
+import useMessage, { ShowMessage } from "hooks/useMessage";
+// import PersonsTable from "./parts/PersonsTable/PersonsTable";
 
 import { login, hideError } from "reduxware/actions";
 import { getPersons } from "thunks";
-import { FirebaseContext } from "contexts/firebaseContext";
+import Firebase, { FirebaseContext } from "contexts/firebaseContext";
 import { PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";
 import { AppDispatch, RootStateType, Loader } from "components";
 import { User } from "types";
@@ -19,12 +20,12 @@ import { User } from "types";
 const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
 const LoginSection = lazy(() => import("./parts/LoginSection"));
 const PersonsTableSortArea = lazy(() => import("./parts/PersonsTable/SortArea"));
-const UserInfoCard = lazy(() => import("./parts/UserCard"));
+const UserCard = lazy(() => import("./parts/UserCard"));
 const Header = lazy(() => import("./parts/Header"));
 
 interface Props {
     user: User;
-    getPersons: any;
+    getPersons: (navigate: NavigateFunction, firebase: Firebase, showMessage: ShowMessage) => void;
     isLoading: boolean;
 }
 
@@ -49,9 +50,10 @@ function PersonsPage(props: Props) {
     return !isOffline() ? (
         <Suspense fallback={<Loader />}>
             <PersonsPageContainer>
-                {user && <UserInfoCard user={user} />}
+                {user && <UserCard user={user} />}
                 <Header />
                 <LoginSection />
+                {/* <PersonsTable /> */}
                 <Fade in={true} timeout={2000}>
                     <PersonsTableContainer>
                         <PersonsTableHeader />
@@ -75,7 +77,7 @@ function mapDispatchToProps(dispatch: AppDispatch) {
     return {
         login: (data: any) => dispatch(login(data)),
         hideError: () => dispatch(hideError()),
-        getPersons: (navigate: NavigateFunction, firebase: any, showMessage: any) =>
+        getPersons: (navigate: NavigateFunction, firebase: Firebase, showMessage: ShowMessage) =>
             dispatch(getPersons(navigate, firebase, showMessage)),
     };
 }

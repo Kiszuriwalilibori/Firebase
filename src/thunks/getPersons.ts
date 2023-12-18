@@ -1,9 +1,14 @@
+import Firebase from "contexts/firebaseContext";
 import { login, showError, startLoading, stopLoading, setPersons } from "../reduxware/actions";
 import { sortPersons } from "functions";
+import { NavigateFunction } from "react-router-dom";
 import * as ROUTES from "routes";
+import { AppDispatch, RootStateType } from "components/AppProvider";
+import { ShowMessage } from "hooks/useMessage";
+import { ErrorType } from "types";
 
-export function getPersons(navigate, firebase, showMessage) {
-    return (dispatch, getState) => {
+export function getPersons(navigate: NavigateFunction, firebase: Firebase, showMessage: ShowMessage) {
+    return (dispatch: AppDispatch, getState: () => RootStateType) => {
         firebase.connectedRef.on("value", function (snap) {
             if (snap.val() === true) {
                 showMessage.info("Ustanowiono lub przywrócono połączenie z bazą danych");
@@ -22,19 +27,23 @@ export function getPersons(navigate, firebase, showMessage) {
             "value",
             snapshot => {
                 const data = snapshot.val();
-
                 if (!data) {
-                    dispatch(showError("Baza jest pusta lub wystąpił problem z połączeniem"));
+                    dispatch(
+                        showError({ errorMessage: "Baza jest pusta lub wystąpił problem z połączeniem", isError: true })
+                    );
                     navigate(ROUTES.ERROR);
                     return;
                 }
-                const persons = [];
+                const persons = [] as any[];
                 Object.entries(snapshot.val())
                     .map(entry => {
                         return { [entry[0]]: entry[1] };
                     })
                     .forEach(entry => {
-                        const person = { firebaseRef: Object.keys(entry)[0], ...entry[Object.keys(entry)[0]] };
+                        const person = {
+                            firebaseRef: Object.keys(entry)[0],
+                            ...(entry[Object.keys(entry)[0]] as Object),
+                        };
                         persons.push(person);
                     });
 
@@ -52,8 +61,8 @@ export function getPersons(navigate, firebase, showMessage) {
 
                 dispatch(stopLoading());
             },
-            error => {
-                showError(error.message);
+            (error: ErrorType) => {
+                showError(error);
                 navigate(ROUTES.ERROR);
             }
         );

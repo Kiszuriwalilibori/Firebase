@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import ErrorMessage from "./ErrorMessage";
-import submitFigure from "thunks/submitFigure";
+import { SubmitFigureArgs, submitFigure } from "thunks";
 import SubmitFormButton from "./SubmitFormButton";
 
 import { Input } from "styles/style";
@@ -17,6 +17,10 @@ import { FirebaseContext } from "contexts/firebaseContext";
 import { showError, toggleSubmit } from "reduxware/actions";
 import { useMessage } from "hooks";
 import { selectIsLogged } from "reduxware/selectors";
+import { AppDispatch, RootStateType } from "components/AppProvider";
+import { ErrorType, User } from "types";
+
+const PERSON_REGEX = "[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+" as unknown as RegExp;
 
 const yupConfig = {
     schema: {
@@ -24,7 +28,7 @@ const yupConfig = {
         personName: Yup.string()
             .min(4, "Must be more than 3 characters")
             .required("Required")
-            .matches("[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+", "Invalid characters"),
+            .matches(PERSON_REGEX, "Invalid characters"),
     },
     initialValues: {
         personEmail: "",
@@ -32,8 +36,14 @@ const yupConfig = {
     },
 };
 
-const AddPersonForm = props => {
-    const input = useRef(null);
+interface Props {
+    user: User;
+    submitFigure: (...args: SubmitFigureArgs) => void;
+    toggleSubmit: () => void;
+}
+
+const AddPersonForm = (props: Props) => {
+    const input = useRef<HTMLInputElement>(null);
     const isLogged = useSelector(selectIsLogged);
     const { user, submitFigure, toggleSubmit } = props;
     const firebase = useContext(FirebaseContext);
@@ -41,7 +51,11 @@ const AddPersonForm = props => {
     const navigate = useNavigate();
 
     const isFormEmpty = () => !!(values.personName === "" && values.personEmail === "");
-    useEffect(() => input.current.focus(), [input]);
+    useEffect(() => {
+        if (input.current) {
+            input.current.focus();
+        }
+    }, [input]);
 
     const { values, handleSubmit, getFieldProps, handleReset, submitCount, errors } = useFormik({
         initialValues: yupConfig.initialValues,
@@ -52,7 +66,7 @@ const AddPersonForm = props => {
                 firebase.itemsRef
                     .orderByChild("email")
                     .equalTo(values.personEmail)
-                    .once("value", snapshot => {
+                    .once("value", (snapshot: firebase.database.DataSnapshot) => {
                         const isNotDuplicate = !snapshot.exists();
                         if (snapshot.exists()) showMessage.warning("Użytkownik o tym e-mailu jest już zarejestrowany");
                         submitFigure(
@@ -61,7 +75,7 @@ const AddPersonForm = props => {
                             {
                                 name: values.personName,
                                 email: values.personEmail,
-                                user: user.displayName || user.email,
+                                user: (user.displayName as string) || (user.email as string),
                             },
                             firebase,
                             showMessage
@@ -78,8 +92,8 @@ const AddPersonForm = props => {
             <Input.InnerWrapper>
                 <Input.Input
                     required
-                    minLength="2"
-                    maxLength="20"
+                    minLength={2}
+                    maxLength={20}
                     pattern="[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+"
                     placeholder="Name..."
                     type="text"
@@ -89,7 +103,7 @@ const AddPersonForm = props => {
             </Input.InnerWrapper>
             <Input.InputWrapper>
                 <Input.Input
-                    minLength="2"
+                    minLength={2}
                     pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
                     placeholder="Email..."
                     type="text"
@@ -110,20 +124,20 @@ const AddPersonForm = props => {
     );
 };
 
-const mapDispatchToProps = dispatch => ({
-    showError: data => {
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+    showError: (data: ErrorType) => {
         dispatch(showError(data));
     },
 
-    submitFigure: (notDuplicate, navigate, data, firebase, showMessage) => {
-        dispatch(submitFigure(notDuplicate, navigate, data, firebase, showMessage));
+    submitFigure: (...args: SubmitFigureArgs) => {
+        dispatch(submitFigure(...args));
     },
     toggleSubmit: () => {
         dispatch(toggleSubmit());
     },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootStateType) => ({
     user: state.user,
 });
 

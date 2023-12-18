@@ -12,6 +12,7 @@ import { ErrorType, FirebaseError } from "types";
 import { AppDispatch } from "components/AppProvider";
 import { selectPersons } from "reduxware/selectors";
 import { Button, ClearIcon, RegularCell, Circle, EmailCell } from "./styles";
+import { useMessage } from "hooks";
 
 interface Props {
     showError: typeof showError;
@@ -22,6 +23,7 @@ const PersonsTableBody = (props: Props) => {
     const firebase = React.useContext(FirebaseContext);
     const navigate = useNavigate();
     const persons = useSelector(selectPersons);
+    const showMessage = useMessage();
 
     if (!persons || persons.length === 0) {
         return null;
@@ -32,6 +34,7 @@ const PersonsTableBody = (props: Props) => {
         if (itemRef) {
             try {
                 itemRef.remove();
+                showMessage.success("Person succesfully removed");
             } catch (err: any) {
                 const e = err as FirebaseError;
                 showError({ errorMessage: e.message, isError: true });
@@ -50,7 +53,7 @@ const PersonsTableBody = (props: Props) => {
     return (
         <tbody>
             {persons.map((person, index) => (
-                <tr key={uuid()}>
+                <tr key={uuid()} style={{ height: 75 }}>
                     <RegularCell key={uuid()}>
                         <Circle>{index + 1}</Circle>
                     </RegularCell>

@@ -1,12 +1,23 @@
+import { NavigateFunction } from "react-router-dom";
 import { setUserSubmitted, showError, toggleSubmit } from "../reduxware/actions";
 import * as ROUTES from "routes";
+import { ShowMessage } from "hooks/useMessage";
+import { SetUser } from "types";
+import Firebase from "contexts/firebaseContext";
+import { AppDispatch } from "components/AppProvider";
 
-function submitFigure(notDuplicate, navigate, data, firebase, showMessage) {
-    return dispatch => {
+function submitFigure(
+    notDuplicate: boolean,
+    navigate: NavigateFunction,
+    data: SetUser,
+    firebase: Firebase,
+    showMessage: ShowMessage
+) {
+    return (dispatch: AppDispatch) => {
         if (notDuplicate) {
             firebase.itemsRef.push(data, function (error) {
                 if (error) {
-                    dispatch(showError(error.message));
+                    dispatch(showError({ errorMessage: error.message, isError: true }));
                     navigate(ROUTES.ERROR);
                     dispatch(toggleSubmit());
                 } else {
