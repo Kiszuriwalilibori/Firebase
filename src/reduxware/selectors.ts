@@ -1,16 +1,15 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { LIMIT } from "config";
+import { PERSONS_LIMIT } from "config";
 import { RootStateType } from "../components/AppProvider";
-import { Persons } from "types/index";
 
 const user = (store: RootStateType) => store.user;
 const persons = (store: RootStateType) => store.persons;
 
-const setPersonsInRange = (persons: Persons) => (persons.length < LIMIT ? true : false);
+const setPersonsInRange = (persons: RootStateType["persons"]) => (persons.length < PERSONS_LIMIT ? true : false);
 
-const setPersonsWithAuth = (persons: Persons, user: firebase.User | undefined) => {
+const setPersonsWithAuth = (persons: RootStateType["persons"], user: RootStateType["user"] | undefined) => {
     persons.forEach(person => {
-        const isAuthorised = user && user.displayName && person.user == user.displayName ? true : false;
+        const isAuthorised = user && user.displayName && person.user === user.displayName ? true : false;
         person.isAuthorised = isAuthorised;
     });
     return persons;

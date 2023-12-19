@@ -8,6 +8,7 @@ import { AppDispatch, RootStateType } from "components/AppProvider";
 import { isOffline } from "functions";
 import { selectIsLogged, selectArePersonsInRange } from "reduxware/selectors";
 import { HTMLClick } from "types/index";
+import useDebouncedCallback from "hooks/useDebouncedCallback";
 
 interface Props {
     isHiddenAddUserButton: Boolean;
@@ -19,13 +20,14 @@ const PersonsTableHeader = (props: Props) => {
     const { isHiddenAddUserButton, isHiddenInputForm, showAddUserForm } = props;
     const isLogged = useSelector(selectIsLogged);
     const isTableFull = !useSelector(selectArePersonsInRange);
+    const handleClick = useDebouncedCallback(showAddUserForm) as HTMLClick;
 
     const AddUserButton = () => (
         <Overhead.Btn
             disabled={isTableFull || isOffline() || !isLogged}
             id="AddUserButton"
             type="button"
-            onClick={showAddUserForm as HTMLClick}
+            onClick={handleClick}
         >
             <Overhead.IconCross />
             <Overhead.BtnText>Add User</Overhead.BtnText>

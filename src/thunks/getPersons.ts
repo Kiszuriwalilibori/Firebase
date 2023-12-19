@@ -5,7 +5,7 @@ import { NavigateFunction } from "react-router-dom";
 import * as ROUTES from "routes";
 import { AppDispatch, RootStateType } from "components/AppProvider";
 import { ShowMessage } from "hooks/useMessage";
-import { ErrorType } from "types";
+import { ErrorType, Person, Persons } from "types";
 
 export function getPersons(navigate: NavigateFunction, firebase: Firebase, showMessage: ShowMessage) {
     return (dispatch: AppDispatch, getState: () => RootStateType) => {
@@ -44,6 +44,7 @@ export function getPersons(navigate: NavigateFunction, firebase: Firebase, showM
                             firebaseRef: Object.keys(entry)[0],
                             ...(entry[Object.keys(entry)[0]] as Object),
                         };
+                        console.log(person);
                         persons.push(person);
                     });
 

@@ -2,11 +2,13 @@ import { connect } from "react-redux";
 
 import createSortOrderMarker from "./scripts/createSortOrderMarker";
 
-import { tableHeadings, nonSortableColumns } from "../../../../config";
+import { tableHeadings } from "../../../../config";
 import { sortPersons } from "reduxware/actions";
 import { Header } from "styles/style";
 import { AppDispatch, RootStateType } from "components";
 import { HTMLClick, SortParams } from "types/index";
+
+const nonSortableColumns = new Set<number>([0]);
 
 interface Props {
     sortPersons: (arg0: SortParams) => void;
@@ -29,6 +31,7 @@ const PersonsTableSortArea = (props: Props) => {
             sortPersons(data);
         }
     };
+
     return (
         <Header.Wrapper onClick={handleSort as HTMLClick}>
             <tr>
