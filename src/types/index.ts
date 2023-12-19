@@ -1,5 +1,5 @@
 import { User, FirebaseError } from "firebase";
-
+import { AppDispatch, RootStateType } from "components/AppProvider";
 type ArgumentsType<T extends (...args: any[]) => any> = T extends (...args: infer A) => any ? A : never;
 
 interface ErrorType {
@@ -22,4 +22,17 @@ interface SortParams {
     isDescending: boolean;
 }
 
-export { ArgumentsType, ErrorType, FirebaseError, HTMLClick, Person, PersonFields, Persons, SetUser, SortParams, User };
+export {
+    AppDispatch,
+    ArgumentsType,
+    ErrorType,
+    FirebaseError,
+    HTMLClick,
+    Person,
+    PersonFields,
+    Persons,
+    RootStateType,
+    SetUser,
+    SortParams,
+    User,
+};

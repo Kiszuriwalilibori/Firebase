@@ -9,14 +9,14 @@ interface Props {
     errorMessage?: string;
 }
 const Error = (props: Props) => {
-    const { errorMessage: message } = props;
-    if (!message) return null;
+    const { errorMessage } = props;
+    if (!errorMessage) return null;
 
     return (
         <Container>
             <NewAlert severity="error">
                 <AlertTitle>Uwaga!!!</AlertTitle>
-                {message}
+                {errorMessage}
             </NewAlert>
         </Container>
     );

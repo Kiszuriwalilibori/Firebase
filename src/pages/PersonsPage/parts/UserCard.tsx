@@ -29,7 +29,7 @@ export default function UserCard(props: Props) {
                         className={classes.media}
                         image={user.photoURL as string | undefined}
                         component="img"
-                        alt="user picture"
+                        alt="user"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h6" component="h2">

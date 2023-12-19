@@ -1,24 +1,23 @@
-import React, { useEffect, useRef, useContext } from "react";
 import * as Yup from "yup";
-import PropTypes from "prop-types";
 import isEmpty from "lodash/isEmpty";
 
+import { useEffect, useRef, useContext } from "react";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import ErrorMessage from "./ErrorMessage";
-import { SubmitFigureArgs, submitFigure } from "thunks";
 import SubmitFormButton from "./SubmitFormButton";
 
 import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { showError, toggleSubmit } from "reduxware/actions";
+import { SubmitFigureArgs, submitFigure } from "thunks";
 import { useMessage } from "hooks";
 import { selectIsLogged } from "reduxware/selectors";
-import { AppDispatch, RootStateType } from "components/AppProvider";
-import { ErrorType, User } from "types";
+import { AppDispatch } from "components/AppProvider";
+import { ErrorType, RootStateType, User } from "types";
 
 const PERSON_REGEX = "[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+" as unknown as RegExp;
 
@@ -125,8 +124,8 @@ const AddPersonForm = (props: Props) => {
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-    showError: (data: ErrorType) => {
-        dispatch(showError(data));
+    showError: (error: ErrorType) => {
+        dispatch(showError(error));
     },
 
     submitFigure: (...args: SubmitFigureArgs) => {
@@ -142,11 +141,3 @@ const mapStateToProps = (state: RootStateType) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPersonForm);
-
-AddPersonForm.propTypes = {
-    onSubmit: PropTypes.func,
-    submitFigure: PropTypes.func,
-    toggleSubmit: PropTypes.func,
-    user: PropTypes.object,
-    history: PropTypes.object,
-};
