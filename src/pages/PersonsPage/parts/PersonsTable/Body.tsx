@@ -25,11 +25,7 @@ const PersonsTableBody = (props: Props) => {
     const persons = useSelector(selectPersons);
     const showMessage = useMessage();
 
-    if (!persons || persons.length === 0) {
-        return null;
-    }
-
-    const removeItem = (str: string) => {
+    const handleRemovePerson = React.useCallback((str: string) => {
         const itemRef = firebase.database.ref(`/items/${str}`);
         if (itemRef) {
             try {
@@ -48,7 +44,11 @@ const PersonsTableBody = (props: Props) => {
             });
             navigate(ROUTES.ERROR);
         }
-    };
+    }, []);
+
+    if (!persons || persons.length === 0) {
+        return null;
+    }
 
     return (
         <tbody>
@@ -63,7 +63,9 @@ const PersonsTableBody = (props: Props) => {
                             <span>{person.email}</span>
                             {person.isAuthorised && (
                                 <Button
-                                    onClick={person.isAuthorised ? () => removeItem(person.firebaseRef) : () => {}}
+                                    onClick={
+                                        person.isAuthorised ? () => handleRemovePerson(person.firebaseRef) : () => {}
+                                    }
                                     aria-label={"remove user having e-mail  " + person.email}
                                 >
                                     <ClearIcon />
