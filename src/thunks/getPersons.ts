@@ -44,7 +44,7 @@ export function getPersons(navigate: NavigateFunction, firebase: Firebase, showM
                             firebaseRef: Object.keys(entry)[0],
                             ...(entry[Object.keys(entry)[0]] as Object),
                         };
-                        console.log(person);
+
                         persons.push(person);
                     });
 

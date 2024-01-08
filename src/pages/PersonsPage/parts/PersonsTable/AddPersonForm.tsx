@@ -1,10 +1,9 @@
 import * as Yup from "yup";
 import isEmpty from "lodash/isEmpty";
 
-import { useEffect, useRef, useContext } from "react";
+import { useContext } from "react";
 import { useFormik } from "formik";
-import { connect } from "react-redux";
-import { useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import ErrorMessage from "./ErrorMessage";
@@ -14,7 +13,7 @@ import { Input } from "styles/style";
 import { FirebaseContext } from "contexts/firebaseContext";
 import { showError, toggleSubmit } from "reduxware/actions";
 import { SubmitFigureArgs, submitFigure } from "thunks";
-import { useMessage } from "hooks";
+import { useMessage, useInitialFocus } from "hooks";
 import { selectIsLogged } from "reduxware/selectors";
 import { AppDispatch } from "components/AppProvider";
 import { ErrorType, RootStateType, User } from "types";
@@ -42,19 +41,14 @@ interface Props {
 }
 
 const AddPersonForm = (props: Props) => {
-    const input = useRef<HTMLInputElement>(null);
     const isLogged = useSelector(selectIsLogged);
     const { user, submitFigure, toggleSubmit } = props;
     const firebase = useContext(FirebaseContext);
     const showMessage = useMessage();
     const navigate = useNavigate();
+    const { initialFocus: input } = useInitialFocus<HTMLInputElement>();
 
     const isFormEmpty = () => !!(values.personName === "" && values.personEmail === "");
-    useEffect(() => {
-        if (input.current) {
-            input.current.focus();
-        }
-    }, [input]);
 
     const { values, handleSubmit, getFieldProps, handleReset, submitCount, errors } = useFormik({
         initialValues: yupConfig.initialValues,
