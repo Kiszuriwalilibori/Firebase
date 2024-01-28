@@ -8,7 +8,6 @@ import * as ROUTES from "routes";
 import isOffline from "functions/isOffline";
 import PersonsTableHeader from "./parts/PersonsTable/Header";
 import useMessage, { ShowMessage } from "hooks/useMessage";
-// import PersonsTable from "./parts/PersonsTable/PersonsTable";
 
 import { login, hideError } from "reduxware/actions";
 import { getPersons } from "thunks";
@@ -22,6 +21,9 @@ const LoginSection = lazy(() => import("./parts/LoginSection"));
 const PersonsTableSortArea = lazy(() => import("./parts/PersonsTable/SortArea"));
 const UserCard = lazy(() => import("./parts/UserCard"));
 const Header = lazy(() => import("./parts/Header"));
+
+const SUMMARY =
+    "Table of users by name and email. ID is a label only. Users are sortable by name or email alternatively and can be removed.";
 
 interface Props {
     user: User;
@@ -53,11 +55,10 @@ function PersonsPage(props: Props) {
                 {user && <UserCard user={user} />}
                 <Header />
                 <LoginSection />
-                {/* <PersonsTable /> */}
                 <Fade in={true} timeout={2000}>
                     <PersonsTableContainer>
                         <PersonsTableHeader />
-                        <PersonsTableBody summary="Table of users by name and email. ID is a label only. Users are sortable by name or email alternatively and can be removed.">
+                        <PersonsTableBody summary={SUMMARY}>
                             <PersonsTableSortArea />
                             <PersonsTableContent />
                         </PersonsTableBody>

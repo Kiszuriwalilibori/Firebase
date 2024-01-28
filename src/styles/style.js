@@ -257,6 +257,7 @@ export const PersonsTableBody = styled.table`
     overflow-y: hidden;
     overflow-x: auto;
     box-shadow: inset 0 1px 1px rgba(200, 200, 200, 0.11);
+    table-layout: fixed;
 
     @media (max-width: 300px) {
         display: block;
