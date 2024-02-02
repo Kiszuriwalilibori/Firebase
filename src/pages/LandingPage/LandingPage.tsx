@@ -8,7 +8,7 @@ import useDebouncedCallback from "hooks/useDebouncedCallback";
 
 const LandingPage = React.memo(() => {
     const navigate = useNavigate();
-    const handleClick = useDebouncedCallback(navigate, ROUTES.PERSONS);
+    const handleClick = useDebouncedCallback<HTMLDivElement>(navigate, ROUTES.PERSONS);
 
     return (
         <>

@@ -20,7 +20,7 @@ const PersonsTableHeader = (props: Props) => {
     const { isHiddenAddUserButton, isHiddenInputForm, showAddUserForm } = props;
     const isLogged = useSelector(selectIsLogged);
     const isTableFull = !useSelector(selectArePersonsInRange);
-    const handleClick = useDebouncedCallback(showAddUserForm) as HTMLClick;
+    const handleClick = useDebouncedCallback<HTMLButtonElement>(showAddUserForm);
 
     const AddUserButton = () => (
         <Overhead.Btn
