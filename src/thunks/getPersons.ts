@@ -10,6 +10,7 @@ import { ErrorType, Person, Persons } from "types";
 export function getPersons(navigate: NavigateFunction, firebase: Firebase, showMessage: ShowMessage) {
     return (dispatch: AppDispatch, getState: () => RootStateType) => {
         firebase.connectedRef.on("value", function (snap) {
+            console.log("getpersons");
             if (snap.val() === true) {
                 showMessage.info("Ustanowiono lub przywrócono połączenie z bazą danych");
             } else {
@@ -27,6 +28,7 @@ export function getPersons(navigate: NavigateFunction, firebase: Firebase, showM
             "value",
             snapshot => {
                 const data = snapshot.val();
+                console.log(data);
                 if (!data) {
                     dispatch(
                         showError({ errorMessage: "Baza jest pusta lub wystąpił problem z połączeniem", isError: true })

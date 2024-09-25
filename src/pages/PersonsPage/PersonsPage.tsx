@@ -43,6 +43,7 @@ function PersonsPage(props: Props) {
             showMessage.error("W tej chwili nie masz połączenia z interenetem. Popróbuj później");
         } else {
             if (!isOffline() && navigate && firebase) {
+                console.log("getpersons");
                 getPersons(navigate, firebase, showMessage);
             }
         }
