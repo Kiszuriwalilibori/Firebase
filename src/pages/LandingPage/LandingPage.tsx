@@ -12,12 +12,9 @@ const LandingPage = React.memo(() => {
 
     return (
         <>
-            <WelcomeTextWrapper component="header" /*onClick={handleClick}*/>
+            <WelcomeTextWrapper component="header" onClick={handleClick}>
                 <Grow in={true}>
-                    <h1>
-                        {"Prace konserwacyjne, apka czasowo niedostępna/ maintenance works in progress, app disabled"}
-                    </h1>
-                    {/* <h1 className="landing_message">{"witamy w Firebase :)"}</h1> */}
+                    <h1 className="landing_message">{"witamy w Firebase :)"}</h1>
                 </Grow>
             </WelcomeTextWrapper>
             <main></main>
