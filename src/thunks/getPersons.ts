@@ -7,10 +7,27 @@ import { AppDispatch, RootStateType } from "components/AppProvider";
 import { ShowMessage } from "hooks/useMessage";
 import { ErrorType, Person, Persons } from "types";
 
+function preparePersons(snapshot: firebase.database.DataSnapshot) {
+    const persons = [] as Persons;
+    Object.entries(snapshot.val())
+        .map(entry => {
+            return { [entry[0]]: entry[1] };
+        })
+        .forEach(entry => {
+            const person = {
+                firebaseRef: Object.keys(entry)[0],
+                ...(entry[Object.keys(entry)[0]] as Object),
+            };
+
+            persons.push(person as Person);
+        });
+
+    return persons;
+}
+
 export function getPersons(navigate: NavigateFunction, firebase: Firebase, showMessage: ShowMessage) {
     return (dispatch: AppDispatch, getState: () => RootStateType) => {
         firebase.connectedRef.on("value", function (snap) {
-            console.log("getpersons");
             if (snap.val() === true) {
                 showMessage.info("Ustanowiono lub przywrócono połączenie z bazą danych");
             } else {
@@ -28,7 +45,6 @@ export function getPersons(navigate: NavigateFunction, firebase: Firebase, showM
             "value",
             snapshot => {
                 const data = snapshot.val();
-                console.log(data);
                 if (!data) {
                     dispatch(
                         showError({ errorMessage: "Baza jest pusta lub wystąpił problem z połączeniem", isError: true })
@@ -36,19 +52,8 @@ export function getPersons(navigate: NavigateFunction, firebase: Firebase, showM
                     navigate(ROUTES.ERROR);
                     return;
                 }
-                const persons = [] as any[];
-                Object.entries(snapshot.val())
-                    .map(entry => {
-                        return { [entry[0]]: entry[1] };
-                    })
-                    .forEach(entry => {
-                        const person = {
-                            firebaseRef: Object.keys(entry)[0],
-                            ...(entry[Object.keys(entry)[0]] as Object),
-                        };
 
-                        persons.push(person);
-                    });
+                const persons = preparePersons(snapshot);
 
                 if (getState().sortParams.column && persons) {
                     dispatch(
@@ -59,7 +64,7 @@ export function getPersons(navigate: NavigateFunction, firebase: Firebase, showM
                 } else {
                     if (persons) {
                         dispatch(setPersons(persons));
-                    } /*else{dispatch(setPersons([]));} */ //if by mistake all is removed sending null is a sort of service entry
+                    }
                 }
 
                 dispatch(stopLoading());

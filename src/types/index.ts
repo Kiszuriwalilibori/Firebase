@@ -30,6 +30,7 @@ export {
     HTMLClick,
     Person,
     PersonFields,
+    PurePerson,
     Persons,
     RootStateType,
     SetUser,

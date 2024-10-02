@@ -1,7 +1,6 @@
 import * as actions from "./actions";
 import initialState from "./initialState";
 import { sortPersons } from "../functions";
-import { Action } from "./actions";
 
 export interface BaseAction {
     type: string;

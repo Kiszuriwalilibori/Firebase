@@ -2,14 +2,14 @@ import { NavigateFunction } from "react-router-dom";
 import { setUserSubmitted, showError, toggleSubmit } from "../reduxware/actions";
 import * as ROUTES from "routes";
 import { ShowMessage } from "hooks/useMessage";
-import { SetUser } from "types";
+import { PurePerson } from "types";
 import Firebase from "contexts/firebaseContext";
 import { AppDispatch } from "components/AppProvider";
 
 function submitFigure(
     notDuplicate: boolean,
     navigate: NavigateFunction,
-    data: SetUser,
+    data: Omit<PurePerson, "firebaseRef">,
     firebase: Firebase,
     showMessage: ShowMessage
 ) {
