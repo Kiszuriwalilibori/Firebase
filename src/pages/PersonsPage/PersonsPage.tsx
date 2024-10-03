@@ -9,14 +9,14 @@ import isOffline from "functions/isOffline";
 import PersonsTableHeader from "./parts/PersonsTable/Header";
 import useMessage, { ShowMessage } from "hooks/useMessage";
 
-import { login, hideError } from "reduxware/actions";
+import { /*login,*/ hideError } from "reduxware/actions";
 import { getPersons } from "thunks";
 import Firebase, { FirebaseContext } from "contexts/firebaseContext";
 import { PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";
 import { AppDispatch, RootStateType, Loader } from "components";
-import { User } from "types";
+import { GetPersons, User } from "types";
 
-const PersonsTableContent = lazy(() => import("./parts/PersonsTable/Body"));
+const PersonsTableContent = lazy(() => import("./parts/PersonsTable/PersonsTableBody"));
 const LoginSection = lazy(() => import("./parts/LoginSection"));
 const PersonsTableSortArea = lazy(() => import("./parts/PersonsTable/SortArea"));
 const UserCard = lazy(() => import("./parts/UserCard"));
@@ -24,10 +24,10 @@ const Header = lazy(() => import("./parts/Header"));
 
 const SUMMARY =
     "Table of users by name and email. ID is a label only. Users are sortable by name or email alternatively and can be removed.";
-
+const NO_CONNECTION = "W tej chwili nie masz połączenia z interenetem. Popróbuj później";
 interface Props {
     user: User;
-    getPersons: (navigate: NavigateFunction, firebase: Firebase, showMessage: ShowMessage) => void;
+    getPersons: GetPersons;
     isLoading: boolean;
 }
 
@@ -40,10 +40,9 @@ function PersonsPage(props: Props) {
     useEffect(() => {
         if (isOffline()) {
             navigate(ROUTES.LANDING);
-            showMessage.error("W tej chwili nie masz połączenia z interenetem. Popróbuj później");
+            showMessage.error(NO_CONNECTION);
         } else {
             if (!isOffline() && navigate && firebase) {
-                console.log("getpersons");
                 getPersons(navigate, firebase, showMessage);
             }
         }
@@ -77,7 +76,7 @@ const mapStateToProps = (state: RootStateType) => ({
 
 function mapDispatchToProps(dispatch: AppDispatch) {
     return {
-        login: (data: any) => dispatch(login(data)),
+        // login: (data: any) => dispatch(login(data)),
         hideError: () => dispatch(hideError()),
         getPersons: (navigate: NavigateFunction, firebase: Firebase, showMessage: ShowMessage) =>
             dispatch(getPersons(navigate, firebase, showMessage)),

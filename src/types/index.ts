@@ -1,4 +1,6 @@
 import { User, FirebaseError } from "firebase";
+import { GetPersons } from "thunks/getPersons";
+
 import { AppDispatch, RootStateType } from "components/AppProvider";
 type ArgumentsType<T extends (...args: any[]) => any> = T extends (...args: infer A) => any ? A : never;
 
@@ -13,7 +15,6 @@ interface Person extends PurePerson {
     isAuthorised?: boolean;
 }
 
-type SetUser = Omit<PurePerson, "firebaseRef">;
 type Persons = Person[];
 type HTMLClick = (e: React.MouseEvent<HTMLElement>) => void;
 
@@ -27,13 +28,13 @@ export {
     ArgumentsType,
     ErrorType,
     FirebaseError,
+    GetPersons,
     HTMLClick,
     Person,
     PersonFields,
     PurePerson,
     Persons,
     RootStateType,
-    SetUser,
     SortParams,
     User,
 };

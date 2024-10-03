@@ -1,4 +1,4 @@
-import { ErrorType, Persons, SortParams } from "types/index";
+import { ErrorType, Persons, SortParams } from "types";
 
 export const GET_DATA_DONE = "GET_DATA_DONE";
 export const SORT = "SORT";

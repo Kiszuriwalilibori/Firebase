@@ -11,7 +11,7 @@ const initialState = {
     isHiddenAddUserButton: false,
     isHiddenAddedUserMsg: true,
     isLoading: false,
-    user: undefined as unknown as User,
+    user: {} as User,
     submitDisabled: false,
 };
 export default initialState;

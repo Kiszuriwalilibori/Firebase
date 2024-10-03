@@ -85,6 +85,7 @@ const reducer = (state = initialState, action: any) => {
                     person.isAuthorised = true;
                 }
             });
+
             return {
                 ...state,
                 user: action.payload,

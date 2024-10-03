@@ -34,6 +34,9 @@ const yupConfig = {
     },
 };
 
+const LOGGED_EXCLUSIVELY = "Tylko zalogowani użytkownicy mogą dodawać postacie";
+const ALREADY_REGISTERED = "Użytkownik o tym e-mailu jest już zarejestrowany";
+
 interface Props {
     user: User;
     submitFigure: (...args: SubmitFigureArgs) => void;
@@ -41,8 +44,8 @@ interface Props {
 }
 
 const AddPersonForm = (props: Props) => {
-    const isLogged = useSelector(selectIsLogged);
     const { user, submitFigure, toggleSubmit } = props;
+    const isLogged = useSelector(selectIsLogged);
     const firebase = useContext(FirebaseContext);
     const showMessage = useMessage();
     const navigate = useNavigate();
@@ -61,7 +64,7 @@ const AddPersonForm = (props: Props) => {
                     .equalTo(values.personEmail)
                     .once("value", (snapshot: firebase.database.DataSnapshot) => {
                         const isNotDuplicate = !snapshot.exists();
-                        if (snapshot.exists()) showMessage.warning("Użytkownik o tym e-mailu jest już zarejestrowany");
+                        if (snapshot.exists()) showMessage.warning(ALREADY_REGISTERED);
                         submitFigure(
                             isNotDuplicate,
                             navigate,
@@ -75,7 +78,7 @@ const AddPersonForm = (props: Props) => {
                         );
                     });
             } else {
-                showMessage.warning("Tylko zalogowani użytkownicy mogą dodawać postacie");
+                showMessage.warning(LOGGED_EXCLUSIVELY);
             }
         },
     });

@@ -80,5 +80,5 @@ export function getPersons(navigate: NavigateFunction, firebase: Firebase, showM
         });
     };
 }
-
+export type GetPersons = typeof getPersons;
 export default getPersons;
