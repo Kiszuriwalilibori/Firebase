@@ -9,7 +9,7 @@ import isOffline from "functions/isOffline";
 import PersonsTableHeader from "./parts/PersonsTable/Header";
 import useMessage, { ShowMessage } from "hooks/useMessage";
 
-import { /*login,*/ hideError } from "reduxware/actions";
+import { hideError } from "reduxware/actions";
 import { getPersons } from "thunks";
 import Firebase, { FirebaseContext } from "contexts/firebaseContext";
 import { PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "styles/style";
@@ -76,7 +76,6 @@ const mapStateToProps = (state: RootStateType) => ({
 
 function mapDispatchToProps(dispatch: AppDispatch) {
     return {
-        // login: (data: any) => dispatch(login(data)),
         hideError: () => dispatch(hideError()),
         getPersons: (navigate: NavigateFunction, firebase: Firebase, showMessage: ShowMessage) =>
             dispatch(getPersons(navigate, firebase, showMessage)),
