@@ -3,6 +3,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { useCallback } from "react";
+import isEmpty from "lodash/isEmpty";
 
 import { FirebaseContext } from "contexts/firebaseContext";
 import { Login } from "styles/style";
@@ -54,10 +55,10 @@ const LoginSection = (props: Props) => {
 
     return (
         <Login.Wrapper aria-label="login area">
-            <LinkButton disableFocusRipple size="large" disabled={!Boolean(user)} onClick={requestLogout}>
+            <LinkButton disableFocusRipple size="large" disabled={isEmpty(user)} onClick={requestLogout}>
                 Wyloguj się
             </LinkButton>
-            <LinkButton disableFocusRipple size="large" disabled={Boolean(user)} onClick={requestLogin}>
+            <LinkButton disableFocusRipple size="large" disabled={!isEmpty(user)} onClick={requestLogin}>
                 Zaloguj się kontem Google
             </LinkButton>
         </Login.Wrapper>

@@ -2,6 +2,7 @@ import { useEffect, lazy, Suspense, useContext } from "react";
 import { connect } from "react-redux";
 import { Fade } from "@material-ui/core";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import isEmpty from "lodash/isEmpty";
 
 import * as ROUTES from "routes";
 
@@ -52,7 +53,7 @@ function PersonsPage(props: Props) {
     return !isOffline() ? (
         <Suspense fallback={<Loader />}>
             <PersonsPageContainer>
-                {user && <UserCard user={user} />}
+                {!isEmpty(user) && <UserCard user={user} />}
                 <Header />
                 <LoginSection />
                 <Fade in={true} timeout={2000}>
