@@ -16,7 +16,7 @@ import { PersonsTableContainer, PersonsPageContainer, PersonsTableBody } from "s
 import { AppDispatch, RootStateType, Loader } from "components";
 import { GetPersons, User } from "types";
 
-const PersonsTableContent = lazy(() => import("./parts/PersonsTable/PersonsTableBody"));
+const PersonsTableContent = lazy(() => import("./parts/PersonsTable/PersonsTableContent"));
 const LoginSection = lazy(() => import("./parts/LoginSection"));
 const PersonsTableSortArea = lazy(() => import("./parts/PersonsTable/SortArea"));
 const UserCard = lazy(() => import("./parts/UserCard"));

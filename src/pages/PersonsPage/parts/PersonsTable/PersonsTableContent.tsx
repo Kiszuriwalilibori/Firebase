@@ -18,7 +18,7 @@ interface Props {
     showError: typeof showError;
 }
 
-const PersonsTableBody = (props: Props) => {
+const PersonsTableContent = (props: Props) => {
     const { showError } = props;
     const firebase = React.useContext(FirebaseContext);
     const navigate = useNavigate();
@@ -83,4 +83,4 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
     showError: (data: ErrorType) => dispatch(showError(data)),
 });
 
-export default connect(null, mapDispatchToProps)(PersonsTableBody);
+export default connect(null, mapDispatchToProps)(PersonsTableContent);
