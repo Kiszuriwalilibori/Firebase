@@ -1,4 +1,4 @@
-import { ErrorType, Persons, SortParams } from "types";
+import { ErrorType, Persons, SortParams, User } from "types";
 
 export const GET_DATA_DONE = "GET_DATA_DONE";
 export const SORT = "SORT";
@@ -70,10 +70,10 @@ export function setPersons(data: Persons) {
     };
 }
 
-export function login(data: any) {
+export function login(user: firebase.User) {
     return {
         type: LOGIN,
-        payload: data,
+        payload: user,
     };
 }
 

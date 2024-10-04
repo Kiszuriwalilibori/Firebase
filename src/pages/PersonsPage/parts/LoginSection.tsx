@@ -10,16 +10,19 @@ import { Login } from "styles/style";
 import { login, logout, showError } from "reduxware/actions";
 import { AppDispatch, RootStateType } from "components/AppProvider";
 import { ErrorType, FirebaseError, User } from "types";
-import { Action } from "reduxware/actions";
 import { LinkButton } from "../styles";
 
 import * as ROUTES from "routes";
+import firebase from "firebase";
 
 interface Props {
     user: User;
-    login: (data: any) => void;
+    login: (data: firebase.User) => void;
     logout: () => void;
-    showError: Action;
+    showError: (err: ErrorType) => {
+        type: string;
+        payload: ErrorType;
+    };
 }
 
 const LoginSection = (props: Props) => {
@@ -70,7 +73,7 @@ const mapStateToProps = (state: RootStateType) => ({
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-    login: (data: any) => dispatch(login(data)),
+    login: (user: firebase.User) => dispatch(login(user)),
     logout: () => dispatch(logout()),
     showError: (err: ErrorType) => dispatch(showError(err)),
 });

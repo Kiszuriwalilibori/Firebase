@@ -2,11 +2,6 @@ import * as actions from "./actions";
 import initialState from "./initialState";
 import { sortPersons } from "../functions";
 
-export interface BaseAction {
-    type: string;
-    payload?: any;
-}
-
 const reducer = (state = initialState, action: any) => {
     switch (action.type) {
         case actions.SET_USER_SUBMITTED:
